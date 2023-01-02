@@ -1,2 +1,2 @@
-# CubeScript-Sublime-Syntax
-CubeScript Syntax Highlighting for Sublime Text. 
+# CubeScript Sublime Syntax
+CubeScript (Cube 1|2, Sauerbraten, Tesseract) syntax highlighting for Sublime Text. 
