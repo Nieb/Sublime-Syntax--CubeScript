@@ -8,6 +8,38 @@ When: 2022-04-02 11:41:21
 ###############################################################################################################################################################################################
 ###############################################################################################################################################################################################
 
+MAPMODEL STUFFS
+    (md5|iqm|smd)adjust
+    (md5|iqm|smd)animpart
+    (md5|iqm|smd)pitchcorrect
+    (md5|iqm|smd)pitchtarget
+    (md5|iqm|smd)tag
+
+    (md2|md3|md5|iqm|smd)anim
+
+    (md2|md3|md5|iqm|obj|smd)alphablend
+    (md2|md3|md5|iqm|obj|smd)alphatest
+    (md2|md3|md5|iqm|obj|smd)ambient
+    (md2|md3|md5|iqm|obj|smd)bumpmap
+    (md2|md3|md5|iqm|obj|smd)cullface
+    (md2|md3|md5|iqm|obj|smd)dir
+    (md2|md3|md5|iqm|obj|smd)envmap
+    (md2|md3|md5|iqm|obj|smd)fullbright
+    (md2|md3|md5|iqm|obj|smd)glare
+    (md2|md3|md5|iqm|obj|smd)glow
+    (md2|md3|md5|iqm|obj|smd)link
+    (md2|md3|md5|iqm|obj|smd)load
+    (md2|md3|md5|iqm|obj|smd)noclip
+    (md2|md3|md5|iqm|obj|smd)pitch
+    (md2|md3|md5|iqm|obj|smd)scroll
+    (md2|md3|md5|iqm|obj|smd)shader
+    (md2|md3|md5|iqm|obj|smd)skin
+    (md2|md3|md5|iqm|obj|smd)spec
+
+
+###############################################################################################################################################################################################
+###############################################################################################################################################################################################
+
 
 KEYWORD
     *** None? ***
