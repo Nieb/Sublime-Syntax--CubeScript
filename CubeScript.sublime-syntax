@@ -23,7 +23,7 @@ contexts:
         #####################################################################################
         #  ProgramFlow:
         - match: |-
-            (?i)\b(?x:
+            \b(?x:
             | case
             | casef
             | cases
@@ -34,6 +34,8 @@ contexts:
             | loopconcat
             | loopconcatword
             | loopfiles
+            | looplist
+            | loopsublist
             | looplistconcat
             | looplistconcatword
             | loopwhile
@@ -46,10 +48,7 @@ contexts:
         #####################################################################################
         #  Build-in Commands:
         - match: |-
-            (?i)\b(?x:
-            | abs
-            | absf
-            | acos
+            \b(?x:
             | addblendbrush
             | addbot
             | addpostfx
@@ -66,10 +65,7 @@ contexts:
             | ammohudup
             | append
             | appendword
-            | asin
             | at
-            | atan
-            | atan2
             | attachent
             | attack
             | auth
@@ -83,7 +79,6 @@ contexts:
             | brushvert
             | calclight
             | cancelsel
-            | ceil
             | changedvars
             | checkmaps
             | chopstr
@@ -121,7 +116,6 @@ contexts:
             | connectselected
             | conskip
             | copy
-            | cos
             | cubecancel
             | curblendbrush
             | cycleweapon
@@ -136,8 +130,6 @@ contexts:
             | delprefab
             | delselwaypoints
             | disconnect
-            | div
-            | divf
             | dropent
             | dropflag
             | dumplms
@@ -169,7 +161,6 @@ contexts:
             | error
             | escape
             | exec
-            | exp
             | fastshader
             | findanims
             | findfile
@@ -321,11 +312,6 @@ contexts:
             | loadwaypoints
             | localconnect
             | localdisconnect
-            | log10
-            | log2
-            | loge
-            | looplist
-            | loopsublist
             | m_capture
             | m_classicsp
             | m_collect
@@ -360,8 +346,6 @@ contexts:
             | mastermode
             | mastermodename
             | materialreset
-            | max
-            | maxf
             | mdlalphablend
             | mdlalphadepth
             | mdlalphatest
@@ -386,13 +370,9 @@ contexts:
             | mdltrans
             | mdlyaw
             | mergenormalmaps
-            | min
-            | minf
             | miniconskip
             | mmodel
-            | mod
             | mode
-            | modf
             | moveblendmap
             | movesel
             | movewaypoints
@@ -427,7 +407,6 @@ contexts:
             | pausegame
             | phystest
             | platform
-            | pow
             | prettylist
             | printcube
             | printvar
@@ -519,7 +498,6 @@ contexts:
             | showscores
             | showtexgui
             | shrinkmap
-            | sin
             | sleep
             | smoothangle
             | sortlist
@@ -605,13 +583,44 @@ contexts:
             )\b
           scope: support.function.cfg
 
+        #  Build-in Commands -- Mapmodel:
+        - match: |-
+            \b(?x:
+            | (md2|md3|md5|iqm|obj|smd)alphablend
+            | (md2|md3|md5|iqm|obj|smd)alphatest
+            | (md2|md3|md5|iqm|obj|smd)ambient
+            | (md2|md3|md5|iqm|obj|smd)bumpmap
+            | (md2|md3|md5|iqm|obj|smd)cullface
+            | (md2|md3|md5|iqm|obj|smd)dir
+            | (md2|md3|md5|iqm|obj|smd)envmap
+            | (md2|md3|md5|iqm|obj|smd)fullbright
+            | (md2|md3|md5|iqm|obj|smd)glare
+            | (md2|md3|md5|iqm|obj|smd)glow
+            | (md2|md3|md5|iqm|obj|smd)link
+            | (md2|md3|md5|iqm|obj|smd)load
+            | (md2|md3|md5|iqm|obj|smd)noclip
+            | (md2|md3|md5|iqm|obj|smd)pitch
+            | (md2|md3|md5|iqm|obj|smd)scroll
+            | (md2|md3|md5|iqm|obj|smd)shader
+            | (md2|md3|md5|iqm|obj|smd)skin
+            | (md2|md3|md5|iqm|obj|smd)spec
+            | (md2|md3|md5|iqm|smd)anim
+            | (md5|iqm|smd)adjust
+            | (md5|iqm|smd)animpart
+            | (md5|iqm|smd)pitchcorrect
+            | (md5|iqm|smd)pitchtarget
+            | (md5|iqm|smd)tag
+            )\b
+          scope: support.function.cfg
+
 
         #####################################################################################
         #####################################################################################
         #  Variable Declaration:
         - match: |-
-            (?i)\b(?x:
+            \b(?x:
             | alias
+            | local
             )\b
           scope: storage.type.cfg
 
@@ -620,11 +629,11 @@ contexts:
         #####################################################################################
         #  "String":
         - match: '"'
-          scope: punctuation.definition.string.begin.agk
+          scope: punctuation.definition.string.begin.cfg
           push:
-            - meta_scope: string.quoted.double.agk
+            - meta_scope: string.quoted.double.cfg
             - match: '"'
-              scope: punctuation.definition.string.end.agk
+              scope: punctuation.definition.string.end.cfg
               pop: true
 
 
@@ -645,10 +654,6 @@ contexts:
 
         #####################################################################################
         #  Numbers:
-        #  Bin:
-        #- match: (\(0b){1}[01]+)\b
-        #  scope: constant.numeric.integer.binary.cfg
-
         #  Hex:
         - match: \b((0x){1}[0-9a-fA-F]+)\b
           scope: constant.numeric.integer.hexadecimal.cfg
@@ -664,20 +669,77 @@ contexts:
 
         #####################################################################################
         #  Operators:
-        - match: '[(\-)(\+)(\*)(\/)(\^)(\%)]'
+        - match: |-
+            (?x:
+            | \-f
+            | \+f
+            | \*f
+            | \-
+            | \+
+            | \*
+            )
           scope: keyword.operator.arithmetic.cfg
 
-        - match: '[(\<\<)(\>\>)(\&\&)(\|\|)(\~)(\!)]'
-          scope: keyword.operator.bitwise.cfg
+        - match: |-
+            (?x:
+            | abs
+            | absf
+            | acos
+            | asin
+            | atan
+            | atan2
+            | ceil
+            | cos
+            | div
+            | divf
+            | exp
+            | floor
+            | log10
+            | log2
+            | loge
+            | max
+            | maxf
+            | min
+            | minf
+            | mod
+            | modf
+            | pow
+            | round
+            | sin
+            | sqrt
+            | tan
+            )
+          scope: keyword.operator.word.cfg
 
-        - match: '[(\<)(\>)(\<\=)(\>\=)(\=\=)(\!\=)]'
-          scope: keyword.operator.comparison.cfg
-
-        - match: (\=)
-          scope: keyword.operator.assignment.cfg
-
-        - match: '[(\-\=)(\+\=)(\*\=)(\/\=)(\%\=)(\&\=)(\|\=)(\^\=)(\>\>\=)(\<\<\=)]'
-          scope: keyword.operator.assignment.augmented.cfg
+        - match: |-
+            (?x:
+            | \!\=f
+            | \=f
+            | \<\=f
+            | \>\=f
+            | \<f
+            | \>f
+            | \!\=
+            | \<\=
+            | \>\=
+            | \<\<
+            | \>\>
+            | \^\~
+            | \&\&
+            | \&\~
+            | \|\|
+            | \|\~
+            | \!
+            | \=
+            | \<
+            | \>
+            | \~
+            | \^
+            | \&
+            | \|
+            | \?
+            )
+          scope: keyword.operator.cfg
 
 
         #####################################################################################
@@ -687,17 +749,16 @@ contexts:
 
 
         #####################################################################################
-        #####################################################################################
-        #  User Functions:
-        - match: ([_a-zA-Z0-9]+)(?=\()
-          scope: entity.name.function.cfg
+        #  Alias Evaluation Tokens:
+        - match: '[\@\$]'
+          scope: keyword.operator.cfg # variable.language.cfg
 
 
         #####################################################################################
         #####################################################################################
-        # Built-In Variables:
+        #  Built-In Variables:
         - match: |-
-            (?i)\b(?x:
+            \b(?x:
             | aaenvmap
             | adaptivesample
             | adminpass
@@ -721,6 +782,7 @@ contexts:
             | animoverride
             | aniso
             | applydialog
+            | arg[0-9]
             | aspect
             | ati_cubemap_bug
             | ati_minmax_bug
@@ -1337,11 +1399,11 @@ contexts:
             | wallclock24
             | wallclocksecs
             | water
-            | water[1-4]
-            | water[1-4]colour
-            | water[1-4]fallcolour
-            | water[1-4]fog
-            | water[1-4]spec
+            | water(1-4)
+            | water(1-4)colour
+            | water(1-4)fallcolour
+            | water(1-4)fog
+            | water(1-4)spec
             | watercolour
             | waterenvmap
             | waterfade
@@ -1372,9 +1434,48 @@ contexts:
 
 
         #####################################################################################
-        # Common Aliases:
+        #  Entity Types:
         - match: |-
-            (?i)\b(?x:
+            \b(?x:
+            | barrel
+            | base
+            | box
+            | bullets
+            | carrot
+            | cartridges
+            | cycle
+            | elevator
+            | envmap
+            | flag
+            | greenarmour
+            | grenades
+            | health
+            | healthboost
+            | jumppad
+            | light
+            | mapmodel
+            | monster
+            | particles
+            | platform
+            | playerstart
+            | quaddamage
+            | respawnpoint
+            | riflerounds
+            | rockets
+            | shells
+            | sound
+            | spotlight
+            | teledest
+            | teleport
+            | yellowarmour
+            )\b
+          scope: variable.language.cfg
+
+
+        #####################################################################################
+        #  Common Aliases:
+        - match: |-
+            \b(?x:
             | air
             | allowedittoggle
             | allowspedit
@@ -1502,7 +1603,7 @@ contexts:
 
 
         #####################################################################################
-        # User Variables:
-        - match: ([A-Za-z\@\$][A-Za-z0-9_]*)
+        #  User Variables:
+        - match: \b[A-Za-z0-9_]+\b
           scope: variable.other.readwrite.cfg
 
