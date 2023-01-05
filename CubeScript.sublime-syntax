@@ -670,7 +670,7 @@ contexts:
         #####################################################################################
         #  Operators:
         - match: |-
-            (?x:
+            (?<=\()(?x:
             | \-f
             | \+f
             | \*f
@@ -681,28 +681,28 @@ contexts:
           scope: keyword.operator.arithmetic.cfg
 
         - match: |-
-            (?x:
-            | abs
+            (?<=\()(?x:
             | absf
+            | abs
             | acos
             | asin
-            | atan
             | atan2
+            | atan
             | ceil
             | cos
-            | div
             | divf
+            | div
             | exp
             | floor
-            | log10
             | log2
+            | log10
             | loge
-            | max
             | maxf
-            | min
+            | max
             | minf
-            | mod
+            | min
             | modf
+            | mod
             | pow
             | round
             | sin
@@ -712,7 +712,7 @@ contexts:
           scope: keyword.operator.word.cfg
 
         - match: |-
-            (?x:
+            (?<=\()(?x:
             | \!\=f
             | \=f
             | \<\=f
@@ -740,6 +740,9 @@ contexts:
             | \?
             )
           scope: keyword.operator.cfg
+
+        - match: '\='
+          scope: keyword.operator.assignment.cfg
 
 
         #####################################################################################
@@ -1399,11 +1402,11 @@ contexts:
             | wallclock24
             | wallclocksecs
             | water
-            | water(1-4)
-            | water(1-4)colour
-            | water(1-4)fallcolour
-            | water(1-4)fog
-            | water(1-4)spec
+            | water[1-4]
+            | water[1-4]colour
+            | water[1-4]fallcolour
+            | water[1-4]fog
+            | water[1-4]spec
             | watercolour
             | waterenvmap
             | waterfade
