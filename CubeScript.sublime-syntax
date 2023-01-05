@@ -24,13 +24,12 @@ contexts:
         #  ProgramFlow:
         - match: |-
             \b(?x:
-            | case
             | casef
             | cases
+            | case
             | do
             | exec
             | if
-            | loop
             | loopconcat
             | loopconcatword
             | loopfiles
@@ -39,6 +38,7 @@ contexts:
             | looplistconcat
             | looplistconcatword
             | loopwhile
+            | loop
             | while
             )\b
           scope: keyword.control.cfg
@@ -167,7 +167,6 @@ contexts:
             | fixinsidefaces
             | flip
             | flipnormalmapy
-            | floor
             | follow
             | font
             | fontalias
