@@ -615,149 +615,6 @@ contexts:
 
         #####################################################################################
         #####################################################################################
-        #  Variable Declaration:
-        - match: |-
-            \b(?x:
-            | alias
-            | local
-            )\b
-          scope: storage.type.cfg
-
-
-        #####################################################################################
-        #####################################################################################
-        #  "String":
-        - match: '"'
-          scope: punctuation.definition.string.begin.cfg
-          push:
-            - meta_scope: string.quoted.double.cfg
-            - match: '"'
-              scope: punctuation.definition.string.end.cfg
-              pop: true
-
-
-        #####################################################################################
-        #####################################################################################
-        #  Braces{}:
-        - match: \{|\}
-          scope: constant.numeric.cfg
-
-        #  Parentheses():
-        - match: \(|\)
-          scope: constant.numeric.cfg
-
-        #  Brackets[]:
-        - match: \[|\]
-          scope: constant.numeric.cfg
-
-
-        #####################################################################################
-        #  Numbers:
-        #  Hex:
-        - match: \b((0x){1}[0-9a-fA-F]+)\b
-          scope: constant.numeric.integer.hexadecimal.cfg
-
-        #  Float:
-        - match: ((((?<![a-zA-Z\d])\d*)|((?<![a-zA-Z\d])-\d*))(((?<![a-zA-Z\d])-\d{1}\.{1})|((?<![\d])-\.{1}\d{1})|(\d{1}\.{1})|(\.{1}\d{1})){1}\d*)
-          scope: constant.numeric.float.cfg
-
-        #  Integer:
-        - match: ((\b((?![a-zA-Z])\d*)\b)|((?<![a-zA-Z\d])-\d{1}\d*))
-          scope: constant.numeric.integer.cfg
-
-
-        #####################################################################################
-        #  Operators:
-        - match: |-
-            (?<=\()(?x:
-            | \-f
-            | \+f
-            | \*f
-            | \-
-            | \+
-            | \*
-            )
-          scope: keyword.operator.arithmetic.cfg
-
-        - match: |-
-            (?<=\()(?x:
-            | absf
-            | abs
-            | acos
-            | asin
-            | atan2
-            | atan
-            | ceil
-            | cos
-            | divf
-            | div
-            | exp
-            | floor
-            | log2
-            | log10
-            | loge
-            | maxf
-            | max
-            | minf
-            | min
-            | modf
-            | mod
-            | pow
-            | round
-            | sin
-            | sqrt
-            | tan
-            )
-          scope: keyword.operator.word.cfg
-
-        - match: |-
-            (?<=\()(?x:
-            | \!\=f
-            | \=f
-            | \<\=f
-            | \>\=f
-            | \<f
-            | \>f
-            | \!\=
-            | \<\=
-            | \>\=
-            | \<\<
-            | \>\>
-            | \^\~
-            | \&\&
-            | \&\~
-            | \|\|
-            | \|\~
-            | \!
-            | \=
-            | \<
-            | \>
-            | \~
-            | \^
-            | \&
-            | \|
-            | \?
-            )
-          scope: keyword.operator.cfg
-
-        - match: '\='
-          scope: keyword.operator.assignment.cfg
-
-
-        #####################################################################################
-        #  Statement Terminator:
-        - match: '\;'
-          scope: punctuation.terminator.cfg
-
-
-        #####################################################################################
-        #  Alias Evaluation Tokens:
-        - match: '[\@\$]'
-          scope: keyword.operator.cfg # variable.language.cfg
-
-
-        #####################################################################################
-        #####################################################################################
         #  Built-In Variables:
         - match: |-
             \b(?x:
@@ -1432,180 +1289,155 @@ contexts:
             | zoomsens
             | zpass
             )\b
-          scope: variable.language.cfg
+          scope: support.function.cfg #variable.language.cfg
 
 
         #####################################################################################
-        #  Entity Types:
+        #####################################################################################
+        #  Variable Declaration:
         - match: |-
             \b(?x:
-            | barrel
-            | base
-            | box
-            | bullets
-            | carrot
-            | cartridges
-            | cycle
-            | elevator
-            | envmap
-            | flag
-            | greenarmour
-            | grenades
-            | health
-            | healthboost
-            | jumppad
-            | light
-            | mapmodel
-            | monster
-            | particles
-            | platform
-            | playerstart
-            | quaddamage
-            | respawnpoint
-            | riflerounds
-            | rockets
-            | shells
-            | sound
-            | spotlight
-            | teledest
-            | teleport
-            | yellowarmour
+            | alias
+            | local
             )\b
-          scope: variable.language.cfg
+          scope: storage.type.cfg
 
 
         #####################################################################################
-        #  Common Aliases:
+        #####################################################################################
+        #  "String":
+        - match: '"'
+          scope: punctuation.definition.string.begin.cfg
+          push:
+            - meta_scope: string.quoted.double.cfg
+            - match: '"'
+              scope: punctuation.definition.string.end.cfg
+              pop: true
+
+
+        #####################################################################################
+        #####################################################################################
+        #  Braces{}:
+        - match: \{|\}
+          scope: constant.numeric.cfg
+
+        #  Parentheses():
+        - match: \(|\)
+          scope: constant.numeric.cfg
+
+        #  Brackets[]:
+        - match: \[|\]
+          scope: constant.numeric.cfg
+
+
+        #####################################################################################
+        #  Numbers:
+        #  Hex:
+        - match: \b((0x){1}[0-9a-fA-F]+)\b
+          scope: constant.numeric.integer.hexadecimal.cfg
+
+        #  Float:
+        - match: ((((?<![a-zA-Z\d])\d*)|((?<![a-zA-Z\d])-\d*))(((?<![a-zA-Z\d])-\d{1}\.{1})|((?<![\d])-\.{1}\d{1})|(\d{1}\.{1})|(\.{1}\d{1})){1}\d*)
+          scope: constant.numeric.float.cfg
+
+        #  Integer:
+        - match: ((\b((?![a-zA-Z])\d*)\b)|((?<![a-zA-Z\d])-\d{1}\d*))
+          scope: constant.numeric.integer.cfg
+
+
+        #####################################################################################
+        #  Operators:
         - match: |-
-            \b(?x:
-            | air
-            | allowedittoggle
-            | allowspedit
-            | alpha
-            | bindmod
-            | bindvar
-            | bindvarquiet
-            | blendpaintmodes
-            | brushhandle
-            | brushindex
-            | brushmax
-            | brushverts
-            | clearents
-            | clip
-            | corners
-            | death
-            | demo
-            | drag
-            | echovalpha
-            | echovcolor
-            | echovlayer
-            | echovoffset
-            | echovrotate
-            | echovscale
-            | echovscroll
-            | echovshaderparam
-            | editbindmod
-            | editbindvar
-            | editbindvarquiet
-            | editcopy
-            | editcut
-            | editdel
-            | editdrag
-            | editextend
-            | editfacewentpush
-            | editflip
-            | edithud
-            | editmove
-            | editmovecorner
-            | editmovedrag
-            | editmovewith
-            | editpaste
-            | editrotate
-            | ent_action_barrel
-            | ent_action_base
-            | ent_action_box
-            | ent_action_bullets
-            | ent_action_cartridges
-            | ent_action_cycle
-            | ent_action_elevator
-            | ent_action_envmap
-            | ent_action_greenarmour
-            | ent_action_grenades
-            | ent_action_health
-            | ent_action_healthboost
-            | ent_action_jumppad
-            | ent_action_light
-            | ent_action_mapmodel
-            | ent_action_monster
-            | ent_action_particles
-            | ent_action_platform
-            | ent_action_playerstart
-            | ent_action_quaddamage
-            | ent_action_respawnpoint
-            | ent_action_riflerounds
-            | ent_action_rockets
-            | ent_action_shells
-            | ent_action_sound
-            | ent_action_spotlight
-            | ent_action_teledest
-            | ent_action_teleport
-            | ent_action_yellowarmour
-            | entcomplete
-            | entcopybuf
-            | entdirection
-            | entdrag
-            | entfind
-            | entfindinsel
-            | entproperty
-            | entreplace
-            | entswithdirection
-            | enttypelist
-            | enttypeselect
-            | findpickupents
-            | gameclip
-            | getsundir
-            | loadsky
-            | lse
-            | macro
-            | mapcomplete
-            | mapmsg
-            | minimaphere
-            | modenames
-            | newbrush
-            | noclip
-            | opaquepaste
-            | playermodeldir
-            | playermodeldir[0-9]
-            | playermodelicon
-            | playermodelicon[0-9]
-            | playermodelname
-            | playermodelname[0-9]
-            | playermodelnum
-            | playermodelstory
-            | playermodelstory[0-9]
-            | playsong
-            | prettysky
-            | quine
-            | replaceents
-            | reui
-            | sayteamcommand
-            | scrollblendbrush
-            | selcorners
-            | selectbrush
-            | selentedit
-            | selentfindall
-            | selreplaceents
-            | setblendpaintmode
-            | speditlock
-            | spmodenames
-            | togglevar
-            | togglezoom
-            )\b
-          scope: variable.language.cfg
+            (?<=\()(?x:
+            | \-f
+            | \+f
+            | \*f
+            | \-
+            | \+
+            | \*
+            )
+          scope: keyword.operator.arithmetic.cfg
+
+        - match: |-
+            (?<=\()(?x:
+            | absf
+            | abs
+            | acos
+            | asin
+            | atan2
+            | atan
+            | ceil
+            | cos
+            | divf
+            | div
+            | exp
+            | floor
+            | log2
+            | log10
+            | loge
+            | maxf
+            | max
+            | minf
+            | min
+            | modf
+            | mod
+            | pow
+            | round
+            | sin
+            | sqrt
+            | tan
+            )
+          scope: keyword.operator.word.cfg
+
+        - match: |-
+            (?<=\()(?x:
+            | \!\=f
+            | \=f
+            | \<\=f
+            | \>\=f
+            | \<f
+            | \>f
+            | \!\=
+            | \<\=
+            | \>\=
+            | \<\<
+            | \>\>
+            | \^\~
+            | \&\&
+            | \&\~
+            | \|\|
+            | \|\~
+            | \!
+            | \=
+            | \<
+            | \>
+            | \~
+            | \^
+            | \&
+            | \|
+            | \?
+            )
+          scope: keyword.operator.cfg
+
+        - match: '\='
+          scope: keyword.operator.assignment.cfg
 
 
         #####################################################################################
-        #  User Variables:
+        #  Statement Terminator:
+        - match: '\;'
+          scope: punctuation.terminator.cfg
+
+
+        #####################################################################################
+        #  Alias Evaluation Tokens:
+        - match: '[\@\$]'
+          scope: keyword.operator.cfg # variable.language.cfg
+
+
+        #####################################################################################
+        #####################################################################################
+        #  User Aliases:
         - match: \b[A-Za-z0-9_]+\b
           scope: variable.other.readwrite.cfg
 
