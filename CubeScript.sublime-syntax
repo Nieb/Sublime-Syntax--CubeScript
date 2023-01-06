@@ -28,6 +28,7 @@ contexts:
             | cases
             | case
             | do
+            | entloop
             | exec
             | if
             | loopconcat
@@ -149,7 +150,6 @@ contexts:
             | entget
             | enthavesel
             | entindex
-            | entloop
             | entmoving
             | entpaste
             | entpush
@@ -641,7 +641,6 @@ contexts:
             | animoverride
             | aniso
             | applydialog
-            | arg[0-9]
             | aspect
             | ati_cubemap_bug
             | ati_minmax_bug
@@ -1289,12 +1288,22 @@ contexts:
             | zoomsens
             | zpass
             )\b
-          scope: support.function.cfg  # variable.language.cfg
+          scope: support.function.cfg
 
 
         #####################################################################################
         #####################################################################################
-        #  Variable Declaration:
+        #  Special Variables:
+        - match: |-
+            \b(?x:
+            | arg[0-9]
+            )\b
+          scope: variable.language.cfg
+
+
+        #####################################################################################
+        #####################################################################################
+        #  Alias Declaration:
         - match: |-
             \b(?x:
             | alias
@@ -1324,15 +1333,15 @@ contexts:
         #####################################################################################
         #  {Braces}:
         - match: \{|\}
-          scope: punctuation.braces.cfg
+          scope: punctuation.section.braces.cfg
 
         #  [Brackets]:
         - match: \[|\]
-          scope: punctuation.brackets.cfg
+          scope: punctuation.section.brackets.cfg
 
         #  (Parentheses):
         - match: \(|\)
-          scope: punctuation.parens.cfg
+          scope: punctuation.section.parens.cfg
 
 
         ##  {Braces}:
