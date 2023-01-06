@@ -1289,7 +1289,7 @@ contexts:
             | zoomsens
             | zpass
             )\b
-          scope: support.function.cfg # variable.language.cfg
+          scope: support.function.cfg  # variable.language.cfg
 
 
         #####################################################################################
@@ -1306,7 +1306,7 @@ contexts:
         #####################################################################################
         #####################################################################################
         #  "String":
-        - match: '"'
+        - match: '\"'
           scope: punctuation.definition.string.begin.cfg
           push:
             - meta_scope: string.quoted.double.cfg
@@ -1315,7 +1315,7 @@ contexts:
             - match: \^.[\~0-9]*
               scope: constant.character.escape.cfg
 
-            - match: '"'
+            - match: '\"'
               scope: punctuation.definition.string.end.cfg
               pop: true
 
@@ -1324,15 +1324,43 @@ contexts:
         #####################################################################################
         #  {Braces}:
         - match: \{|\}
-          scope: constant.numeric.cfg
-
-        #  (Parentheses):
-        - match: \(|\)
-          scope: constant.numeric.cfg
+          scope: punctuation.braces.cfg
 
         #  [Brackets]:
         - match: \[|\]
-          scope: constant.numeric.cfg
+          scope: punctuation.brackets.cfg
+
+        #  (Parentheses):
+        - match: \(|\)
+          scope: punctuation.parens.cfg
+
+
+        ##  {Braces}:
+        #- match: '\{'
+        #  scope: punctuation.section.braces.begin.cfg
+        #  push:
+        #    - meta_scope: meta.braces.cfg
+        #    - match: '\}'
+        #      scope: punctuation.section.braces.end.cfg
+        #      pop: true
+        #
+        ##  [Brackets]:
+        #- match: '\['
+        #  scope: punctuation.section.brackets.begin.cfg
+        #  push:
+        #    - meta_scope: meta.brackets.cfg
+        #    - match: '\]'
+        #      scope: punctuation.section.brackets.end.cfg
+        #      pop: true
+        #
+        ##  (Parentheses):
+        #- match: '\('
+        #  scope: punctuation.section.parens.begin.cfg
+        #  push:
+        #    - meta_scope: meta.parens.cfg
+        #    - match: '\)'
+        #      scope: punctuation.section.parens.end.cfg
+        #      pop: true
 
 
         #####################################################################################
@@ -1435,9 +1463,9 @@ contexts:
 
 
         #####################################################################################
-        #  Alias Evaluation Tokens:
+        #  Alias Evaluation:
         - match: '[\@\$]'
-          scope: keyword.operator.cfg # variable.language.cfg
+          scope: keyword.operator.cfg  # variable.language.cfg
 
 
         #####################################################################################
