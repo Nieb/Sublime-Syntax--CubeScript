@@ -1289,7 +1289,7 @@ contexts:
             | zoomsens
             | zpass
             )\b
-          scope: support.function.cfg #variable.language.cfg
+          scope: support.function.cfg # variable.language.cfg
 
 
         #####################################################################################
@@ -1310,6 +1310,11 @@ contexts:
           scope: punctuation.definition.string.begin.cfg
           push:
             - meta_scope: string.quoted.double.cfg
+
+            #  Escape Characters:
+            - match: \^.[0-9]*
+              scope: constant.character.escape.cfg
+
             - match: '"'
               scope: punctuation.definition.string.end.cfg
               pop: true
@@ -1317,15 +1322,15 @@ contexts:
 
         #####################################################################################
         #####################################################################################
-        #  Braces{}:
+        #  {Braces}:
         - match: \{|\}
           scope: constant.numeric.cfg
 
-        #  Parentheses():
+        #  (Parentheses):
         - match: \(|\)
           scope: constant.numeric.cfg
 
-        #  Brackets[]:
+        #  [Brackets]:
         - match: \[|\]
           scope: constant.numeric.cfg
 
@@ -1348,18 +1353,18 @@ contexts:
         #####################################################################################
         #  Operators:
         - match: |-
-            (?<=\()(?x:
+            (?x:
             | \-f
             | \+f
             | \*f
             | \-
             | \+
             | \*
-            )
+            )\s
           scope: keyword.operator.arithmetic.cfg
 
         - match: |-
-            (?<=\()(?x:
+            (?x:
             | absf
             | abs
             | acos
@@ -1386,15 +1391,15 @@ contexts:
             | sin
             | sqrt
             | tan
-            )
+            )\s
           scope: keyword.operator.word.cfg
 
         - match: |-
-            (?<=\()(?x:
+            (?x:
             | \!\=f
-            | \=f
             | \<\=f
             | \>\=f
+            | \=f
             | \<f
             | \>f
             | \!\=
@@ -1416,7 +1421,7 @@ contexts:
             | \&
             | \|
             | \?
-            )
+            )\s
           scope: keyword.operator.cfg
 
         - match: '\='
