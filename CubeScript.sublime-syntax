@@ -1321,7 +1321,7 @@ contexts:
             - meta_scope: string.quoted.double.cfg
 
             #  Escape Characters:
-            - match: \^.[\~0-9]*
+            - match: \^.?[\~0-9]*
               scope: constant.character.escape.cfg
 
             - match: '\"'
