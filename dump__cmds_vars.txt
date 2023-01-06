@@ -357,6 +357,20 @@ ICOMMANDNAME
 
 
 ICOMMAND
+    ICOMMAND(alias, "st", (const char *name, tagval *v),                                                                                                        engine\command.cpp:477
+    ICOMMAND(do, "e", (uint *body), executeret(body, *commandret));                                                                                             engine\command.cpp:2526
+    ICOMMAND(echo, "C", (char *s), conoutf(CON_ECHO, "\f1%s", s));                                                                                              engine\command.cpp:3338
+    ICOMMAND(exec, "sb", (char *file, int *msg), intret(execfile(file, *msg != 0) ? 1 : 0));                                                                    engine\command.cpp:2383
+    ICOMMAND(if, "tee", (tagval *cond, uint *t, uint *f), executeret(getbool(*cond) ? t : f, *commandret));                                                     engine\command.cpp:2527
+    ICOMMAND(loop, "rie", (ident *id, int *n, uint *body),                                                                                                      engine\command.cpp:2584
+    ICOMMAND(loopconcat, "rie", (ident *id, int *n, uint *body),                                                                                                engine\command.cpp:2629
+    ICOMMAND(loopconcatword, "rie", (ident *id, int *n, uint *body),                                                                                            engine\command.cpp:2634
+    ICOMMAND(loopfiles, "rsse", (ident *id, char *dir, char *ext, uint *body),                                                                                  engine\command.cpp:3049
+    ICOMMAND(looplistconcat, "rse", (ident *id, char *list, uint *body), looplistconc(id, list, body, true));                                                   engine\command.cpp:2944
+    ICOMMAND(looplistconcatword, "rse", (ident *id, char *list, uint *body), looplistconc(id, list, body, false));                                              engine\command.cpp:2945
+    ICOMMAND(loopwhile, "riee", (ident *id, int *n, uint *cond, uint *body),                                                                                    engine\command.cpp:2595
+    ICOMMAND(while, "ee", (uint *cond, uint *body), while(executebool(cond)) execute(body));                                                                    engine\command.cpp:2607
+
     ICOMMAND(!, "t", (tagval *a), intret(!getbool(*a)));                                                                                                        engine\command.cpp:3187
     ICOMMAND(!=, "ii", (int *a, int *b), intret((int)(*a != *b)));                                                                                              engine\command.cpp:3175
     ICOMMAND(!=f, "ff", (float *a, float *b), intret((int)(*a != *b)));                                                                                         engine\command.cpp:3181
@@ -395,24 +409,31 @@ ICOMMAND
     ICOMMAND(|~, "ii", (int *a, int *b), intret(*a | ~*b));                                                                                                     engine\command.cpp:3193
     ICOMMAND(~, "i", (int *a), intret(~*a));                                                                                                                    engine\command.cpp:3190
 
-
-    ICOMMAND(alias, "st", (const char *name, tagval *v),                                                                                                        engine\command.cpp:477
-    ICOMMAND(do, "e", (uint *body), executeret(body, *commandret));                                                                                             engine\command.cpp:2526
-    ICOMMAND(exec, "sb", (char *file, int *msg), intret(execfile(file, *msg != 0) ? 1 : 0));                                                                    engine\command.cpp:2383
-    ICOMMAND(if, "tee", (tagval *cond, uint *t, uint *f), executeret(getbool(*cond) ? t : f, *commandret));                                                     engine\command.cpp:2527
-    ICOMMAND(loop, "rie", (ident *id, int *n, uint *body),                                                                                                      engine\command.cpp:2584
-    ICOMMAND(loopconcat, "rie", (ident *id, int *n, uint *body),                                                                                                engine\command.cpp:2629
-    ICOMMAND(loopconcatword, "rie", (ident *id, int *n, uint *body),                                                                                            engine\command.cpp:2634
-    ICOMMAND(loopfiles, "rsse", (ident *id, char *dir, char *ext, uint *body),                                                                                  engine\command.cpp:3049
-    ICOMMAND(looplistconcat, "rse", (ident *id, char *list, uint *body), looplistconc(id, list, body, true));                                                   engine\command.cpp:2944
-    ICOMMAND(looplistconcatword, "rse", (ident *id, char *list, uint *body), looplistconc(id, list, body, false));                                              engine\command.cpp:2945
-    ICOMMAND(loopwhile, "riee", (ident *id, int *n, uint *cond, uint *body),                                                                                    engine\command.cpp:2595
-    ICOMMAND(while, "ee", (uint *cond, uint *body), while(executebool(cond)) execute(body));                                                                    engine\command.cpp:2607
-
-
     ICOMMAND(abs, "i", (int *n), intret(abs(*n)));                                                                                                              engine\command.cpp:3258
     ICOMMAND(absf, "f", (float *n), floatret(fabs(*n)));                                                                                                        engine\command.cpp:3259
     ICOMMAND(acos, "f", (float *a), floatret(acos(*a)/RAD));                                                                                                    engine\command.cpp:3225
+    ICOMMAND(asin, "f", (float *a), floatret(asin(*a)/RAD));                                                                                                    engine\command.cpp:3224
+    ICOMMAND(atan, "f", (float *a), floatret(atan(*a)/RAD));                                                                                                    engine\command.cpp:3226
+    ICOMMAND(atan2, "ff", (float *y, float *x), floatret(atan2(*y, *x)/RAD));                                                                                   engine\command.cpp:3227
+    ICOMMAND(ceil, "f", (float *n), floatret(ceil(*n)));                                                                                                        engine\command.cpp:3262
+    ICOMMAND(cos, "f", (float *a), floatret(cos(*a*RAD)));                                                                                                      engine\command.cpp:3222
+    ICOMMAND(div, "ii", (int *a, int *b), intret(*b ? *a / *b : 0));                                                                                            engine\command.cpp:3217
+    ICOMMAND(divf, "ff", (float *a, float *b), floatret(*b ? *a / *b : 0));                                                                                     engine\command.cpp:3219
+    ICOMMAND(floor, "f", (float *n), floatret(floor(*n)));                                                                                                      engine\command.cpp:3261
+    ICOMMAND(log10, "f", (float *a), floatret(log10(*a)));                                                                                                      engine\command.cpp:3232
+    ICOMMAND(log2, "f", (float *a), floatret(log(*a)/M_LN2));                                                                                                   engine\command.cpp:3231
+    ICOMMAND(loge, "f", (float *a), floatret(log(*a)));                                                                                                         engine\command.cpp:3230
+    ICOMMAND(max, "V", (tagval *args, int numargs),                                                                                                             engine\command.cpp:3240
+    ICOMMAND(maxf, "V", (tagval *args, int numargs),                                                                                                            engine\command.cpp:3252
+    ICOMMAND(min, "V", (tagval *args, int numargs),                                                                                                             engine\command.cpp:3234
+    ICOMMAND(minf, "V", (tagval *args, int numargs),                                                                                                            engine\command.cpp:3246
+    ICOMMAND(mod, "ii", (int *a, int *b), intret(*b ? *a % *b : 0));                                                                                            engine\command.cpp:3218
+    ICOMMAND(modf, "ff", (float *a, float *b), floatret(*b ? fmod(*a, *b) : 0));                                                                                engine\command.cpp:3220
+    ICOMMAND(pow, "ff", (float *a, float *b), floatret(pow(*a, *b)));                                                                                           engine\command.cpp:3229
+    ICOMMAND(sin, "f", (float *a), floatret(sin(*a*RAD)));                                                                                                      engine\command.cpp:3221
+    ICOMMAND(sqrt, "f", (float *a), floatret(sqrt(*a)));                                                                                                        engine\command.cpp:3228
+    ICOMMAND(tan, "f", (float *a), floatret(tan(*a*RAD)));                                                                                                      engine\command.cpp:3223
+
     ICOMMAND(addbot, "s", (char *s), addmsg(N_ADDBOT, "ri", *s ? clamp(parseint(s), 1, 101) : -1));                                                             fpsgame\ai.cpp:16
     ICOMMAND(addpostfx, "siisffff", (char *name, int *bind, int *scale, char *inputs, float *x, float *y, float *z, float *w),                                  engine\shader.cpp:1423
     ICOMMAND(addserver, "sis", (const char *name, int *port, const char *password), addserver(name, *port, password[0] ? password : NULL));                     engine\serverbrowser.cpp:715
@@ -423,9 +444,6 @@ ICOMMAND
     ICOMMAND(ammohudup, "V", (tagval *args, int numargs),                                                                                                       fpsgame\fps.cpp:843
     ICOMMAND(append, "rt", (ident *id, tagval *v), append(id, v, true));                                                                                        engine\command.cpp:2669
     ICOMMAND(appendword, "rt", (ident *id, tagval *v), append(id, v, false));                                                                                   engine\command.cpp:2670
-    ICOMMAND(asin, "f", (float *a), floatret(asin(*a)/RAD));                                                                                                    engine\command.cpp:3224
-    ICOMMAND(atan, "f", (float *a), floatret(atan(*a)/RAD));                                                                                                    engine\command.cpp:3226
-    ICOMMAND(atan2, "ff", (float *y, float *x), floatret(atan2(*y, *x)/RAD));                                                                                   engine\command.cpp:3227
     ICOMMAND(attack, "D", (int *down), { game::doattack(*down!=0); });                                                                                          engine\physics.cpp:2020
     ICOMMAND(auth, "s", (char *desc), tryauth(desc));                                                                                                           fpsgame\client.cpp:493
     ICOMMAND(authkey, "sss", (char *name, char *key, char *desc), addauthkey(name, key, desc));                                                                 fpsgame\client.cpp:203
@@ -434,7 +452,6 @@ ICOMMAND
     ICOMMAND(bind,     "ss", (char *key, char *action), bindkey(key, action, keym::ACTION_DEFAULT, "bind"));                                                    engine\console.cpp:244
     ICOMMAND(botbalance, "i", (int *n), addmsg(N_BOTBALANCE, "ri", *n));                                                                                        fpsgame\ai.cpp:19
     ICOMMAND(botlimit, "i", (int *n), addmsg(N_BOTLIMIT, "ri", *n));                                                                                            fpsgame\ai.cpp:18
-    ICOMMAND(ceil, "f", (float *n), floatret(ceil(*n)));                                                                                                        engine\command.cpp:3262
     ICOMMAND(checkmaps, "", (), addmsg(N_CHECKMAPS, "r"));                                                                                                      fpsgame\client.cpp:506
     ICOMMAND(clearblendmap, "", (),                                                                                                                             engine\blend.cpp:756
     ICOMMAND(clearconsole, "", (), { while(conlines.length()) delete[] conlines.pop().line; });                                                                 engine\console.cpp:97
@@ -452,17 +469,13 @@ ICOMMAND
     ICOMMAND(connectedip, "", (),                                                                                                                               engine\client.cpp:49
     ICOMMAND(connectedport, "", (),                                                                                                                             engine\client.cpp:56
     ICOMMAND(conskip, "i", (int *n), setconskip(conskip, fullconsole ? fullconfilter : confilter, *n));                                                         engine\console.cpp:94
-    ICOMMAND(cos, "f", (float *a), floatret(cos(*a*RAD)));                                                                                                      engine\command.cpp:3222
     ICOMMAND(cycleweapon, "V", (tagval *args, int numargs),                                                                                                     fpsgame\weapon.cpp:80
     ICOMMAND(dauth, "s", (char *desc), if(desc[0]) tryauth(desc));                                                                                              fpsgame\client.cpp:495
     ICOMMAND(dauthkick, "sss", (const char *desc, const char *victim, const char *reason), if(desc[0]) authkick(desc, victim, reason));                         fpsgame\client.cpp:422
     ICOMMAND(defuniformparam, "sffff", (char *name, float *x, float *y, float *z, float *w), addslotparam(name, *x, *y, *z, *w));                               engine\shader.cpp:1262
     ICOMMAND(delbot, "", (), addmsg(N_DELBOT, "r"));                                                                                                            fpsgame\ai.cpp:17
     ICOMMAND(disconnect, "b", (int *local), trydisconnect(*local != 0));                                                                                        engine\client.cpp:186
-    ICOMMAND(div, "ii", (int *a, int *b), intret(*b ? *a / *b : 0));                                                                                            engine\command.cpp:3217
-    ICOMMAND(divf, "ff", (float *a, float *b), floatret(*b ? *a / *b : 0));                                                                                     engine\command.cpp:3219
     ICOMMAND(dropflag, "", (), { ctfmode.trydropflag(); });                                                                                                     fpsgame\ctf.h:1273
-    ICOMMAND(echo, "C", (char *s), conoutf(CON_ECHO, "\f1%s", s));                                                                                              engine\command.cpp:3338
     ICOMMAND(editbind, "ss", (char *key, char *action), bindkey(key, action, keym::ACTION_EDITING, "editbind"));                                                engine\console.cpp:246
     ICOMMAND(edittoggle, "", (), toggleedit(false));                                                                                                            engine\octaedit.cpp:230
     ICOMMAND(endsp, "", (), endsp(false));                                                                                                                      fpsgame\monster.cpp:348
@@ -479,7 +492,6 @@ ICOMMAND
     ICOMMAND(exp, "f", (float *a), floatret(exp(*a)));                                                                                                          engine\command.cpp:3233
     ICOMMAND(findanims, "s", (char *name),                                                                                                                      engine\rendermodel.cpp:1014
     ICOMMAND(fixinsidefaces, "i", (int *tex),                                                                                                                   engine\texture.cpp:2063
-    ICOMMAND(floor, "f", (float *n), floatret(floor(*n)));                                                                                                      engine\command.cpp:3261
     ICOMMAND(forceshader, "s", (const char *name), useshaderbyname(name));                                                                                      engine\shader.cpp:1228
     ICOMMAND(gamespeed, "iN$", (int *val, int *numargs, ident *id),                                                                                             fpsgame\client.cpp:802
     ICOMMAND(gban, "s", (char *name), addban(gbans, name));                                                                                                     engine\master.cpp:70
@@ -553,9 +565,6 @@ ICOMMAND
     ICOMMAND(loadwaypoints, "s", (char *mname), loadwaypoints(true, mname));                                                                                    fpsgame\waypoint.cpp:728
     ICOMMAND(localconnect, "", (), { if(!isconnected()) localconnect(); });                                                                                     engine\client.cpp:187
     ICOMMAND(localdisconnect, "", (), { if(haslocalclients()) localdisconnect(); });                                                                            engine\client.cpp:188
-    ICOMMAND(log10, "f", (float *a), floatret(log10(*a)));                                                                                                      engine\command.cpp:3232
-    ICOMMAND(log2, "f", (float *a), floatret(log(*a)/M_LN2));                                                                                                   engine\command.cpp:3231
-    ICOMMAND(loge, "f", (float *a), floatret(log(*a)));                                                                                                         engine\command.cpp:3230
     ICOMMAND(map, "s", (char *name), changemap(name));                                                                                                          fpsgame\client.cpp:586
     ICOMMAND(map, "s", (char *s), changemap(s));                                                                                                                rpggame\rpg.cpp:48
     ICOMMAND(mapmodelfind, "s", (char *name), { int found = -1; loopv(mapmodels) if(strstr(mapmodels[i].name, name)) { found = i; break; } intret(found); });   engine\rendermodel.cpp:355
@@ -563,14 +572,8 @@ ICOMMAND
     ICOMMAND(mapmodelname, "i", (int *index), { result(mapmodels.inrange(*index) ? mapmodels[*index].name : ""); });                                            engine\rendermodel.cpp:352
     ICOMMAND(mastermode, "i", (int *val), addmsg(N_MASTERMODE, "ri", *val));                                                                                    fpsgame\client.cpp:483
     ICOMMAND(mastermodename, "i", (int *mm), result(server::mastermodename(*mm, "")));                                                                          fpsgame\client.cpp:333
-    ICOMMAND(max, "V", (tagval *args, int numargs),                                                                                                             engine\command.cpp:3240
-    ICOMMAND(maxf, "V", (tagval *args, int numargs),                                                                                                            engine\command.cpp:3252
-    ICOMMAND(min, "V", (tagval *args, int numargs),                                                                                                             engine\command.cpp:3234
-    ICOMMAND(minf, "V", (tagval *args, int numargs),                                                                                                            engine\command.cpp:3246
     ICOMMAND(miniconskip, "i", (int *n), setconskip(miniconskip, miniconfilter, *n));                                                                           engine\console.cpp:95
-    ICOMMAND(mod, "ii", (int *a, int *b), intret(*b ? *a % *b : 0));                                                                                            engine\command.cpp:3218
     ICOMMAND(mode, "i", (int *val), setmode(*val));                                                                                                             fpsgame\client.cpp:542
-    ICOMMAND(modf, "ff", (float *a, float *b), floatret(*b ? fmod(*a, *b) : 0));                                                                                engine\command.cpp:3220
     ICOMMAND(moveblendmap, "ii", (int *dx, int *dy),                                                                                                            engine\blend.cpp:763
     ICOMMAND(movewaypoints, "iii", (int *dx, int *dy, int *dz), movewaypoints(vec(*dx, *dy, *dz)));                                                             fpsgame\waypoint.cpp:806
     ICOMMAND(movierecording, "", (), intret(recorder::isrecording() ? 1 : 0));                                                                                  engine\movie.cpp:1156
@@ -592,7 +595,6 @@ ICOMMAND
     ICOMMAND(paused, "iN$", (int *val, int *numargs, ident *id),                                                                                                fpsgame\client.cpp:785
     ICOMMAND(pausegame, "i", (int *val), pausegame(*val > 0));                                                                                                  fpsgame\client.cpp:784
     ICOMMAND(platform, "ii", (int *tag, int *newdir), triggerplatform(*tag, *newdir));                                                                          fpsgame\movable.cpp:122
-    ICOMMAND(pow, "ff", (float *a, float *b), floatret(pow(*a, *b)));                                                                                           engine\command.cpp:3229
     ICOMMAND(printvar, "r", (ident *id), printvar(id));                                                                                                         engine\command.cpp:1640
     ICOMMAND(push, "rte", (ident *id, tagval *v, uint *code),                                                                                                   engine\command.cpp:334
     ICOMMAND(pushif, "rte", (ident *id, tagval *v, uint *code),                                                                                                 engine\command.cpp:2530
@@ -640,12 +642,10 @@ ICOMMAND
     ICOMMAND(setweapon, "si", (char *name, int *force), setweapon(name, *force!=0));                                                                            fpsgame\weapon.cpp:62
     ICOMMAND(showplayergui, "i", (int *which), menu.show(*which));                                                                                              rpggame\rpg.cpp:100
     ICOMMAND(showscores, "D", (int *down), showscores(*down!=0));                                                                                               fpsgame\scoreboard.cpp:471
-    ICOMMAND(sin, "f", (float *a), floatret(sin(*a*RAD)));                                                                                                      engine\command.cpp:3221
     ICOMMAND(sound, "i", (int *n), playsound(*n));                                                                                                              engine\sound.cpp:845
     ICOMMAND(spawnname, "s", (char *s), { if(lastcreated) { copystring(lastcreated->name, s, SPAWNNAMELEN); spawnfroment(*lastcreated); } });                   rpggame\entities.cpp:90
     ICOMMAND(specbind, "ss", (char *key, char *action), bindkey(key, action, keym::ACTION_SPECTATOR, "specbind"));                                              engine\console.cpp:245
     ICOMMAND(spectator, "is", (int *val, char *who), togglespectator(*val, who));                                                                               fpsgame\client.cpp:504
-    ICOMMAND(sqrt, "f", (float *a), floatret(sqrt(*a)));                                                                                                        engine\command.cpp:3228
     ICOMMAND(strcmp, "ss", (char *a, char *b), intret(strcmp(a,b)==0));                                                                                         engine\command.cpp:3331
     ICOMMAND(strcode, "si", (char *s, int *i), intret(*i > 0 ? (memchr(s, 0, *i) ? 0 : uchar(s[*i])) : uchar(s[0])));                                           engine\command.cpp:3342
     ICOMMAND(stripcolors, "s", (char *s),                                                                                                                       engine\command.cpp:2846
@@ -654,7 +654,6 @@ ICOMMAND
     ICOMMAND(strstr, "ss", (char *a, char *b), { char *s = strstr(a, b); intret(s ? s-a : -1); });                                                              engine\command.cpp:3340
     ICOMMAND(struni, "si", (char *s, int *i), intret(*i > 0 ? (memchr(s, 0, *i) ? 0 : cube2uni(s[*i])) : cube2uni(s[0])));                                      engine\command.cpp:3344
     ICOMMAND(suicide, "", (), suicide(player1));                                                                                                                fpsgame\fps.cpp:809
-    ICOMMAND(tan, "f", (float *a), floatret(tan(*a*RAD)));                                                                                                      engine\command.cpp:3223
     ICOMMAND(team, "sN", (char *s, int *numargs),                                                                                                               fpsgame\client.cpp:155
     ICOMMAND(texloaded, "i", (int *tex), intret(slots.inrange(*tex) && slots[*tex]->loaded ? 1 : 0));                                                           engine\octaedit.cpp:2529
     ICOMMAND(textfocus, "si", (char *name, int *mode), // focus on a (or create a persistent) specific editor, else returns current name                        engine\textedit.h:721
@@ -1220,8 +1219,8 @@ VARFP
     VARFP(blobdyntris, 128, 4096, 16384, initblobs(BLOB_DYNAMIC));                                                                                              engine\blob.cpp:690
     VARFP(maxcon, 10, 200, MAXCONLINES, { while(conlines.length() > maxcon) delete[] conlines.pop().line; });                                                   engine\console.cpp:15
     VARFP(maxdecaltris, 1, 1024, 16384, initdecals());                                                                                                          engine\decal.cpp:27
-    VARFP(fpdepthfx, 0, 0, 1, cleanupdepthfx());                                                                                                                                                                                                                                                        engine\depthfx.h:10
-    VARFP(depthfxsize, 6, 7, 12, cleanupdepthfx());                                                                                                                                                                                                                                                     engine\depthfx.h:12
+    VARFP(fpdepthfx, 0, 0, 1, cleanupdepthfx());                                                                                                                engine\depthfx.h:10
+    VARFP(depthfxsize, 6, 7, 12, cleanupdepthfx());                                                                                                             engine\depthfx.h:12
     VARFP(glaresize, 6, 8, 10, cleanupglare());                                                                                                                 engine\glare.cpp:19
     VARFP(vsync, 0, 0, 1, restorevsync());                                                                                                                      engine\main.cpp:627
     VARFP(vsynctear, 0, 0, 1, { if(vsync) restorevsync(); });                                                                                                   engine\main.cpp:628
