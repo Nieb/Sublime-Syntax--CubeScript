@@ -485,7 +485,6 @@ contexts:
             | rndstr
             | rotate
             | rotateblendbrush
-            | round
             | sauth
             | sauthkick
             | saveauthkeys
@@ -510,7 +509,6 @@ contexts:
             | sendmap
             | servban
             | servcmd
-            | set
             | setblendbrush
             | setmaster
             | setpostfx
@@ -536,7 +534,6 @@ contexts:
             | spawnname
             | specbind
             | spectator
-            | sqrt
             | startlistenserver
             | stopdemo
             | stoplistenserver
@@ -554,7 +551,6 @@ contexts:
             | substr
             | suicide
             | tabify
-            | tan
             | taunt
             | team
             | teamkillkick
@@ -1326,6 +1322,7 @@ contexts:
             \b(?x:
             | alias
             | local
+            | set
             )\b
           scope: storage.type.cfg
 
