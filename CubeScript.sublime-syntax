@@ -31,17 +31,6 @@ contexts:
             | do
             | exec
             | if
-            | entloop
-            | loopconcat
-            | loopconcatword
-            | loopfiles
-            | looplist
-            | loopsublist
-            | looplistconcat
-            | looplistconcatword
-            | loopwhile
-            | loop
-            | while
             )\b
           scope: keyword.control.cfg
 
@@ -203,6 +192,7 @@ contexts:
             | entget
             | enthavesel
             | entindex
+            | entloop
             | entmoving
             | entpaste
             | entpush
@@ -364,6 +354,15 @@ contexts:
             | loadwaypoints
             | localconnect
             | localdisconnect
+            | loop
+            | loopconcat
+            | loopconcatword
+            | loopfiles
+            | looplist
+            | looplistconcat
+            | looplistconcatword
+            | loopsublist
+            | loopwhile
             | m_capture
             | m_classicsp
             | m_collect
@@ -603,6 +602,7 @@ contexts:
             | vscroll
             | vshaderparam
             | weapon
+            | while
             | writecfg
             | writeobj
             )\b
@@ -1038,7 +1038,6 @@ contexts:
             | name
             | nearplane
             | nompedit
-            | numargs
             | numcpus
             | octaentsize
             | optmats
@@ -1311,6 +1310,7 @@ contexts:
         - match: |-
             \b(?x:
             | arg[0-9]*
+            | numargs
             )\b
           scope: variable.language.cfg
 
