@@ -21,12 +21,13 @@ contexts:
 
         #####################################################################################
         #####################################################################################
-        #  ProgramFlow:
+        #  Program Flow:
         - match: |-
             \b(?x:
             | casef
             | cases
             | case
+            | cond
             | do
             | exec
             | if
@@ -47,7 +48,60 @@ contexts:
 
         #####################################################################################
         #####################################################################################
-        #  Build-in Commands:
+        #  Built-in Commands -- Model:
+        - match: |-
+            \b(?x:
+            | (md2|md3|md5|iqm|obj|smd)alphablend
+            | (md2|md3|md5|iqm|obj|smd)alphatest
+            | (md2|md3|md5|iqm|obj|smd)ambient
+            | (md2|md3|md5|iqm|obj|smd)bumpmap
+            | (md2|md3|md5|iqm|obj|smd)cullface
+            | (md2|md3|md5|iqm|obj|smd)dir
+            | (md2|md3|md5|iqm|obj|smd)envmap
+            | (md2|md3|md5|iqm|obj|smd)fullbright
+            | (md2|md3|md5|iqm|obj|smd)glare
+            | (md2|md3|md5|iqm|obj|smd)glow
+            | (md2|md3|md5|iqm|obj|smd)link
+            | (md2|md3|md5|iqm|obj|smd)load
+            | (md2|md3|md5|iqm|obj|smd)noclip
+            | (md2|md3|md5|iqm|obj|smd)pitch
+            | (md2|md3|md5|iqm|obj|smd)scroll
+            | (md2|md3|md5|iqm|obj|smd)shader
+            | (md2|md3|md5|iqm|obj|smd)skin
+            | (md2|md3|md5|iqm|obj|smd)spec
+            | (md2|md3|md5|iqm|smd)anim
+            | (md5|iqm|smd)adjust
+            | (md5|iqm|smd)animpart
+            | (md5|iqm|smd)pitchcorrect
+            | (md5|iqm|smd)pitchtarget
+            | (md5|iqm|smd)tag
+            | mdlalphablend
+            | mdlalphadepth
+            | mdlalphatest
+            | mdlambient
+            | mdlbb
+            | mdlcollide
+            | mdlcullface
+            | mdldepthoffset
+            | mdlellipsecollide
+            | mdlenvmap
+            | mdlextendbb
+            | mdlfullbright
+            | mdlglare
+            | mdlglow
+            | mdlname
+            | mdlpitch
+            | mdlscale
+            | mdlshader
+            | mdlshadow
+            | mdlspec
+            | mdlspin
+            | mdltrans
+            | mdlyaw
+            )\b
+          scope: support.function.cfg
+
+        #  Built-in Commands:
         - match: |-
             \b(?x:
             | addblendbrush
@@ -110,7 +164,6 @@ contexts:
             | complete
             | concat
             | concatword
-            | cond
             | connect
             | connectedip
             | connectedport
@@ -559,56 +612,12 @@ contexts:
             )\b
           scope: support.function.cfg
 
-        #  Build-in Commands -- Mapmodel:
+
+        #####################################################################################
+        #  Built-in Commands -- Tesseract:
         - match: |-
             \b(?x:
-            | (md2|md3|md5|iqm|obj|smd)alphablend
-            | (md2|md3|md5|iqm|obj|smd)alphatest
-            | (md2|md3|md5|iqm|obj|smd)ambient
-            | (md2|md3|md5|iqm|obj|smd)bumpmap
-            | (md2|md3|md5|iqm|obj|smd)cullface
-            | (md2|md3|md5|iqm|obj|smd)dir
-            | (md2|md3|md5|iqm|obj|smd)envmap
-            | (md2|md3|md5|iqm|obj|smd)fullbright
-            | (md2|md3|md5|iqm|obj|smd)glare
-            | (md2|md3|md5|iqm|obj|smd)glow
-            | (md2|md3|md5|iqm|obj|smd)link
-            | (md2|md3|md5|iqm|obj|smd)load
-            | (md2|md3|md5|iqm|obj|smd)noclip
-            | (md2|md3|md5|iqm|obj|smd)pitch
-            | (md2|md3|md5|iqm|obj|smd)scroll
-            | (md2|md3|md5|iqm|obj|smd)shader
-            | (md2|md3|md5|iqm|obj|smd)skin
-            | (md2|md3|md5|iqm|obj|smd)spec
-            | (md2|md3|md5|iqm|smd)anim
-            | (md5|iqm|smd)adjust
-            | (md5|iqm|smd)animpart
-            | (md5|iqm|smd)pitchcorrect
-            | (md5|iqm|smd)pitchtarget
-            | (md5|iqm|smd)tag
-            | mdlalphablend
-            | mdlalphadepth
-            | mdlalphatest
-            | mdlambient
-            | mdlbb
-            | mdlcollide
-            | mdlcullface
-            | mdldepthoffset
-            | mdlellipsecollide
-            | mdlenvmap
-            | mdlextendbb
-            | mdlfullbright
-            | mdlglare
-            | mdlglow
-            | mdlname
-            | mdlpitch
-            | mdlscale
-            | mdlshader
-            | mdlshadow
-            | mdlspec
-            | mdlspin
-            | mdltrans
-            | mdlyaw
+            | AAAAAAA
             )\b
           scope: support.function.cfg
 
@@ -1292,6 +1301,15 @@ contexts:
 
 
         #####################################################################################
+        #  Built-In Variables -- Tesseract:
+        - match: |-
+            \b(?x:
+            | AAAAAAA
+            )\b
+          scope: support.function.cfg
+
+
+        #####################################################################################
         #####################################################################################
         #  Special Variables:
         - match: |-
@@ -1321,11 +1339,11 @@ contexts:
             - meta_scope: string.quoted.double.cfg
 
             #  Escape Characters:
-            - match: \^.?[\~0-9]*
+            - match: \^.{1}[\~0-9]*
               scope: constant.character.escape.cfg
 
             #  String Substitution:
-            - match: \%.?[0-9]*
+            - match: \%[0-9]+
               scope: constant.other.placeholder.cfg
 
             - match: '\"'
@@ -1406,6 +1424,50 @@ contexts:
 
         - match: |-
             (?x:
+            | \<\<
+            | \>\>
+            | \^\~
+            | \&\&
+            | \&\~
+            | \|\|
+            | \|\~
+            | \!
+            | \~
+            | \^
+            | \&
+            | \|
+            )
+          scope: keyword.operator.bitwise.cfg
+
+        - match: |-
+            (?x:
+            | \!\=f
+            | \!\=s
+            | \<\=f
+            | \<\=s
+            | \>\=f
+            | \>\=s
+            | \=f
+            | \=s
+            | \<f
+            | \<s
+            | \>f
+            | \>s
+            | \!\=
+            | \<\=
+            | \>\=
+            | \=
+            | \<
+            | \>
+            | \?
+            )\s
+          scope: keyword.operator.logical.cfg
+
+        - match: '\='
+          scope: keyword.operator.assignment.cfg
+
+        - match: |-
+            (?x:
             | absf
             | abs
             | acos
@@ -1435,39 +1497,6 @@ contexts:
             )\s
           scope: keyword.operator.word.cfg
 
-        - match: |-
-            (?x:
-            | \!\=f
-            | \<\=f
-            | \>\=f
-            | \=f
-            | \<f
-            | \>f
-            | \!\=
-            | \<\=
-            | \>\=
-            | \<\<
-            | \>\>
-            | \^\~
-            | \&\&
-            | \&\~
-            | \|\|
-            | \|\~
-            | \!
-            | \=
-            | \<
-            | \>
-            | \~
-            | \^
-            | \&
-            | \|
-            | \?
-            )\s
-          scope: keyword.operator.cfg
-
-        - match: '\='
-          scope: keyword.operator.assignment.cfg
-
 
         #####################################################################################
         #  Statement Terminator:
@@ -1476,9 +1505,15 @@ contexts:
 
 
         #####################################################################################
-        #  Alias Evaluation:
+        #  Alias Evaluation:
         - match: '[\@\$]'
           scope: keyword.operator.cfg  # variable.language.cfg
+
+
+        #####################################################################################
+        #  String Substitution (these can appear outside of quoted-strings):
+        - match: \%[0-9]+
+          scope: constant.other.placeholder.cfg
 
 
         #####################################################################################
