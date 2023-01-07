@@ -41,9 +41,6 @@ MAPMODEL STUFFS
 ###############################################################################################################################################################################################
 
 
-KEYWORD
-    *** None? ***
-
 
 TEXTCOMMAND
     TEXTCOMMAND(textshow, "", (), // @DEBUG return the start of the buffer                                                                                      engine\textedit.h:715
@@ -344,16 +341,7 @@ COMMAND
     COMMAND(delselwaypoints, "");                                                                                                                               fpsgame\waypoint.cpp:781
 
 
-ICOMMANDNS
-    *** None? ***
 
-
-ICOMMANDN
-    *** None? ***
-
-
-ICOMMANDNAME
-    *** None? ***
 
 
 ICOMMAND
@@ -667,9 +655,6 @@ ICOMMAND
     ICOMMAND(weapon, "V", (tagval *args, int numargs),                                                                                                          fpsgame\weapon.cpp:103
 
 
-ICOMMANDSNAME
-    *** None? ***
-
 
 ICOMMANDS
     ICOMMANDS("m_noitems", "i", (int *mode), { int gamemode = *mode; intret(m_noitems); });                                                                     fpsgame\client.cpp:554
@@ -697,9 +682,6 @@ ICOMMANDS
 ###############################################################################################################################################################################################
 ###############################################################################################################################################################################################
 
-
-_VAR
-    *** None? ***
 
 
 VARN
@@ -1156,10 +1138,6 @@ VARR
     VARR(mapversion, 1, MAPVERSION, 0);                                                                                                                         engine\world.cpp:5
 
 
-_VARF
-    *** None? ***
-
-
 VARFN
     VARFN(vbosize, maxvbosize, 0, 1<<14, 1<<16, allchanged());                                                                                                  engine\octarender.cpp:13
     VARFN(scoreboard, showscoreboard, 0, 0, 1, scoreboard.show(showscoreboard!=0));                                                                             fpsgame\scoreboard.cpp:464
@@ -1276,22 +1254,6 @@ VARFNP
     VARFNP(gamma, reqgamma, 30, 100, 300,                                                                                                                       engine\main.cpp:599
 
 
-_HVAR
-    *** None? ***
-
-
-HVARN
-    *** None? ***
-
-
-HVARNP
-    *** None? ***
-
-
-HVARNR
-    *** None? ***
-
-
 HVAR
     HVAR(blendbrushcolor, 0, 0x0000C0, 0xFFFFFF);                                                                                                               engine\renderva.cpp:672
 
@@ -1313,22 +1275,6 @@ HVARR
     HVARR(cloudcolour, 0, 0xFFFFFF, 0xFFFFFF);                                                                                                                  engine\rendersky.cpp:77
 
 
-_HVARF
-    *** None? ***
-
-
-HVARFN
-    *** None? ***
-
-
-HVARF
-    *** None? ***
-
-
-HVARFP
-    *** None? ***
-
-
 HVARFR
     HVARFR(grasscolour, 0, 0xFFFFFF, 0xFFFFFF,                                                                                                                  engine\grass.cpp:74
     HVARFR(ambient, 1, 0x191919, 0xFFFFFF,                                                                                                                      engine\lightmap.cpp:82
@@ -1346,20 +1292,8 @@ HVARFR
     HVARFR(name##colour, 0, 0xFF4000, 0xFFFFFF, \                                                                                                               engine\water.cpp:296
 
 
-_FVAR
-    *** None? ***
-
-
-FVARN
-    *** None? ***
-
-
 FVARNP
     FVARNP(aspect, forceaspect, 0, 0, 1e3f);                                                                                                                    engine\rendergl.cpp:743
-
-
-FVARNR
-    *** None? ***
 
 
 FVAR
@@ -1455,40 +1389,8 @@ FVARR
     FVARR(causticcontrast, 0, 0.6f, 1);                                                                                                                         engine\renderva.cpp:1450
 
 
-_FVARF
-    *** None? ***
-
-
-FVARFN
-    *** None? ***
-
-
-FVARF
-    *** None? ***
-
-
-FVARFP
-    *** None? ***
-
-
 FVARFR
     FVARFR(sunlightscale, 0, 1, 16, setupsunlight());                                                                                                           engine\lightmap.cpp:101
-
-
-_SVAR
-    *** None? ***
-
-
-SVARN
-    *** None? ***
-
-
-SVARNP
-    *** None? ***
-
-
-SVARNR
-    *** None? ***
 
 
 SVAR
@@ -1512,21 +1414,9 @@ SVARR
     SVARR(maptitle, "Untitled Map by Unknown");                                                                                                                 engine\world.cpp:8
 
 
-_SVARF
-    *** None? ***
-
-
-SVARFN
-    *** None? ***
-
-
 SVARF
     SVARF(mastername, server::defaultmaster(), disconnectmaster());                                                                                             engine\server.cpp:379
     SVARF(audiodriver, AUDIODRIVER, { shouldinitaudio = true; initwarning("sound configuration", INIT_RESET, CHANGE_SOUND); });                                 engine\sound.cpp:165
-
-
-SVARFP
-    *** None? ***
 
 
 SVARFR
