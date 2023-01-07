@@ -28,9 +28,9 @@ contexts:
             | cases
             | case
             | do
-            | entloop
             | exec
             | if
+            | entloop
             | loopconcat
             | loopconcatword
             | loopfiles
