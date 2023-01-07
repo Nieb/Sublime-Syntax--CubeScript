@@ -1296,7 +1296,7 @@ contexts:
         #  Special Variables:
         - match: |-
             \b(?x:
-            | arg[0-9]
+            | arg[0-9]*
             )\b
           scope: variable.language.cfg
 
@@ -1323,6 +1323,10 @@ contexts:
             #  Escape Characters:
             - match: \^.?[\~0-9]*
               scope: constant.character.escape.cfg
+
+            #  String Substitute:
+            - match: \%.?[0-9]*
+              scope: constant.other.placeholder.cfg
 
             - match: '\"'
               scope: punctuation.definition.string.end.cfg
