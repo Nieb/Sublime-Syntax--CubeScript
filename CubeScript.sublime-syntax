@@ -345,29 +345,6 @@ contexts:
             | mastermode
             | mastermodename
             | materialreset
-            | mdlalphablend
-            | mdlalphadepth
-            | mdlalphatest
-            | mdlambient
-            | mdlbb
-            | mdlcollide
-            | mdlcullface
-            | mdldepthoffset
-            | mdlellipsecollide
-            | mdlenvmap
-            | mdlextendbb
-            | mdlfullbright
-            | mdlglare
-            | mdlglow
-            | mdlname
-            | mdlpitch
-            | mdlscale
-            | mdlshader
-            | mdlshadow
-            | mdlspec
-            | mdlspin
-            | mdltrans
-            | mdlyaw
             | mergenormalmaps
             | miniconskip
             | mmodel
@@ -609,6 +586,29 @@ contexts:
             | (md5|iqm|smd)pitchcorrect
             | (md5|iqm|smd)pitchtarget
             | (md5|iqm|smd)tag
+            | mdlalphablend
+            | mdlalphadepth
+            | mdlalphatest
+            | mdlambient
+            | mdlbb
+            | mdlcollide
+            | mdlcullface
+            | mdldepthoffset
+            | mdlellipsecollide
+            | mdlenvmap
+            | mdlextendbb
+            | mdlfullbright
+            | mdlglare
+            | mdlglow
+            | mdlname
+            | mdlpitch
+            | mdlscale
+            | mdlshader
+            | mdlshadow
+            | mdlspec
+            | mdlspin
+            | mdltrans
+            | mdlyaw
             )\b
           scope: support.function.cfg
 
@@ -1324,7 +1324,7 @@ contexts:
             - match: \^.?[\~0-9]*
               scope: constant.character.escape.cfg
 
-            #  String Substitute:
+            #  String Substitution:
             - match: \%.?[0-9]*
               scope: constant.other.placeholder.cfg
 
