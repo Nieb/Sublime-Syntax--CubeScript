@@ -5,6 +5,7 @@ REM Place me in "Sauerbraten/src", then run.
 ECHO:==================BEGIN================== & ECHO:==================BEGIN================== >> FoundStrings.txt
 SET Wildcard=*.h *.cpp *.c
 ECHO: >> FoundStrings.txt
+ECHO: >> FoundStrings.txt   &   ECHO:CASECOMMAND   >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CASECOMMAND("   %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:COMMAND       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "COMMAND("       %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:COMMANDN      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "COMMANDN("      %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:ICOMMAND      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMAND("      %Wildcard% >> FoundStrings.txt
@@ -14,6 +15,10 @@ ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDNS    >> FoundStrings.txt   &   FIN
 ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDS     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMANDS("     %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDSNAME >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMANDSNAME(" %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:KEYWORD       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "KEYWORD("       %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt   &   ECHO:STRMAPCOMMAND >> FoundStrings.txt   &   FINDSTR -s -n -i -l "STRMAPCOMMAND(" %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt   &   ECHO:TEXTCOMMAND   >> FoundStrings.txt   &   FINDSTR -s -n -i -l "TEXTCOMMAND("   %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt
+ECHO:======================================== >> FoundStrings.txt
 ECHO: >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:_FVAR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_FVAR("         %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:_FVARF        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_FVARF("        %Wildcard% >> FoundStrings.txt
@@ -64,6 +69,12 @@ ECHO: >> FoundStrings.txt   &   ECHO:VARNP         >> FoundStrings.txt   &   FIN
 ECHO: >> FoundStrings.txt   &   ECHO:VARNR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARNR("         %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:VARP          >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARP("          %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:VARR          >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARR("          %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt
+ECHO: >> FoundStrings.txt   &   ECHO:GLASSVARS     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "GLASSVARS("     %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt   &   ECHO:LAVAVARS      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "LAVAVARS("      %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt   &   ECHO:WATERVARS     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "WATERVARS("     %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt
+ECHO: >> FoundStrings.txt   &   ECHO:GETMATIDXVAR  >> FoundStrings.txt   &   FINDSTR -s -n -i -l "GETMATIDXVAR("  %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt
 ECHO:==================DONE================== & ECHO:==================DONE================== >> FoundStrings.txt
 
