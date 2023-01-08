@@ -16,10 +16,6 @@ ECHO: >> FoundStrings.txt   &   ECHO:COMMAND       >> FoundStrings.txt   &   FIN
 ECHO: >> FoundStrings.txt   &   ECHO:COMMANDK      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "COMMANDK("      %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:COMMANDKN     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "COMMANDKN("     %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:COMMANDN      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "COMMANDN("      %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:DEFFVAR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DEFFVAR("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:DEFIVAR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DEFIVAR("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:DEFSVAR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DEFSVAR("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:DEFVAR        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DEFVAR("        %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:DIVCMD        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DIVCMD("        %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:ICOMMAND      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMAND("      %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDK     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMANDK("     %Wildcard% >> FoundStrings.txt
@@ -43,6 +39,13 @@ ECHO: >> FoundStrings.txt   &   ECHO:MATHICMDN     >> FoundStrings.txt   &   FIN
 ECHO: >> FoundStrings.txt   &   ECHO:MINMAXCMD     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "MINMAXCMD("     %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:STRMAPCOMMAND >> FoundStrings.txt   &   FINDSTR -s -n -i -l "STRMAPCOMMAND(" %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:TEXTCOMMAND   >> FoundStrings.txt   &   FINDSTR -s -n -i -l "TEXTCOMMAND("   %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt
+ECHO:======================================== >> FoundStrings.txt
+ECHO: >> FoundStrings.txt
+ECHO: >> FoundStrings.txt   &   ECHO:DEFVAR        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DEFVAR("        %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt   &   ECHO:DEFIVAR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DEFIVAR("       %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt   &   ECHO:DEFFVAR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DEFFVAR("       %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt   &   ECHO:DEFSVAR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DEFSVAR("       %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:_CVAR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_CVAR("         %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:_CVAR0        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_CVAR0("        %Wildcard% >> FoundStrings.txt
@@ -118,10 +121,14 @@ ECHO: >> FoundStrings.txt   &   ECHO:VARNP         >> FoundStrings.txt   &   FIN
 ECHO: >> FoundStrings.txt   &   ECHO:VARNR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARNR("         %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:VARP          >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARP("          %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:VARR          >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARR("          %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:GLASSVARS     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "GLASSVARS("     %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:LAVAVARS      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "LAVAVARS("      %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt   &   ECHO:WATERVARS     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "WATERVARS("     %Wildcard% >> FoundStrings.txt
 ECHO: >> FoundStrings.txt
+ECHO: >> FoundStrings.txt   &   ECHO:GETMATIDXVAR  >> FoundStrings.txt   &   FINDSTR -s -n -i -l "GETMATIDXVAR("  %Wildcard% >> FoundStrings.txt
+ECHO: >> FoundStrings.txt
 ECHO:==================DONE==================   &   ECHO:==================DONE================== >> FoundStrings.txt
 
 PAUSE
+
