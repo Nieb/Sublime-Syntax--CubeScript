@@ -90,6 +90,7 @@ contexts:
             )\b
           scope: support.function.cfg
 
+
         #  Built-in Commands:
         - match: |-
             \b(?x:
@@ -127,7 +128,6 @@ contexts:
             | checkmaps
             | chopstr
             | clearbans
-            | clearbans
             | clearblendbrushes
             | clearblendmap
             | clearblendmapsel
@@ -144,7 +144,6 @@ contexts:
             | clearsleep
             | cleartexgui
             | clearundos
-            | clearusers
             | clearusers
             | clearwaypoints
             | clearwpcache
@@ -203,7 +202,6 @@ contexts:
             | enttype
             | error
             | escape
-            | exec
             | fastshader
             | findanims
             | findfile
@@ -447,6 +445,8 @@ contexts:
             | r_action_use
             | r_applydamage
             | r_contain
+            | r_eff_##n
+            | r_get_##n
             | r_give
             | r_model
             | r_pop
@@ -609,7 +609,6 @@ contexts:
           scope: support.function.cfg
 
 
-        #####################################################################################
         #  Built-in Commands -- Tesseract:
         - match: |-
             \b(?x:
@@ -861,7 +860,6 @@ contexts:
             | fullconsize
             | fullconsole
             | fullscreen
-            | fullscreen
             | fullscreendesktop
             | gameclock
             | gameclockalign
@@ -876,10 +874,9 @@ contexts:
             | glaremod
             | glarescale
             | glaresize
-            | glass
-            | glass[1-4]
-            | glass[1-4]colour
-            | glasscolour
+            | glass[1-4]?color
+            | glass[1-4]?colour
+            | glass[1-4]?
             | glassenv
             | glcompat
             | glslversion
@@ -940,12 +937,10 @@ contexts:
             | invmouse
             | jumpspawn
             | killsendsp
-            | lava
-            | lava[1-4]
-            | lava[1-4]colour
-            | lava[1-4]fog
-            | lavacolour
-            | lavafog
+            | lava[1-4]?color
+            | lava[1-4]?colour
+            | lava[1-4]?fog
+            | lava[1-4]?
             | lerpangle
             | lerpsubdiv
             | lerpsubdivsize
@@ -968,8 +963,6 @@ contexts:
             | lockpvs
             | mainmenu
             | mapscale
-            | mapscale
-            | mapsize
             | mapsize
             | maptitle
             | mapversion
@@ -1041,11 +1034,9 @@ contexts:
             | moviesync
             | moview
             | mumble
-            | mumble
             | musicvol
             | muzzleflash
             | muzzlelight
-            | name
             | nearplane
             | nompedit
             | numcpus
@@ -1075,6 +1066,7 @@ contexts:
             | persistteams
             | physinterp
             | playermodel
+            | playersearch
             | polygonoffsetfactor
             | polygonoffsetunits
             | printvbo
@@ -1114,7 +1106,6 @@ contexts:
             | refractclear
             | refractsky
             | regenbluearmour
-            | relativemouse
             | relativemouse
             | replayparticles
             | reservevpparams
@@ -1189,7 +1180,6 @@ contexts:
             | skyboxglare
             | skylight
             | skytexture
-            | skytexture
             | skytexturelight
             | slowmosp
             | smdepthpeel
@@ -1250,6 +1240,7 @@ contexts:
             | throttle_accel
             | throttle_decel
             | throttle_interval
+            | tiesort
             | triggerstate
             | trilinear
             | undomegs
@@ -1270,24 +1261,21 @@ contexts:
             | wallclock
             | wallclock24
             | wallclocksecs
-            | water
-            | water[1-4]
-            | water[1-4]colour
-            | water[1-4]fallcolour
-            | water[1-4]fog
-            | water[1-4]spec
-            | watercolour
+            | water[1-4]?color
+            | water[1-4]?colour
+            | water[1-4]?fallcolor
+            | water[1-4]?fallcolour
+            | water[1-4]?fog
+            | water[1-4]?spec
+            | water[1-4]?
             | waterenvmap
             | waterfade
-            | waterfallcolour
             | waterfallenv
             | waterfallrefract
-            | waterfog
             | waterlod
             | waterpvs
             | waterreflect
             | waterrefract
-            | waterspec
             | watersubdiv
             | wireframe
             | yawcloudlayer
@@ -1391,6 +1379,7 @@ contexts:
 
 
         #####################################################################################
+        #####################################################################################
         #  Numbers:
         #  Hex:
         - match: \b((0x){1}[0-9a-fA-F]+)\b
@@ -1405,6 +1394,7 @@ contexts:
           scope: constant.numeric.integer.cfg
 
 
+        #####################################################################################
         #####################################################################################
         #  Operators:
         - match: |-
@@ -1476,9 +1466,9 @@ contexts:
             | div
             | exp
             | floor
+            | loge
             | log2
             | log10
-            | loge
             | maxf
             | max
             | minf
@@ -1495,9 +1485,9 @@ contexts:
 
 
         #####################################################################################
-        #  Statement Terminator:
-        - match: \;
-          scope: punctuation.terminator.cfg
+        #  String Substitution (these can appear outside of quoted-strings):
+        - match: \%[0-9]+
+          scope: constant.other.placeholder.cfg
 
 
         #####################################################################################
@@ -1507,9 +1497,9 @@ contexts:
 
 
         #####################################################################################
-        #  String Substitution (these can appear outside of quoted-strings):
-        - match: \%[0-9]+
-          scope: constant.other.placeholder.cfg
+        #  Statement Terminator:
+        - match: \;
+          scope: punctuation.terminator.cfg
 
 
         #####################################################################################
@@ -1524,7 +1514,6 @@ contexts:
         #
         #           ~ ` ! # % ^ & * _ - = + { }
         #           \ | : ' , < . > ? / @ $ ( [
-        #
         #           A-Z   a-z   0-9
         #
         #    >> CANNOT begin with:
