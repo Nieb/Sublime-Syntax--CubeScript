@@ -620,6 +620,16 @@ contexts:
 
         #####################################################################################
         #####################################################################################
+        #  Special Variables:
+        - match: |-
+            \b(?x:
+            | arg[0-9]*
+            | numargs
+            )\b
+          scope: variable.language.cfg
+
+
+        #####################################################################################
         #  Built-In Variables:
         - match: |-
             \b(?x:
@@ -1306,17 +1316,6 @@ contexts:
 
         #####################################################################################
         #####################################################################################
-        #  Special Variables:
-        - match: |-
-            \b(?x:
-            | arg[0-9]*
-            | numargs
-            )\b
-          scope: variable.language.cfg
-
-
-        #####################################################################################
-        #####################################################################################
         #  Alias Declaration:
         - match: |-
             \b(?x:
@@ -1330,7 +1329,7 @@ contexts:
         #####################################################################################
         #####################################################################################
         #  "String":
-        - match: '\"'
+        - match: \"
           scope: punctuation.definition.string.begin.cfg
           push:
             - meta_scope: string.quoted.double.cfg
@@ -1343,7 +1342,7 @@ contexts:
             - match: \%[0-9]+
               scope: constant.other.placeholder.cfg
 
-            - match: '\"'
+            - match: \"
               scope: punctuation.definition.string.end.cfg
               pop: true
 
@@ -1351,15 +1350,15 @@ contexts:
         #####################################################################################
         #####################################################################################
         #  {Braces}:
-        - match: \{|\}
+        - match: (\{|\}){1}
           scope: punctuation.section.braces.cfg
 
         #  [Brackets]:
-        - match: \[|\]
+        - match: (\[|\]){1}
           scope: punctuation.section.brackets.cfg
 
         #  (Parentheses):
-        - match: \(|\)
+        - match: (\(|\)){1}
           scope: punctuation.section.parens.cfg
 
 
@@ -1433,7 +1432,7 @@ contexts:
             | \^
             | \&
             | \|
-            )
+            )\s
           scope: keyword.operator.bitwise.cfg
 
         - match: |-
@@ -1460,7 +1459,7 @@ contexts:
             )\s
           scope: keyword.operator.logical.cfg
 
-        - match: '\='
+        - match: \=
           scope: keyword.operator.assignment.cfg
 
         - match: |-
@@ -1497,13 +1496,13 @@ contexts:
 
         #####################################################################################
         #  Statement Terminator:
-        - match: '\;'
+        - match: \;
           scope: punctuation.terminator.cfg
 
 
         #####################################################################################
         #  Alias Evaluation:
-        - match: '[\@\$]'
+        - match: (\@+|\$+)
           scope: keyword.operator.cfg  # variable.language.cfg
 
 
@@ -1516,6 +1515,22 @@ contexts:
         #####################################################################################
         #####################################################################################
         #  User Aliases:
-        - match: \b[A-Za-z0-9_]+\b
+        - match: ([\~\`\!\#\%\^\&\*\_\-\=\+\{\}\\\|\:\'\,\<\.\>\?\/A-Za-z]{1}[\~\`\!\#\%\^\&\*\_\-\=\+\{\}\\\|\:\'\,\<\.\>\?\/\@\$\(\[A-Za-z0-9]*)
           scope: variable.other.readwrite.cfg
+        #
+        #   Alias Naming:
+        #
+        #    >> Valid characters:
+        #
+        #           ~ ` ! # % ^ & * _ - = + { }
+        #           \ | : ' , < . > ? / @ $ ( [
+        #
+        #           A-Z   a-z   0-9
+        #
+        #    >> CANNOT begin with:
+        #
+        #           0-9  @  $  (  [
+        #
+        #    >> 0-9   MUST be proceeded by   A-Z a-z   at some point.
+        #
 
