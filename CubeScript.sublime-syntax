@@ -90,6 +90,18 @@ contexts:
             )\b
           scope: support.function.cfg
 
+        #  Built-in Commands -- Tesseract - Model:
+        - match: |-
+            \b(?x:
+            | mdlalphashadow
+            | mdlcolor
+            | mdldither
+            | mdlgloss
+            | mdlroll
+            | mdltricollide
+            )\b
+          scope: support.function.cfg
+
 
         #  Built-in Commands:
         - match: |-
@@ -821,6 +833,16 @@ contexts:
             )\b
           scope: support.function.cfg
 
+        #  editstat##name
+        #  ui!" #func
+        #  ui!" #func "+"
+        #  ui!" #func "+?"
+        #  ui!" #func "?"
+        #  ui" #func
+        #  ui" #func "+"
+        #  ui" #func "+?"
+        #  ui" #func "?"
+
 
         #####################################################################################
         #####################################################################################
@@ -833,7 +855,6 @@ contexts:
           scope: variable.language.cfg
 
 
-        #####################################################################################
         #  Built-In Variables:
         - match: |-
             \b(?x:
@@ -1498,7 +1519,6 @@ contexts:
           scope: support.function.cfg
 
 
-        #####################################################################################
         #  Built-In Variables -- Tesseract:
         - match: |-
             \b(?x:
