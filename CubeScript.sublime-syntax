@@ -28,6 +28,7 @@ contexts:
             | cases
             | case
             | cond
+            | doargs
             | do
             | exec
             | if
@@ -634,7 +635,6 @@ contexts:
             | crouch
             | decaldepth
             | decalreset
-            | doargs
             | dumpblendtexs
             | dumpshader
             | entreplace
@@ -1698,7 +1698,6 @@ contexts:
             | msaatonemap
             | msaatonemapblit
             | nominimapcolour
-            | numargs
             | oqany
             | oqlights
             | oqvol
@@ -1838,6 +1837,19 @@ contexts:
 
         #####################################################################################
         #####################################################################################
+        #  Common Aliases:
+        - match: |-
+            \b(?x:
+            | bindmod
+            | bindvar
+            | bindvarquiet
+            | editbindmod
+            | editbindvar
+            | editbindvarquiet
+            )\b
+          scope: support.function.cfg
+
+
         #  Alias Declaration:
         - match: |-
             \b(?x:
