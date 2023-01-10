@@ -2,133 +2,135 @@
 
 REM Place me in "Tesseract/src", then run.
 
-ECHO:==================BEGIN==================   &   ECHO:==================BEGIN================== >> FoundStrings.txt
+SET FileName=Found_Commands_Tesseract.txt
 SET Wildcard=*.h *.cpp *.c
-ECHO: >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CASECOMMAND   >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CASECOMMAND("   %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CMPCMD        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CMPCMD("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CMPFCMD       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CMPFCMD("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CMPFCMDN      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CMPFCMDN("      %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CMPICMD       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CMPICMD("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CMPICMDN      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CMPICMDN("      %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CMPSCMD       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CMPSCMD("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:COMMAND       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "COMMAND("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:COMMANDK      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "COMMANDK("      %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:COMMANDKN     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "COMMANDKN("     %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:COMMANDN      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "COMMANDN("      %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:DIVCMD        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DIVCMD("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:ICOMMAND      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMAND("      %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDK     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMANDK("     %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDKN    >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMANDKN("    %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDKNS   >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMANDKNS("   %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDKS    >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMANDKS("    %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDN     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMANDN("     %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDNAME  >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMANDNAME("  %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDNS    >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMANDNS("    %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDS     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMANDS("     %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:ICOMMANDSNAME >> FoundStrings.txt   &   FINDSTR -s -n -i -l "ICOMMANDSNAME(" %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:KEYWORD       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "KEYWORD("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:LISTASSOC     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "LISTASSOC("     %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:LISTFIND      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "LISTFIND("      %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:LISTMERGECMD  >> FoundStrings.txt   &   FINDSTR -s -n -i -l "LISTMERGECMD("  %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:MATHCMD       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "MATHCMD("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:MATHFCMD      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "MATHFCMD("      %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:MATHFCMDN     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "MATHFCMDN("     %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:MATHICMD      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "MATHICMD("      %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:MATHICMDN     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "MATHICMDN("     %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:MINMAXCMD     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "MINMAXCMD("     %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:STRMAPCOMMAND >> FoundStrings.txt   &   FINDSTR -s -n -i -l "STRMAPCOMMAND(" %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:TEXTCOMMAND   >> FoundStrings.txt   &   FINDSTR -s -n -i -l "TEXTCOMMAND("   %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt
-ECHO:======================================== >> FoundStrings.txt
-ECHO: >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:DEFVAR        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DEFVAR("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:DEFIVAR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DEFIVAR("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:DEFFVAR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DEFFVAR("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:DEFSVAR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "DEFSVAR("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:_CVAR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_CVAR("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:_CVAR0        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_CVAR0("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:_CVAR1        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_CVAR1("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:_FVAR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_FVAR("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:_FVARF        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_FVARF("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:_HVAR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_HVAR("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:_HVARF        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_HVARF("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:_SVAR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_SVAR("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:_SVARF        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_SVARF("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:_VAR          >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_VAR("          %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:_VARF         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_VARF("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:_VARM         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "_VARM("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CVAR0FP       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CVAR0FP("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CVAR0FR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CVAR0FR("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CVAR0P        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CVAR0P("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CVAR0R        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CVAR0R("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CVAR1FP       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CVAR1FP("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CVAR1FR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CVAR1FR("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CVAR1P        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CVAR1P("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CVAR1R        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CVAR1R("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CVARFP        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CVARFP("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CVARFR        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CVARFR("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CVARP         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CVARP("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:CVARR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "CVARR("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:FVAR          >> FoundStrings.txt   &   FINDSTR -s -n -i -l "FVAR("          %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:FVARF         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "FVARF("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:FVARFN        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "FVARFN("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:FVARFNP       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "FVARFNP("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:FVARFNR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "FVARFNR("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:FVARFP        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "FVARFP("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:FVARFR        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "FVARFR("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:FVARN         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "FVARN("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:FVARNP        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "FVARNP("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:FVARNR        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "FVARNR("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:FVARP         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "FVARP("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:FVARR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "FVARR("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:HVAR          >> FoundStrings.txt   &   FINDSTR -s -n -i -l "HVAR("          %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:HVARF         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "HVARF("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:HVARFN        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "HVARFN("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:HVARFNP       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "HVARFNP("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:HVARFNR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "HVARFNR("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:HVARFP        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "HVARFP("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:HVARFR        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "HVARFR("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:HVARN         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "HVARN("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:HVARNP        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "HVARNP("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:HVARNR        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "HVARNR("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:HVARP         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "HVARP("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:HVARR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "HVARR("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:SVAR          >> FoundStrings.txt   &   FINDSTR -s -n -i -l "SVAR("          %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:SVARF         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "SVARF("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:SVARFN        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "SVARFN("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:SVARFNP       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "SVARFNP("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:SVARFNR       >> FoundStrings.txt   &   FINDSTR -s -n -i -l "SVARFNR("       %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:SVARFP        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "SVARFP("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:SVARFR        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "SVARFR("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:SVARN         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "SVARN("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:SVARNP        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "SVARNP("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:SVARNR        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "SVARNR("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:SVARP         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "SVARP("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:SVARR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "SVARR("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VAR           >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VAR("           %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARF          >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARF("          %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARFN         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARFN("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARFNP        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARFNP("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARFNR        >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARFNR("        %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARFP         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARFP("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARFR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARFR("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARMP         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARMP("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARMR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARMR("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARN          >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARN("          %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARNP         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARNP("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARNR         >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARNR("         %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARP          >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARP("          %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:VARR          >> FoundStrings.txt   &   FINDSTR -s -n -i -l "VARR("          %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:GLASSVARS     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "GLASSVARS("     %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:LAVAVARS      >> FoundStrings.txt   &   FINDSTR -s -n -i -l "LAVAVARS("      %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:WATERVARS     >> FoundStrings.txt   &   FINDSTR -s -n -i -l "WATERVARS("     %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt
-ECHO: >> FoundStrings.txt   &   ECHO:GETMATIDXVAR  >> FoundStrings.txt   &   FINDSTR -s -n -i -l "GETMATIDXVAR("  %Wildcard% >> FoundStrings.txt
-ECHO: >> FoundStrings.txt
-ECHO:==================DONE==================   &   ECHO:==================DONE================== >> FoundStrings.txt
+
+ECHO:==================BEGIN==================   &   ECHO:==================BEGIN================== >> %FileName%
+ECHO: >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CASECOMMAND   >> %FileName%   &   FINDSTR -s -n -i -l "CASECOMMAND("   %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CMPCMD        >> %FileName%   &   FINDSTR -s -n -i -l "CMPCMD("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CMPFCMD       >> %FileName%   &   FINDSTR -s -n -i -l "CMPFCMD("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CMPFCMDN      >> %FileName%   &   FINDSTR -s -n -i -l "CMPFCMDN("      %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CMPICMD       >> %FileName%   &   FINDSTR -s -n -i -l "CMPICMD("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CMPICMDN      >> %FileName%   &   FINDSTR -s -n -i -l "CMPICMDN("      %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CMPSCMD       >> %FileName%   &   FINDSTR -s -n -i -l "CMPSCMD("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:COMMAND       >> %FileName%   &   FINDSTR -s -n -i -l "COMMAND("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:COMMANDK      >> %FileName%   &   FINDSTR -s -n -i -l "COMMANDK("      %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:COMMANDKN     >> %FileName%   &   FINDSTR -s -n -i -l "COMMANDKN("     %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:COMMANDN      >> %FileName%   &   FINDSTR -s -n -i -l "COMMANDN("      %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:DIVCMD        >> %FileName%   &   FINDSTR -s -n -i -l "DIVCMD("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:ICOMMAND      >> %FileName%   &   FINDSTR -s -n -i -l "ICOMMAND("      %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:ICOMMANDK     >> %FileName%   &   FINDSTR -s -n -i -l "ICOMMANDK("     %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:ICOMMANDKN    >> %FileName%   &   FINDSTR -s -n -i -l "ICOMMANDKN("    %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:ICOMMANDKNS   >> %FileName%   &   FINDSTR -s -n -i -l "ICOMMANDKNS("   %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:ICOMMANDKS    >> %FileName%   &   FINDSTR -s -n -i -l "ICOMMANDKS("    %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:ICOMMANDN     >> %FileName%   &   FINDSTR -s -n -i -l "ICOMMANDN("     %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:ICOMMANDNAME  >> %FileName%   &   FINDSTR -s -n -i -l "ICOMMANDNAME("  %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:ICOMMANDNS    >> %FileName%   &   FINDSTR -s -n -i -l "ICOMMANDNS("    %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:ICOMMANDS     >> %FileName%   &   FINDSTR -s -n -i -l "ICOMMANDS("     %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:ICOMMANDSNAME >> %FileName%   &   FINDSTR -s -n -i -l "ICOMMANDSNAME(" %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:KEYWORD       >> %FileName%   &   FINDSTR -s -n -i -l "KEYWORD("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:LISTASSOC     >> %FileName%   &   FINDSTR -s -n -i -l "LISTASSOC("     %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:LISTFIND      >> %FileName%   &   FINDSTR -s -n -i -l "LISTFIND("      %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:LISTMERGECMD  >> %FileName%   &   FINDSTR -s -n -i -l "LISTMERGECMD("  %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:MATHCMD       >> %FileName%   &   FINDSTR -s -n -i -l "MATHCMD("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:MATHFCMD      >> %FileName%   &   FINDSTR -s -n -i -l "MATHFCMD("      %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:MATHFCMDN     >> %FileName%   &   FINDSTR -s -n -i -l "MATHFCMDN("     %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:MATHICMD      >> %FileName%   &   FINDSTR -s -n -i -l "MATHICMD("      %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:MATHICMDN     >> %FileName%   &   FINDSTR -s -n -i -l "MATHICMDN("     %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:MINMAXCMD     >> %FileName%   &   FINDSTR -s -n -i -l "MINMAXCMD("     %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:STRMAPCOMMAND >> %FileName%   &   FINDSTR -s -n -i -l "STRMAPCOMMAND(" %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:TEXTCOMMAND   >> %FileName%   &   FINDSTR -s -n -i -l "TEXTCOMMAND("   %Wildcard% >> %FileName%
+ECHO: >> %FileName%
+ECHO:======================================== >> %FileName%
+ECHO: >> %FileName%
+ECHO: >> %FileName%   &   ECHO:DEFVAR        >> %FileName%   &   FINDSTR -s -n -i -l "DEFVAR("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:DEFIVAR       >> %FileName%   &   FINDSTR -s -n -i -l "DEFIVAR("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:DEFFVAR       >> %FileName%   &   FINDSTR -s -n -i -l "DEFFVAR("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:DEFSVAR       >> %FileName%   &   FINDSTR -s -n -i -l "DEFSVAR("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%
+ECHO: >> %FileName%   &   ECHO:_CVAR         >> %FileName%   &   FINDSTR -s -n -i -l "_CVAR("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:_CVAR0        >> %FileName%   &   FINDSTR -s -n -i -l "_CVAR0("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:_CVAR1        >> %FileName%   &   FINDSTR -s -n -i -l "_CVAR1("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:_FVAR         >> %FileName%   &   FINDSTR -s -n -i -l "_FVAR("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:_FVARF        >> %FileName%   &   FINDSTR -s -n -i -l "_FVARF("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:_HVAR         >> %FileName%   &   FINDSTR -s -n -i -l "_HVAR("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:_HVARF        >> %FileName%   &   FINDSTR -s -n -i -l "_HVARF("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:_SVAR         >> %FileName%   &   FINDSTR -s -n -i -l "_SVAR("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:_SVARF        >> %FileName%   &   FINDSTR -s -n -i -l "_SVARF("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:_VAR          >> %FileName%   &   FINDSTR -s -n -i -l "_VAR("          %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:_VARF         >> %FileName%   &   FINDSTR -s -n -i -l "_VARF("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:_VARM         >> %FileName%   &   FINDSTR -s -n -i -l "_VARM("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CVAR0FP       >> %FileName%   &   FINDSTR -s -n -i -l "CVAR0FP("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CVAR0FR       >> %FileName%   &   FINDSTR -s -n -i -l "CVAR0FR("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CVAR0P        >> %FileName%   &   FINDSTR -s -n -i -l "CVAR0P("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CVAR0R        >> %FileName%   &   FINDSTR -s -n -i -l "CVAR0R("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CVAR1FP       >> %FileName%   &   FINDSTR -s -n -i -l "CVAR1FP("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CVAR1FR       >> %FileName%   &   FINDSTR -s -n -i -l "CVAR1FR("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CVAR1P        >> %FileName%   &   FINDSTR -s -n -i -l "CVAR1P("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CVAR1R        >> %FileName%   &   FINDSTR -s -n -i -l "CVAR1R("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CVARFP        >> %FileName%   &   FINDSTR -s -n -i -l "CVARFP("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CVARFR        >> %FileName%   &   FINDSTR -s -n -i -l "CVARFR("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CVARP         >> %FileName%   &   FINDSTR -s -n -i -l "CVARP("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:CVARR         >> %FileName%   &   FINDSTR -s -n -i -l "CVARR("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:FVAR          >> %FileName%   &   FINDSTR -s -n -i -l "FVAR("          %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:FVARF         >> %FileName%   &   FINDSTR -s -n -i -l "FVARF("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:FVARFN        >> %FileName%   &   FINDSTR -s -n -i -l "FVARFN("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:FVARFNP       >> %FileName%   &   FINDSTR -s -n -i -l "FVARFNP("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:FVARFNR       >> %FileName%   &   FINDSTR -s -n -i -l "FVARFNR("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:FVARFP        >> %FileName%   &   FINDSTR -s -n -i -l "FVARFP("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:FVARFR        >> %FileName%   &   FINDSTR -s -n -i -l "FVARFR("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:FVARN         >> %FileName%   &   FINDSTR -s -n -i -l "FVARN("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:FVARNP        >> %FileName%   &   FINDSTR -s -n -i -l "FVARNP("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:FVARNR        >> %FileName%   &   FINDSTR -s -n -i -l "FVARNR("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:FVARP         >> %FileName%   &   FINDSTR -s -n -i -l "FVARP("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:FVARR         >> %FileName%   &   FINDSTR -s -n -i -l "FVARR("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:HVAR          >> %FileName%   &   FINDSTR -s -n -i -l "HVAR("          %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:HVARF         >> %FileName%   &   FINDSTR -s -n -i -l "HVARF("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:HVARFN        >> %FileName%   &   FINDSTR -s -n -i -l "HVARFN("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:HVARFNP       >> %FileName%   &   FINDSTR -s -n -i -l "HVARFNP("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:HVARFNR       >> %FileName%   &   FINDSTR -s -n -i -l "HVARFNR("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:HVARFP        >> %FileName%   &   FINDSTR -s -n -i -l "HVARFP("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:HVARFR        >> %FileName%   &   FINDSTR -s -n -i -l "HVARFR("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:HVARN         >> %FileName%   &   FINDSTR -s -n -i -l "HVARN("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:HVARNP        >> %FileName%   &   FINDSTR -s -n -i -l "HVARNP("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:HVARNR        >> %FileName%   &   FINDSTR -s -n -i -l "HVARNR("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:HVARP         >> %FileName%   &   FINDSTR -s -n -i -l "HVARP("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:HVARR         >> %FileName%   &   FINDSTR -s -n -i -l "HVARR("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:SVAR          >> %FileName%   &   FINDSTR -s -n -i -l "SVAR("          %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:SVARF         >> %FileName%   &   FINDSTR -s -n -i -l "SVARF("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:SVARFN        >> %FileName%   &   FINDSTR -s -n -i -l "SVARFN("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:SVARFNP       >> %FileName%   &   FINDSTR -s -n -i -l "SVARFNP("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:SVARFNR       >> %FileName%   &   FINDSTR -s -n -i -l "SVARFNR("       %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:SVARFP        >> %FileName%   &   FINDSTR -s -n -i -l "SVARFP("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:SVARFR        >> %FileName%   &   FINDSTR -s -n -i -l "SVARFR("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:SVARN         >> %FileName%   &   FINDSTR -s -n -i -l "SVARN("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:SVARNP        >> %FileName%   &   FINDSTR -s -n -i -l "SVARNP("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:SVARNR        >> %FileName%   &   FINDSTR -s -n -i -l "SVARNR("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:SVARP         >> %FileName%   &   FINDSTR -s -n -i -l "SVARP("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:SVARR         >> %FileName%   &   FINDSTR -s -n -i -l "SVARR("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VAR           >> %FileName%   &   FINDSTR -s -n -i -l "VAR("           %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARF          >> %FileName%   &   FINDSTR -s -n -i -l "VARF("          %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARFN         >> %FileName%   &   FINDSTR -s -n -i -l "VARFN("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARFNP        >> %FileName%   &   FINDSTR -s -n -i -l "VARFNP("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARFNR        >> %FileName%   &   FINDSTR -s -n -i -l "VARFNR("        %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARFP         >> %FileName%   &   FINDSTR -s -n -i -l "VARFP("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARFR         >> %FileName%   &   FINDSTR -s -n -i -l "VARFR("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARMP         >> %FileName%   &   FINDSTR -s -n -i -l "VARMP("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARMR         >> %FileName%   &   FINDSTR -s -n -i -l "VARMR("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARN          >> %FileName%   &   FINDSTR -s -n -i -l "VARN("          %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARNP         >> %FileName%   &   FINDSTR -s -n -i -l "VARNP("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARNR         >> %FileName%   &   FINDSTR -s -n -i -l "VARNR("         %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARP          >> %FileName%   &   FINDSTR -s -n -i -l "VARP("          %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:VARR          >> %FileName%   &   FINDSTR -s -n -i -l "VARR("          %Wildcard% >> %FileName%
+ECHO: >> %FileName%
+ECHO: >> %FileName%   &   ECHO:GLASSVARS     >> %FileName%   &   FINDSTR -s -n -i -l "GLASSVARS("     %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:LAVAVARS      >> %FileName%   &   FINDSTR -s -n -i -l "LAVAVARS("      %Wildcard% >> %FileName%
+ECHO: >> %FileName%   &   ECHO:WATERVARS     >> %FileName%   &   FINDSTR -s -n -i -l "WATERVARS("     %Wildcard% >> %FileName%
+ECHO: >> %FileName%
+ECHO: >> %FileName%   &   ECHO:GETMATIDXVAR  >> %FileName%   &   FINDSTR -s -n -i -l "GETMATIDXVAR("  %Wildcard% >> %FileName%
+ECHO: >> %FileName%
+ECHO:==================DONE==================   &   ECHO:==================DONE================== >> %FileName%
 
 PAUSE
 
