@@ -1,6 +1,6 @@
-REM Place me in "Tesseract/src", then run.
-
 @ECHO off
+
+REM Place me in "Tesseract/src", then run.
 
 ECHO:==================BEGIN==================   &   ECHO:==================BEGIN================== >> FoundStrings.txt
 SET Wildcard=*.h *.cpp *.c
