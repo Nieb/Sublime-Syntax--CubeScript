@@ -24,6 +24,7 @@ contexts:
         #  Program Flow:
         - match: |-
             \b(?x:
+            | at
             | casef
             | cases
             | case
@@ -123,7 +124,6 @@ contexts:
             | ammohudup
             | append
             | appendword
-            | at
             | attachent
             | attack
             | auth
@@ -1869,7 +1869,7 @@ contexts:
             - meta_scope: string.quoted.double.cfg
 
             #  Escape Characters:
-            - match: \^.{1}[\~0-9]{1}[0-9]*
+            - match: \^((f{1}[\~0-9]{1})|(.{1}))
               scope: constant.character.escape.cfg
 
             #  String Substitution:
