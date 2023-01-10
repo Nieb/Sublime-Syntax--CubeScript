@@ -1869,7 +1869,7 @@ contexts:
             - meta_scope: string.quoted.double.cfg
 
             #  Escape Characters:
-            - match: \^.{1}[\~0-9]*
+            - match: \^.{1}[\~0-9]{1}[0-9]*
               scope: constant.character.escape.cfg
 
             #  String Substitution:
@@ -2062,10 +2062,10 @@ contexts:
         #           \ | : ' , < . > ? / @ $ ( [
         #           A-Z   a-z   0-9
         #
-        #    >> CANNOT begin with:
+        #    >> Cannot-ish begin with:
         #
         #           0-9  @  $  (  [
         #
-        #    >> 0-9   MUST be proceeded by   A-Z a-z   at some point.
+        #    >> 0-9   must be proceeded by   A-Z a-z   at some point.
         #
 
