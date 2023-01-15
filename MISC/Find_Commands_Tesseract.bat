@@ -49,6 +49,8 @@ ECHO: >> %FileName%   &   ECHO:DEFIVAR       >> %FileName%   &   FINDSTR -s -n -
 ECHO: >> %FileName%   &   ECHO:DEFFVAR       >> %FileName%   &   FINDSTR -s -n -i -l "DEFFVAR("       %Wildcard% >> %FileName%
 ECHO: >> %FileName%   &   ECHO:DEFSVAR       >> %FileName%   &   FINDSTR -s -n -i -l "DEFSVAR("       %Wildcard% >> %FileName%
 ECHO: >> %FileName%
+ECHO: >> %FileName%   &   ECHO:EDITSTAT      >> %FileName%   &   FINDSTR -s -n -i -l "EDITSTAT("      %Wildcard% >> %FileName%
+ECHO: >> %FileName%
 ECHO: >> %FileName%   &   ECHO:_CVAR         >> %FileName%   &   FINDSTR -s -n -i -l "_CVAR("         %Wildcard% >> %FileName%
 ECHO: >> %FileName%   &   ECHO:_CVAR0        >> %FileName%   &   FINDSTR -s -n -i -l "_CVAR0("        %Wildcard% >> %FileName%
 ECHO: >> %FileName%   &   ECHO:_CVAR1        >> %FileName%   &   FINDSTR -s -n -i -l "_CVAR1("        %Wildcard% >> %FileName%
