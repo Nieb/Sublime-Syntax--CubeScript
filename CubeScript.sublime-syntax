@@ -87,10 +87,10 @@ contexts:
 
     #======================================================================================================================================
     UserAliases:
-        # [ Bounds Left ]
-        # [ Characters First ]
-        # [ Characters ]
-        # [ Bounds Right ]
+        # ( Bounds Left )
+        # ( Character First )
+        # ( Characters )
+        # ( Bounds Right )
         - match: |-
             (?x)
             (?<=
@@ -331,10 +331,6 @@ contexts:
             - include: StringSubstitution
             - include: TextureCommands
 
-            # Catch Strays:
-            - match: (\>)
-              scope: punctuation.definition.generic.end.cfg
-
             # Escape Characters:
             - match: \^((f{1}[\~0-9]{1})|(.{1}))
               scope: constant.character.escape.cfg
@@ -347,7 +343,7 @@ contexts:
 
     #======================================================================================================================================
     TextureCommands:
-        - match: \<
+        - match: (?=\<)
           scope: punctuation.definition.generic.begin.cfg
           push:
             - meta_scope: meta.generic.cfg
@@ -378,14 +374,14 @@ contexts:
                 | rotate
                 | thumbnail
                 ){1}\b
-              scope: keyword.operator.word.cfg  # support.function.cfg  entity.name.function.cfg
+              scope: keyword.operator.function.cfg   # keyword.operator.word.cfg  support.function.cfg  entity.name.function.cfg
 
             # Separators:
             - match: (\:|\,|\/)
               scope: punctuation.separator.cfg
 
             # END
-            - match: (\>|(?=\"))
+            - match: (?=\>)
               scope: punctuation.definition.generic.end.cfg
               pop: true
 
