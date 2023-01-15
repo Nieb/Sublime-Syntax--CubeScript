@@ -145,7 +145,8 @@ contexts:
     Numbers:
         # Hex:
         - match: |-
-            (?x)\b( (0x){1} [0-9a-fA-F]+ )\b
+            (?x)
+            \b( (0x){1} [0-9a-fA-F]+ )\b
           scope: constant.numeric.integer.hexadecimal.cfg
 
         # Float:
