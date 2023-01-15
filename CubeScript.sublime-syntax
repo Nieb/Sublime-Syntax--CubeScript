@@ -10,6 +10,7 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     main:
+        # Order of includes is important.
         - include: Comments
         - include: Keywords
 
@@ -24,11 +25,11 @@ contexts:
         - include: BuiltInVariables__Tesseract
 
         - include: CommonAliases
-
         - include: AliasDeclaration
 
         - include: Sections
         - include: Strings
+        #- include: TextureCommands          # These can appear outside of quoted-strings.
         - include: Numbers
         - include: Operators
         - include: StringSubstitution       # These can appear outside of quoted-strings.
@@ -71,7 +72,7 @@ contexts:
     AliasDeclaration:
         - match: |-
             \b(?x:
-            | alias
+              alias
             | local
             | set
             )\b
@@ -126,7 +127,7 @@ contexts:
     Keywords:
         - match: |-
             \b(?x:
-            | at
+              at
             | casef
             | cases
             | case
@@ -144,10 +145,7 @@ contexts:
     Numbers:
         # Hex:
         - match: |-
-            (?x)
-            \b
-                ( (0x){1} [0-9a-fA-F]+ )
-            \b
+            (?x)\b( (0x){1} [0-9a-fA-F]+ )\b
           scope: constant.numeric.integer.hexadecimal.cfg
 
         # Float:
@@ -155,12 +153,12 @@ contexts:
             (?x)
             (
                 (
-                    (   (?<![a-z A-Z \d]) \d*   )
+                    (   (?<![a-zA-Z\d]) \d*   )
                 |
-                    (   (?<![a-z A-Z \d]) - \d*   )
+                    (   (?<![a-zA-Z\d]) - \d*   )
                 )
                 (
-                    (   (?<![a-z A-Z \d]) - \d{1} \.{1}   )
+                    (   (?<![a-zA-Z\d]) - \d{1} \.{1}   )
                 |
                     (   (?<![\d]) - \.{1} \d{1}   )
                 |
@@ -176,9 +174,9 @@ contexts:
         - match: |-
             (?x)
             (
-                (   \b ( (?![a-z A-Z]) \d* ) \b   )
+                (   \b ( (?![a-zA-Z]) \d* ) \b   )
             |
-                (   (?<![a-z A-Z \d]) -\d{1} \d*   )
+                (   (?<![a-zA-Z\d]) -\d{1} \d*   )
             )
           scope: constant.numeric.integer.cfg
 
@@ -187,19 +185,21 @@ contexts:
     ###########################################################################################################################################
     Operators:
         - match: |-
-            (?x:
-            | \-f
+            (?x)
+            (?<= \( )(
+              \-f
             | \+f
             | \*f
             | \-
             | \+
             | \*
-            )\s
+            )(?= \s | \( | \[ | \{ )
           scope: keyword.operator.arithmetic.cfg
 
         - match: |-
-            (?x:
-            | \<\<
+            (?x)
+            (?<= \( )(
+              \<\<
             | \>\>
             | \^\~
             | \&\&
@@ -211,12 +211,13 @@ contexts:
             | \^
             | \&
             | \|
-            )\s
+            )(?= \s | \( | \[ | \{ )
           scope: keyword.operator.bitwise.cfg
 
         - match: |-
-            (?x:
-            | \!\=f
+            (?x)
+            (?<= \( )(
+              \!\=f
             | \!\=s
             | \<\=f
             | \<\=s
@@ -235,15 +236,16 @@ contexts:
             | \<
             | \>
             | \?
-            )\s
+            )(?= \s | \( | \[ | \{ )
           scope: keyword.operator.logical.cfg
 
-        - match: \=
+        - match: (?x)(?<= \s )( \= )(?= \s )
           scope: keyword.operator.assignment.cfg
 
         - match: |-
-            (?x:
-            | absf
+            (?x)
+            (?<= \( )(
+              absf
             | abs
             | acos
             | asin
@@ -269,7 +271,7 @@ contexts:
             | sin
             | sqrt
             | tan
-            )\s
+            )(?= \s | \( | \[ | \{ )
           scope: keyword.operator.word.cfg
 
 
@@ -307,7 +309,7 @@ contexts:
             - include: main
 
         # Strays:
-        - match: \}|\]|\)\"
+        - match: \}|\]|\)
           scope: invalid.illegal.stray.cfg
 
 
@@ -350,11 +352,14 @@ contexts:
             # The Commands:
             - match: |-
                 \b(?x:
-                | agrad
+                  agrad
+                | blend
                 | blur
                 | colorify
                 | colormask
                 | compress
+                | crop
+                | dds
                 | dup
                 | grey
                 | mad
@@ -398,7 +403,7 @@ contexts:
     BuiltInCommands:
         - match: |-
             \b(?x:
-            | addblendbrush
+              addblendbrush
             | addbot
             | addpostfx
             | addserver
@@ -921,7 +926,7 @@ contexts:
     BuiltInCommands__Tesseract:
         - match: |-
             \b(?x:
-            | applychanges
+              applychanges
             | avglum
             | cleareditbinds
             | clearhbrush
@@ -1135,7 +1140,7 @@ contexts:
     BuiltInCommands__Model:
         - match: |-
             \b(?x:
-            | (md2|md3|md5|iqm|obj|smd)alphablend
+              (md2|md3|md5|iqm|obj|smd)alphablend
             | (md2|md3|md5|iqm|obj|smd)alphatest
             | (md2|md3|md5|iqm|obj|smd)ambient
             | (md2|md3|md5|iqm|obj|smd)bumpmap
@@ -1191,7 +1196,7 @@ contexts:
     BuiltInCommands__Model_Tesseract:
         - match: |-
             \b(?x:
-            | mdlalphashadow
+              mdlalphashadow
             | mdlcolor
             | mdldither
             | mdlgloss
@@ -1212,7 +1217,7 @@ contexts:
     CommonAliases:
         - match: |-
             \b(?x:
-            | bindmod
+              bindmod
             | bindvar
             | bindvarquiet
             | editbindmod
@@ -1228,7 +1233,7 @@ contexts:
     SpecialVariables:
         - match: |-
             \b(?x:
-            | arg[0-9]*
+              arg[0-9]*
             | numargs
             )\b
           scope: variable.language.cfg
@@ -1239,7 +1244,7 @@ contexts:
     BuiltInVariables:
         - match: |-
             \b(?x:
-            | aaenvmap
+              aaenvmap
             | adaptivesample
             | adminpass
             | aidebug
@@ -1905,7 +1910,7 @@ contexts:
     BuiltInVariables__Tesseract:
         - match: |-
             \b(?x:
-            | alphashadow
+              alphashadow
             | alphashadowscale
             | ambientscale
             | amd_eal_bug
@@ -1991,6 +1996,18 @@ contexts:
             | depthtestlights
             | depthtestlightsclamp
             | dynlights
+            | editstateva
+            | editstatevt
+            | editstatgeombatch
+            | editstatglde
+            | editstatocta
+            | editstatoq
+            | editstatpvs
+            | editstatva
+            | editstatvtr
+            | editstatvvt
+            | editstatwtr
+            | editstatwvt
             | emptymap
             | explicitskycolour
             | fogcullintensity
