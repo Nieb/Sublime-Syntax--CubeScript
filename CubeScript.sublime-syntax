@@ -328,9 +328,12 @@ contexts:
           scope: punctuation.definition.string.begin.cfg
           push:
             - meta_scope: string.quoted.double.cfg
-
             - include: StringSubstitution
             - include: TextureCommands
+
+            # Catch Strays:
+            - match: (\>)
+              scope: punctuation.definition.generic.end.cfg
 
             # Escape Characters:
             - match: \^((f{1}[\~0-9]{1})|(.{1}))
@@ -344,7 +347,7 @@ contexts:
 
     #======================================================================================================================================
     TextureCommands:
-        - match: \<{1}(?=.*\>)
+        - match: \<
           scope: punctuation.definition.generic.begin.cfg
           push:
             - meta_scope: meta.generic.cfg
@@ -382,7 +385,7 @@ contexts:
               scope: punctuation.separator.cfg
 
             # END
-            - match: (\>)
+            - match: (\>|(?=\"))
               scope: punctuation.definition.generic.end.cfg
               pop: true
 
