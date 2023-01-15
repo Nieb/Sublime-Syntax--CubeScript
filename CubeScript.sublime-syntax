@@ -5,12 +5,116 @@ file_extensions: cfg
 scope: source.cfg
 
 contexts:
-    ##################################################################################################################
-    ##################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
     main:
-        #####################################################################################
-        #####################################################################################
-        #  Comments:
+        - include: Comments
+        - include: Keywords
+
+        - include: BuiltInCommands__Model
+        - include: BuiltInCommands__Model_Tesseract
+        - include: BuiltInCommands
+        - include: BuiltInCommands__Tesseract
+
+        - include: SpecialVariables
+
+        - include: BuiltInVariables
+        - include: BuiltInVariables__Tesseract
+
+        - include: CommonAliases
+
+        - include: AliasDeclaration
+
+        - include: Sections
+        - include: Strings
+        - include: Numbers
+        - include: Operators
+        - include: StringSubstitution       # These can appear outside of quoted-strings.
+        - include: AliasEvaluation
+        - include: StatementTerminator
+
+        - include: UserAliases
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    #======================================================================================================================================
+    #
+    #   'Variables', 'DataTypes', 'Arrays', 'Strings', 'Functions', etc.
+    #   have no distinction, they are all an 'Alias'.
+    #
+    #
+    #   Alias Naming:
+    #
+    #       Valid characters:
+    #
+    #           ~ ` ! # % ^ & * _ - = + { }
+    #           \ | : ' , < . > ? / @ $ ( [
+    #           A-Z   a-z   0-9
+    #
+    #
+    #       Cannot begin with:
+    #
+    #           0-9  @  $  (  [
+    #
+    #           Note: Aliases can be named with quoted strings ( "@asdf" = 123 ).
+    #                 But this is stupid.
+    #
+    #
+    #       0-9   must be proceeded by   A-Z a-z   at some point.
+    #
+    #======================================================================================================================================
+    AliasDeclaration:
+        - match: |-
+            \b(?x:
+            | alias
+            | local
+            | set
+            )\b
+          scope: storage.type.cfg
+
+
+    #======================================================================================================================================
+    AliasEvaluation:
+        - match: (\@|\$)
+          scope: keyword.operator.cfg  # variable.language.cfg
+
+
+    #======================================================================================================================================
+    UserAliases:
+        # [ Bounds Left ]
+        # [ Characters First ]
+        # [ Characters ]
+        # [ Bounds Right ]
+        - match: |-
+            (?x)
+            (?<=
+                [
+                    \s \{ \[ \( \@ \$
+                ]{1}
+            )(
+                [
+                    \~ \` \! \# \% \^ \& \* \_ \- \= \+ \{ \} \\ \| \: \' \, \< \. \> \? \/ A-Z a-z
+                ]{1}
+                [
+                    \~ \` \! \# \% \^ \& \* \_ \- \= \+ \{ \} \\ \| \: \' \, \< \. \> \? \/ A-Z a-z 0-9 \@ \$ \( \[
+                ]*
+            )(?=
+                [
+                    \s \} \] \)
+                ]{1}
+            )
+          scope: variable.other.readwrite.cfg
+
+
+    #======================================================================================================================================
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    Comments:
         - match: (\/\/)
           scope: comment.line.cfg
           push:
@@ -19,9 +123,9 @@ contexts:
               pop: true
 
 
-        #####################################################################################
-        #####################################################################################
-        #  Program Flow:
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    Keywords:
         - match: |-
             \b(?x:
             | at
@@ -37,75 +141,262 @@ contexts:
           scope: keyword.control.cfg
 
 
-        #####################################################################################
-        #####################################################################################
-        #  Built-in Commands -- Model:
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    Numbers:
+        # Hex:
         - match: |-
-            \b(?x:
-            | (md2|md3|md5|iqm|obj|smd)alphablend
-            | (md2|md3|md5|iqm|obj|smd)alphatest
-            | (md2|md3|md5|iqm|obj|smd)ambient
-            | (md2|md3|md5|iqm|obj|smd)bumpmap
-            | (md2|md3|md5|iqm|obj|smd)cullface
-            | (md2|md3|md5|iqm|obj|smd)dir
-            | (md2|md3|md5|iqm|obj|smd)envmap
-            | (md2|md3|md5|iqm|obj|smd)fullbright
-            | (md2|md3|md5|iqm|obj|smd)glare
-            | (md2|md3|md5|iqm|obj|smd)glow
-            | (md2|md3|md5|iqm|obj|smd)link
-            | (md2|md3|md5|iqm|obj|smd)load
-            | (md2|md3|md5|iqm|obj|smd)noclip
-            | (md2|md3|md5|iqm|obj|smd)pitch
-            | (md2|md3|md5|iqm|obj|smd)scroll
-            | (md2|md3|md5|iqm|obj|smd)shader
-            | (md2|md3|md5|iqm|obj|smd)skin
-            | (md2|md3|md5|iqm|obj|smd)spec
-            | (md2|md3|md5|iqm|smd)anim
-            | (md5|iqm|smd)adjust
-            | (md5|iqm|smd)animpart
-            | (md5|iqm|smd)pitchcorrect
-            | (md5|iqm|smd)pitchtarget
-            | (md5|iqm|smd)tag
-            | mdlalphablend
-            | mdlalphadepth
-            | mdlalphatest
-            | mdlambient
-            | mdlbb
-            | mdlcollide
-            | mdlcullface
-            | mdldepthoffset
-            | mdlellipsecollide
-            | mdlenvmap
-            | mdlextendbb
-            | mdlfullbright
-            | mdlglare
-            | mdlglow
-            | mdlname
-            | mdlpitch
-            | mdlscale
-            | mdlshader
-            | mdlshadow
-            | mdlspec
-            | mdlspin
-            | mdltrans
-            | mdlyaw
-            )\b
-          scope: support.function.cfg
+            (?x)
+            \b
+                ( (0x){1} [0-9a-fA-F]+ )
+            \b
+          scope: constant.numeric.integer.hexadecimal.cfg
 
-        #  Built-in Commands -- Tesseract - Model:
+        # Float:
         - match: |-
-            \b(?x:
-            | mdlalphashadow
-            | mdlcolor
-            | mdldither
-            | mdlgloss
-            | mdlroll
-            | mdltricollide
-            )\b
-          scope: support.function.cfg
+            (?x)
+            (
+                (
+                    (   (?<![a-z A-Z \d]) \d*   )
+                    |
+                    (   (?<![a-z A-Z \d]) - \d*   )
+                )
+                (
+                    (   (?<![a-z A-Z \d]) - \d{1} \.{1}   )
+                    |
+                    (   (?<![\d]) - \.{1} \d{1}   )
+                    |
+                    (   \d{1} \.{1}   )
+                    |
+                    (   \.{1} \d{1}   )
+                ){1} \d*
+            )
+          scope: constant.numeric.float.cfg
+
+        # Integer:
+        - match: |-
+            (?x)
+            (
+                (   \b ( (?![a-z A-Z]) \d* ) \b   )
+                |
+                (   (?<![a-z A-Z \d]) -\d{1} \d*   )
+            )
+          scope: constant.numeric.integer.cfg
 
 
-        #  Built-in Commands:
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    Operators:
+        - match: |-
+            (?x:
+            | \-f
+            | \+f
+            | \*f
+            | \-
+            | \+
+            | \*
+            )\s
+          scope: keyword.operator.arithmetic.cfg
+
+        - match: |-
+            (?x:
+            | \<\<
+            | \>\>
+            | \^\~
+            | \&\&
+            | \&\~
+            | \|\|
+            | \|\~
+            | \!
+            | \~
+            | \^
+            | \&
+            | \|
+            )\s
+          scope: keyword.operator.bitwise.cfg
+
+        - match: |-
+            (?x:
+            | \!\=f
+            | \!\=s
+            | \<\=f
+            | \<\=s
+            | \>\=f
+            | \>\=s
+            | \=f
+            | \=s
+            | \<f
+            | \<s
+            | \>f
+            | \>s
+            | \!\=
+            | \<\=
+            | \>\=
+            | \=
+            | \<
+            | \>
+            | \?
+            )\s
+          scope: keyword.operator.logical.cfg
+
+        - match: \=
+          scope: keyword.operator.assignment.cfg
+
+        - match: |-
+            (?x:
+            | absf
+            | abs
+            | acos
+            | asin
+            | atan2
+            | atan
+            | ceil
+            | cos
+            | divf
+            | div
+            | exp
+            | floor
+            | loge
+            | log2
+            | log10
+            | maxf
+            | max
+            | minf
+            | min
+            | modf
+            | mod
+            | pow
+            | round
+            | sin
+            | sqrt
+            | tan
+            )\s
+          scope: keyword.operator.word.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    Sections:
+        # {Braces}:
+        - match: \{
+          scope: punctuation.section.braces.begin.cfg
+          push:
+            - meta_scope: meta.braces.cfg
+            - match: \}
+              scope: punctuation.section.braces.end.cfg
+              pop: true
+            - include: main
+
+        # [Brackets]:
+        - match: \[
+          scope: punctuation.section.brackets.begin.cfg
+          push:
+            - meta_scope: meta.brackets.cfg
+            - match: \]
+              scope: punctuation.section.brackets.end.cfg
+              pop: true
+            - include: main
+
+        # (Parentheses):
+        - match: \(
+          scope: punctuation.section.parens.begin.cfg
+          push:
+            - meta_scope: meta.parens.cfg
+            - match: \)
+              scope: punctuation.section.parens.end.cfg
+              pop: true
+            - include: main
+
+        # Strays:
+        - match: \}|\]|\)\"
+          scope: invalid.illegal.stray.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    StatementTerminator:
+        - match: \;
+          scope: punctuation.terminator.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    Strings:
+        - match: \"(?=.*\")
+          scope: punctuation.definition.string.begin.cfg
+          push:
+            - meta_scope: string.quoted.double.cfg
+
+            - include: StringSubstitution
+            - include: TextureCommands
+
+            # Escape Characters:
+            - match: \^((f{1}[\~0-9]{1})|(.{1}))
+              scope: constant.character.escape.cfg
+
+            # END
+            - match: \"
+              scope: punctuation.definition.string.end.cfg
+              pop: true
+
+
+    #======================================================================================================================================
+    TextureCommands:
+        - match: \<{1}(?=.*\>)
+          scope: punctuation.definition.generic.begin.cfg
+          push:
+            - meta_scope: meta.generic.cfg
+            - include: Numbers
+
+            # The Commands:
+            - match: |-
+                \b(?x:
+                | agrad
+                | blur
+                | colorify
+                | colormask
+                | compress
+                | dup
+                | grey
+                | mad
+                | mirror
+                | mix
+                | nocompress
+                | normal
+                | noswizzle
+                | offset
+                | premul
+                | reorient
+                | rotate
+                | thumbnail
+                ){1}\b
+              scope: keyword.operator.word.cfg  # support.function.cfg  entity.name.function.cfg
+
+            # Separators:
+            - match: (\:|\,|\/)
+              scope: punctuation.separator.cfg
+
+            # END
+            - match: (\>)
+              scope: punctuation.definition.generic.end.cfg
+              pop: true
+
+
+    #======================================================================================================================================
+    StringSubstitution:
+        - match: \%[0-9]+
+          scope: constant.other.placeholder.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    BuiltInCommands:
         - match: |-
             \b(?x:
             | addblendbrush
@@ -626,7 +917,9 @@ contexts:
           scope: support.function.cfg
 
 
-        #  Built-in Commands -- Tesseract:
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    BuiltInCommands__Tesseract:
         - match: |-
             \b(?x:
             | applychanges
@@ -668,32 +961,32 @@ contexts:
             | intermission
             | isdead
             | islagged
+            | listassoc
+            | listassoc\=
             | listassoc\=f
             | listassoc\=s
-            | listassoc\=
-            | listassoc
             | listcount
+            | listfind\=
             | listfind\=f
             | listfind\=s
-            | listfind\=
             | listintersect
             | listunion
             | loop\*
-            | loop\+\*
             | loop\+
+            | loop\+\*
             | loopconcat\*
-            | loopconcat\+\*
             | loopconcat\+
+            | loopconcat\+\*
             | loopconcatword\*
-            | loopconcatword\+\*
             | loopconcatword\+
+            | loopconcatword\+\*
             | looplist2
             | looplist3
             | loopscoreboard
             | looptexmru
             | loopwhile\*
-            | loopwhile\+\*
             | loopwhile\+
+            | loopwhile\+\*
             | m_pulse
             | m_rail
             | m_timed
@@ -837,20 +1130,103 @@ contexts:
             )\b
           scope: support.function.cfg
 
-        #  editstat##name
-        #  ui!" #func
-        #  ui!" #func "+"
-        #  ui!" #func "+?"
-        #  ui!" #func "?"
-        #  ui" #func
-        #  ui" #func "+"
-        #  ui" #func "+?"
-        #  ui" #func "?"
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    BuiltInCommands__Model:
+        - match: |-
+            \b(?x:
+            | (md2|md3|md5|iqm|obj|smd)alphablend
+            | (md2|md3|md5|iqm|obj|smd)alphatest
+            | (md2|md3|md5|iqm|obj|smd)ambient
+            | (md2|md3|md5|iqm|obj|smd)bumpmap
+            | (md2|md3|md5|iqm|obj|smd)cullface
+            | (md2|md3|md5|iqm|obj|smd)dir
+            | (md2|md3|md5|iqm|obj|smd)envmap
+            | (md2|md3|md5|iqm|obj|smd)fullbright
+            | (md2|md3|md5|iqm|obj|smd)glare
+            | (md2|md3|md5|iqm|obj|smd)glow
+            | (md2|md3|md5|iqm|obj|smd)link
+            | (md2|md3|md5|iqm|obj|smd)load
+            | (md2|md3|md5|iqm|obj|smd)noclip
+            | (md2|md3|md5|iqm|obj|smd)pitch
+            | (md2|md3|md5|iqm|obj|smd)scroll
+            | (md2|md3|md5|iqm|obj|smd)shader
+            | (md2|md3|md5|iqm|obj|smd)skin
+            | (md2|md3|md5|iqm|obj|smd)spec
+            | (md2|md3|md5|iqm|smd)anim
+            | (md5|iqm|smd)adjust
+            | (md5|iqm|smd)animpart
+            | (md5|iqm|smd)pitchcorrect
+            | (md5|iqm|smd)pitchtarget
+            | (md5|iqm|smd)tag
+            | mdlalphablend
+            | mdlalphadepth
+            | mdlalphatest
+            | mdlambient
+            | mdlbb
+            | mdlcollide
+            | mdlcullface
+            | mdldepthoffset
+            | mdlellipsecollide
+            | mdlenvmap
+            | mdlextendbb
+            | mdlfullbright
+            | mdlglare
+            | mdlglow
+            | mdlname
+            | mdlpitch
+            | mdlscale
+            | mdlshader
+            | mdlshadow
+            | mdlspec
+            | mdlspin
+            | mdltrans
+            | mdlyaw
+            )\b
+          scope: support.function.cfg
 
 
-        #####################################################################################
-        #####################################################################################
-        #  Special Variables:
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    BuiltInCommands__Model_Tesseract:
+        - match: |-
+            \b(?x:
+            | mdlalphashadow
+            | mdlcolor
+            | mdldither
+            | mdlgloss
+            | mdlroll
+            | mdltricollide
+            )\b
+          scope: support.function.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    CommonAliases:
+        - match: |-
+            \b(?x:
+            | bindmod
+            | bindvar
+            | bindvarquiet
+            | editbindmod
+            | editbindvar
+            | editbindvarquiet
+            | macro
+            )\b
+          scope: entity.name.function.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    SpecialVariables:
         - match: |-
             \b(?x:
             | arg[0-9]*
@@ -859,7 +1235,9 @@ contexts:
           scope: variable.language.cfg
 
 
-        #  Built-In Variables:
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    BuiltInVariables:
         - match: |-
             \b(?x:
             | aaenvmap
@@ -1523,7 +1901,9 @@ contexts:
           scope: support.function.cfg
 
 
-        #  Built-In Variables -- Tesseract:
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    BuiltInVariables__Tesseract:
         - match: |-
             \b(?x:
             | alphashadow
@@ -1837,240 +2217,4 @@ contexts:
             | zoomsens
             )\b
           scope: support.function.cfg
-
-
-        #####################################################################################
-        #####################################################################################
-        #  Common Aliases:
-        - match: |-
-            \b(?x:
-            | macro
-            | bindmod
-            | bindvar
-            | bindvarquiet
-            | editbindmod
-            | editbindvar
-            | editbindvarquiet
-            )\b
-          scope: entity.name.function.cfg
-
-
-        #  Alias Declaration:
-        - match: |-
-            \b(?x:
-            | alias
-            | local
-            | set
-            )\b
-          scope: storage.type.cfg
-
-
-        #####################################################################################
-        #####################################################################################
-        #  "String":
-        - match: \"
-          scope: punctuation.definition.string.begin.cfg
-          push:
-            - meta_scope: string.quoted.double.cfg
-
-            #  Escape Characters:
-            - match: \^((f{1}[\~0-9]{1})|(.{1}))
-              scope: constant.character.escape.cfg
-
-            #  String Substitution:
-            - match: \%[0-9]+
-              scope: constant.other.placeholder.cfg
-
-            - match: \"
-              scope: punctuation.definition.string.end.cfg
-              pop: true
-
-
-        #####################################################################################
-        #####################################################################################
-        #  {Braces}:
-        - match: (\{|\}){1}
-          scope: punctuation.section.braces.cfg
-
-        #  [Brackets]:
-        - match: (\[|\]){1}
-          scope: punctuation.section.brackets.cfg
-
-        #  (Parentheses):
-        - match: (\(|\)){1}
-          scope: punctuation.section.parens.cfg
-
-
-        ##  {Braces}:
-        #- match: '\{'
-        #  scope: punctuation.section.braces.begin.cfg
-        #  push:
-        #    - meta_scope: meta.braces.cfg
-        #    - match: '\}'
-        #      scope: punctuation.section.braces.end.cfg
-        #      pop: true
-        #
-        ##  [Brackets]:
-        #- match: '\['
-        #  scope: punctuation.section.brackets.begin.cfg
-        #  push:
-        #    - meta_scope: meta.brackets.cfg
-        #    - match: '\]'
-        #      scope: punctuation.section.brackets.end.cfg
-        #      pop: true
-        #
-        ##  (Parentheses):
-        #- match: '\('
-        #  scope: punctuation.section.parens.begin.cfg
-        #  push:
-        #    - meta_scope: meta.parens.cfg
-        #    - match: '\)'
-        #      scope: punctuation.section.parens.end.cfg
-        #      pop: true
-
-
-        #####################################################################################
-        #####################################################################################
-        #  Numbers:
-        #  Hex:
-        - match: \b((0x){1}[0-9a-fA-F]+)\b
-          scope: constant.numeric.integer.hexadecimal.cfg
-
-        #  Float:
-        - match: ((((?<![a-zA-Z\d])\d*)|((?<![a-zA-Z\d])-\d*))(((?<![a-zA-Z\d])-\d{1}\.{1})|((?<![\d])-\.{1}\d{1})|(\d{1}\.{1})|(\.{1}\d{1})){1}\d*)
-          scope: constant.numeric.float.cfg
-
-        #  Integer:
-        - match: ((\b((?![a-zA-Z])\d*)\b)|((?<![a-zA-Z\d])-\d{1}\d*))
-          scope: constant.numeric.integer.cfg
-
-
-        #####################################################################################
-        #####################################################################################
-        #  Operators:
-        - match: |-
-            (?x:
-            | \-f
-            | \+f
-            | \*f
-            | \-
-            | \+
-            | \*
-            )\s
-          scope: keyword.operator.arithmetic.cfg
-
-        - match: |-
-            (?x:
-            | \<\<
-            | \>\>
-            | \^\~
-            | \&\&
-            | \&\~
-            | \|\|
-            | \|\~
-            | \!
-            | \~
-            | \^
-            | \&
-            | \|
-            )\s
-          scope: keyword.operator.bitwise.cfg
-
-        - match: |-
-            (?x:
-            | \!\=f
-            | \!\=s
-            | \<\=f
-            | \<\=s
-            | \>\=f
-            | \>\=s
-            | \=f
-            | \=s
-            | \<f
-            | \<s
-            | \>f
-            | \>s
-            | \!\=
-            | \<\=
-            | \>\=
-            | \=
-            | \<
-            | \>
-            | \?
-            )\s
-          scope: keyword.operator.logical.cfg
-
-        - match: \=
-          scope: keyword.operator.assignment.cfg
-
-        - match: |-
-            (?x:
-            | absf
-            | abs
-            | acos
-            | asin
-            | atan2
-            | atan
-            | ceil
-            | cos
-            | divf
-            | div
-            | exp
-            | floor
-            | loge
-            | log2
-            | log10
-            | maxf
-            | max
-            | minf
-            | min
-            | modf
-            | mod
-            | pow
-            | round
-            | sin
-            | sqrt
-            | tan
-            )\s
-          scope: keyword.operator.word.cfg
-
-
-        #####################################################################################
-        #  String Substitution (these can appear outside of quoted-strings):
-        - match: \%[0-9]+
-          scope: constant.other.placeholder.cfg
-
-
-        #####################################################################################
-        #  Alias Evaluation:
-        - match: (\@|\$)
-          scope: keyword.operator.cfg  # variable.language.cfg
-
-
-        #####################################################################################
-        #  Statement Terminator:
-        - match: \;
-          scope: punctuation.terminator.cfg
-
-
-        #####################################################################################
-        #####################################################################################
-        #  User Aliases:
-        - match: ([\~\`\!\#\%\^\&\*\_\-\=\+\{\}\\\|\:\'\,\<\.\>\?\/A-Za-z]{1}[\~\`\!\#\%\^\&\*\_\-\=\+\{\}\\\|\:\'\,\<\.\>\?\/\@\$\(\[A-Za-z0-9]*)
-          scope: variable.other.readwrite.cfg
-        #
-        #   Alias Naming:
-        #
-        #    >> Valid characters:
-        #
-        #           ~ ` ! # % ^ & * _ - = + { }
-        #           \ | : ' , < . > ? / @ $ ( [
-        #           A-Z   a-z   0-9
-        #
-        #    >> Cannot-ish begin with:
-        #
-        #           0-9  @  $  (  [
-        #
-        #    >> 0-9   must be proceeded by   A-Z a-z   at some point.
-        #
 
