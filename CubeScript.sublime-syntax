@@ -488,6 +488,7 @@ contexts:
             | editbind
             | editface
             | editmat
+            | editmatoffset
             | edittex
             | edittoggle
             | endsp
