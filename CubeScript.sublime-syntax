@@ -14,10 +14,16 @@ contexts:
         - include: Comments
         - include: Keywords
 
-        - include: BuiltInCommands__Model
-        - include: BuiltInCommands__Model_Tesseract
+        - include: Shaders
+
+        - include: BuiltInCommands__Tesseract_UI
+        - include: BuiltInCommands__Tesseract_Model
+        - include: BuiltInCommands__Tesseract           # Put this first to avoid conflicts with similarly named commands inside "BuiltInCommands".
+
+        - include: BuiltInCommands_Model
         - include: BuiltInCommands
-        - include: BuiltInCommands__Tesseract
+
+        - include: BuiltInCommands__RPG
 
         - include: SpecialVariables
 
@@ -88,7 +94,7 @@ contexts:
     #======================================================================================================================================
     UserAliases:
         # ( Bounds Left )
-        # ( Character First )
+        # ( First Character )
         # ( Characters )
         # ( Bounds Right )
         - match: |-
@@ -146,7 +152,10 @@ contexts:
         # Hex:
         - match: |-
             (?x)
-            \b( (0x){1} [0-9a-fA-F]+ )\b
+            \b(
+                (0x){1}
+                [0-9a-fA-F]+
+            )\b
           scope: constant.numeric.integer.hexadecimal.cfg
 
         # Float:
@@ -187,7 +196,7 @@ contexts:
     Operators:
         - match: |-
             (?x)
-            (?<= \( )(
+            (?<= \( | \[ | \s )(
               \-f
             | \+f
             | \*f
@@ -199,7 +208,7 @@ contexts:
 
         - match: |-
             (?x)
-            (?<= \( )(
+            (?<= \( | \[ | \s )(
               \<\<
             | \>\>
             | \^\~
@@ -217,7 +226,7 @@ contexts:
 
         - match: |-
             (?x)
-            (?<= \( )(
+            (?<= \( | \[ | \s )(
               \!\=f
             | \!\=s
             | \<\=f
@@ -240,12 +249,16 @@ contexts:
             )(?= \s | \( | \[ | \{ )
           scope: keyword.operator.logical.cfg
 
-        - match: (?x)(?<= \s )( \= )(?= \s )
+        - match: |-
+            (?x)
+            (?<= \s )
+            ( \= )
+            (?= \s )
           scope: keyword.operator.assignment.cfg
 
         - match: |-
             (?x)
-            (?<= \( )(
+            (?<= \( | \[ | \s )(
               absf
             | abs
             | acos
@@ -279,15 +292,15 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     Sections:
-        # {Braces}:
-        - match: \{
-          scope: punctuation.section.braces.begin.cfg
-          push:
-            - meta_scope: meta.braces.cfg
-            - match: \}
-              scope: punctuation.section.braces.end.cfg
-              pop: true
-            - include: main
+        ## {Braces}:
+        #- match: \{
+        #  scope: punctuation.section.braces.begin.cfg
+        #  push:
+        #    - meta_scope: meta.braces.cfg
+        #    - match: \}
+        #      scope: punctuation.section.braces.end.cfg
+        #      pop: true
+        #    - include: main
 
         # [Brackets]:
         - match: \[
@@ -310,7 +323,7 @@ contexts:
             - include: main
 
         # Strays:
-        - match: \}|\]|\)
+        - match: \]|\)
           scope: invalid.illegal.stray.cfg
 
 
@@ -328,11 +341,19 @@ contexts:
           scope: punctuation.definition.string.begin.cfg
           push:
             - meta_scope: string.quoted.double.cfg
+
             - include: StringSubstitution
             - include: TextureCommands
 
             # Escape Characters:
-            - match: \^((f{1}[\~0-9]{1})|(.{1}))
+            - match: |-
+                (?x)
+                \^
+                (
+                    ( f{1} [\~0-9]{1} )
+                |
+                    ( .{1} )
+                )
               scope: constant.character.escape.cfg
 
             # END
@@ -343,10 +364,11 @@ contexts:
 
     #======================================================================================================================================
     TextureCommands:
-        - match: (?=\<)
+        - match: \<(?=.*\>)(?!\>)
           scope: punctuation.definition.generic.begin.cfg
           push:
             - meta_scope: meta.generic.cfg
+
             - include: Numbers
 
             # The Commands:
@@ -381,7 +403,7 @@ contexts:
               scope: punctuation.separator.cfg
 
             # END
-            - match: (?=\>)
+            - match: (\>|(?=\"))
               scope: punctuation.definition.generic.end.cfg
               pop: true
 
@@ -394,6 +416,25 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
+    Shaders:
+        - match: (?<=^shader|\sshader)
+          push:
+            - include: Numbers
+            - include: Strings
+            - match: (?<=\[)(?=\n)
+              push: Packages/GLSL/GLSL.sublime-syntax
+              with_prototype:
+                - include: AliasEvaluation
+                - match: (?=^\])(?!.*(\[))
+                  pop: true
+            - match: (?<=\])|\n
+              pop: true
+            - match: \[|\]
+              scope: punctuation.section.brackets.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -402,12 +443,12 @@ contexts:
     ###########################################################################################################################################
     BuiltInCommands:
         - match: |-
-            \b(?x:
+            (?x)
+            \b(
               addblendbrush
             | addbot
             | addpostfx
             | addserver
-            | adduser
             | adduser
             | addzip
             | allowthirdperson
@@ -753,21 +794,6 @@ contexts:
             | pushsel
             | pvsstats
             | quit
-            | r_action
-            | r_action_use
-            | r_applydamage
-            | r_contain
-            | r_eff_##n
-            | r_get_##n
-            | r_give
-            | r_model
-            | r_pop
-            | r_quest
-            | r_say
-            | r_spawn
-            | r_swap
-            | r_take
-            | r_use
             | rdanimjoints
             | rdeye
             | rdjoint
@@ -921,12 +947,36 @@ contexts:
             )\b
           scope: support.function.cfg
 
+    #======================================================================================================================================
+    BuiltInCommands__RPG:
+        - match: |-
+            (?x)
+            \b(
+            | r_action
+            | r_action_use
+            | r_applydamage
+            | r_contain
+            | r_eff_##n
+            | r_get_##n
+            | r_give
+            | r_model
+            | r_pop
+            | r_quest
+            | r_say
+            | r_spawn
+            | r_swap
+            | r_take
+            | r_use
+            )\b
+          scope: support.function.cfg
+
 
     ###########################################################################################################################################
     ###########################################################################################################################################
     BuiltInCommands__Tesseract:
         - match: |-
-            \b(?x:
+            (?x)
+            \b(
               applychanges
             | avglum
             | cleareditbinds
@@ -958,45 +1008,28 @@ contexts:
             | getvdetail
             | getvrefract
             | hbrushvert
-            | hideallui
-            | hidetopui
-            | hideui
-            | holdui
             | identexists
             | intermission
             | isdead
             | islagged
-            | listassoc
-            | listassoc\=
-            | listassoc\=f
-            | listassoc\=s
+            | listassoc( \=f | \=s | \= )?
             | listcount
             | listfind\=
             | listfind\=f
             | listfind\=s
             | listintersect
             | listunion
-            | loop\*
-            | loop\+
-            | loop\+\*
-            | loopconcat\*
-            | loopconcat\+
-            | loopconcat\+\*
-            | loopconcatword\*
-            | loopconcatword\+
-            | loopconcatword\+\*
-            | looplist2
-            | looplist3
+            | loop( \* | \+ | \+\* )?
+            | loopconcat( \* | \+ | \+\* )?
+            | loopconcatword( \* | \+ | \+\* )?
+            | looplist[23]
             | loopscoreboard
             | looptexmru
-            | loopwhile\*
-            | loopwhile\+
-            | loopwhile\+\*
+            | loopwhile( \* | \+ | \+\* )?
             | m_pulse
             | m_rail
             | m_timed
             | melee
-            | newui
             | normalizenormalmap
             | numscoreboard
             | numservers
@@ -1041,24 +1074,39 @@ contexts:
             | servinfovalid
             | settex
             | shoot
-            | showui
             | texdetail
             | texgrass
             | texmru
             | texrefract
-            | toggleui
             | tohex
+            | uniquelist
+            | usepacknorm
+            | vdetail
+            | vrefract
+            | writecollideobj
+            )\s
+          scope: support.function.cfg
+
+
+    #======================================================================================================================================
+    BuiltInCommands__Tesseract_UI:
+        - match: |-
+            (?x)
+            \b(
+              hideallui
+            | hidetopui
+            | hideui
+            | holdui
+            | newui
+            | showui
+            | toggleui
             | uiabovehud
-            | uialign
-            | uialign\*
-            | uialign\-
+            | uialign( \* | \- )?
             | uiallowinput
             | uiborderedimage
             | uicircle
             | uicircleoutline
-            | uiclamp
-            | uiclamp\*
-            | uiclamp\-
+            | uiclamp( \* | \- )?
             | uiclip
             | uicolor
             | uicolorcontext
@@ -1071,10 +1119,7 @@ contexts:
             | uieschide
             | uifield
             | uifill
-            | uifocus
-            | uifocus\+
-            | uifocus\+\?
-            | uifocus\?
+            | uifocus( \+ | \+\? | \? )?
             | uifont
             | uigrid
             | uigroup
@@ -1127,38 +1172,46 @@ contexts:
             | uiwrapcolortext
             | uiwrapcontext
             | uiwraptext
-            | uniquelist
-            | usepacknorm
-            | vdetail
-            | vrefract
-            | writecollideobj
-            )\b
+            | ui (\!)? althold      ( \+ | \+\? | \? )?
+            | ui (\!)? altpress     ( \+ | \+\? | \? )?
+            | ui (\!)? altrelease   ( \+ | \+\? | \? )?
+            | ui (\!)? eschold      ( \+ | \+\? | \? )?
+            | ui (\!)? escpress     ( \+ | \+\? | \? )?
+            | ui (\!)? escrelease   ( \+ | \+\? | \? )?
+            | ui (\!)? hold         ( \+ | \+\? | \? )?
+            | ui (\!)? hover        ( \+ | \+\? | \? )?
+            | ui (\!)? press        ( \+ | \+\? | \? )?
+            | ui (\!)? release      ( \+ | \+\? | \? )?
+            | ui (\!)? scrolldown   ( \+ | \+\? | \? )?
+            | ui (\!)? scrollup     ( \+ | \+\? | \? )?
+            )\s
           scope: support.function.cfg
 
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    BuiltInCommands__Model:
+    BuiltInCommands_Model:
         - match: |-
-            \b(?x:
-              (md2|md3|md5|iqm|obj|smd)alphablend
-            | (md2|md3|md5|iqm|obj|smd)alphatest
-            | (md2|md3|md5|iqm|obj|smd)ambient
-            | (md2|md3|md5|iqm|obj|smd)bumpmap
-            | (md2|md3|md5|iqm|obj|smd)cullface
-            | (md2|md3|md5|iqm|obj|smd)dir
-            | (md2|md3|md5|iqm|obj|smd)envmap
-            | (md2|md3|md5|iqm|obj|smd)fullbright
-            | (md2|md3|md5|iqm|obj|smd)glare
-            | (md2|md3|md5|iqm|obj|smd)glow
-            | (md2|md3|md5|iqm|obj|smd)link
-            | (md2|md3|md5|iqm|obj|smd)load
-            | (md2|md3|md5|iqm|obj|smd)noclip
-            | (md2|md3|md5|iqm|obj|smd)pitch
-            | (md2|md3|md5|iqm|obj|smd)scroll
-            | (md2|md3|md5|iqm|obj|smd)shader
-            | (md2|md3|md5|iqm|obj|smd)skin
-            | (md2|md3|md5|iqm|obj|smd)spec
+            (?x)
+            \b(
+              (md2|md3|md5|iqm|smd|obj)alphablend
+            | (md2|md3|md5|iqm|smd|obj)alphatest
+            | (md2|md3|md5|iqm|smd|obj)ambient
+            | (md2|md3|md5|iqm|smd|obj)bumpmap
+            | (md2|md3|md5|iqm|smd|obj)cullface
+            | (md2|md3|md5|iqm|smd|obj)dir
+            | (md2|md3|md5|iqm|smd|obj)envmap
+            | (md2|md3|md5|iqm|smd|obj)fullbright
+            | (md2|md3|md5|iqm|smd|obj)glare
+            | (md2|md3|md5|iqm|smd|obj)glow
+            | (md2|md3|md5|iqm|smd|obj)link
+            | (md2|md3|md5|iqm|smd|obj)load
+            | (md2|md3|md5|iqm|smd|obj)noclip
+            | (md2|md3|md5|iqm|smd|obj)pitch
+            | (md2|md3|md5|iqm|smd|obj)scroll
+            | (md2|md3|md5|iqm|smd|obj)shader
+            | (md2|md3|md5|iqm|smd|obj)skin
+            | (md2|md3|md5|iqm|smd|obj)spec
             | (md2|md3|md5|iqm|smd)anim
             | (md5|iqm|smd)adjust
             | (md5|iqm|smd)animpart
@@ -1192,11 +1245,11 @@ contexts:
           scope: support.function.cfg
 
 
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    BuiltInCommands__Model_Tesseract:
+    #======================================================================================================================================
+    BuiltInCommands__Tesseract_Model:
         - match: |-
-            \b(?x:
+            (?x)
+            \b(
               mdlalphashadow
             | mdlcolor
             | mdldither
@@ -1217,7 +1270,8 @@ contexts:
     ###########################################################################################################################################
     CommonAliases:
         - match: |-
-            \b(?x:
+            (?x)
+            \b(
               bindmod
             | bindvar
             | bindvarquiet
@@ -1233,7 +1287,8 @@ contexts:
     ###########################################################################################################################################
     SpecialVariables:
         - match: |-
-            \b(?x:
+            (?x)
+            \b(
               arg[0-9]*
             | numargs
             )\b
@@ -1244,7 +1299,8 @@ contexts:
     ###########################################################################################################################################
     BuiltInVariables:
         - match: |-
-            \b(?x:
+            (?x)
+            \b(
               aaenvmap
             | adaptivesample
             | adminpass
@@ -1487,9 +1543,7 @@ contexts:
             | glaremod
             | glarescale
             | glaresize
-            | glass[1-4]?color
-            | glass[1-4]?colour
-            | glass[1-4]?
+            | glass [1-4]? ( color | colour )?
             | glassenv
             | glcompat
             | glslversion
@@ -1550,10 +1604,7 @@ contexts:
             | invmouse
             | jumpspawn
             | killsendsp
-            | lava[1-4]?color
-            | lava[1-4]?colour
-            | lava[1-4]?fog
-            | lava[1-4]?
+            | lava [1-4]? ( color | colour | fog )?
             | lerpangle
             | lerpsubdiv
             | lerpsubdivsize
@@ -1874,13 +1925,7 @@ contexts:
             | wallclock
             | wallclock24
             | wallclocksecs
-            | water[1-4]?color
-            | water[1-4]?colour
-            | water[1-4]?fallcolor
-            | water[1-4]?fallcolour
-            | water[1-4]?fog
-            | water[1-4]?spec
-            | water[1-4]?
+            | water [1-4]? ( color | colour | fallcolor | fallcolour | fog | spec )?
             | waterenvmap
             | waterfade
             | waterfallenv
@@ -1910,7 +1955,8 @@ contexts:
     ###########################################################################################################################################
     BuiltInVariables__Tesseract:
         - match: |-
-            \b(?x:
+            (?x)
+            \b(
               alphashadow
             | alphashadowscale
             | ambientscale
@@ -2029,8 +2075,7 @@ contexts:
             | giaoscale
             | gidist
             | giscale
-            | glass[1-4]?refract
-            | glass[1-4]?spec
+            | glass [1-4]? ( refract | spec )
             | glerr
             | glineardepth
             | grasstest
@@ -2054,9 +2099,7 @@ contexts:
             | hwtexunits
             | hwvtexunits
             | intel_texalpha_bug
-            | lava[1-4]?glowmax
-            | lava[1-4]?glowmin
-            | lava[1-4]?spec
+            | lava [1-4]? ( glowmin | glowmax | spec )
             | lightbatches
             | lightbatchrects
             | lightbatchstacks
@@ -2222,14 +2265,7 @@ contexts:
             | volscale
             | volsteps
             | volumetric
-            | water[1-4]?deep
-            | water[1-4]?deepcolour
-            | water[1-4]?deepfade
-            | water[1-4]?fallrefract
-            | water[1-4]?fallrefractcolour
-            | water[1-4]?fallspec
-            | water[1-4]?refract
-            | water[1-4]?refractcolour
+            | water [1-4]? ( deep | deepcolour | deepfade | fallrefract | fallrefractcolour | fallspec | refract | refractcolour )
             | waterreflectstep
             | zoomsens
             )\b
