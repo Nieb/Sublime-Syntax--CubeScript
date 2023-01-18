@@ -18,25 +18,26 @@ contexts:
 
         - include: BuiltInCommands__Tesseract_UI
         - include: BuiltInCommands__Tesseract_Model
-        - include: BuiltInCommands__Tesseract           # Put this first to avoid conflicts with similarly named commands inside "BuiltInCommands".
-
-        - include: BuiltInCommands_Model
-        - include: BuiltInCommands
-
+        - include: BuiltInCommands__Tesseract           # Put this first to avoid conflicts with similarly named commands inside "BuiltInCommands__Sauerbraten".
+        - include: BuiltInCommands__Sauerbraten_Model
+        - include: BuiltInCommands__Sauerbraten
         - include: BuiltInCommands__RPG
 
         - include: SpecialVariables
-
-        - include: BuiltInVariables
         - include: BuiltInVariables__Tesseract
+        - include: BuiltInVariables__Sauerbraten
 
         - include: CommonAliases
         - include: AliasDeclaration
 
-        - include: Sections
+        - include: Section_Brackets
+        - include: Section_Parentheses
+        - include: Section_Strays
         - include: Strings
         #- include: TextureCommands          # These can appear outside of quoted-strings.
-        - include: Numbers
+        - include: Numbers_Float
+        - include: Numbers_Hex
+        - include: Numbers_Integer
         - include: Operators
         - include: StringSubstitution       # These can appear outside of quoted-strings.
         - include: AliasEvaluation
@@ -148,17 +149,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    Numbers:
-        # Hex:
-        - match: |-
-            (?x)
-            \b(
-                (0x){1}
-                [0-9a-fA-F]+
-            )\b
-          scope: constant.numeric.integer.hexadecimal.cfg
-
-        # Float:
+    Numbers_Float:
         - match: |-
             (?x)
             (
@@ -180,7 +171,21 @@ contexts:
             )
           scope: constant.numeric.float.cfg
 
-        # Integer:
+
+    #======================================================================================================================================
+    Numbers_Hex:
+        # Hex:
+        - match: |-
+            (?x)
+            \b(
+                (0x){1}
+                [0-9a-fA-F]+
+            )\b
+          scope: constant.numeric.integer.hexadecimal.cfg
+
+
+    #======================================================================================================================================
+    Numbers_Integer:
         - match: |-
             (?x)
             (
@@ -206,6 +211,7 @@ contexts:
             )(?= \s | \( | \[ | \{ )
           scope: keyword.operator.arithmetic.cfg
 
+    #======================================================================================================================================
         - match: |-
             (?x)
             (?<= \( | \[ | \s )(
@@ -224,6 +230,7 @@ contexts:
             )(?= \s | \( | \[ | \{ )
           scope: keyword.operator.bitwise.cfg
 
+    #======================================================================================================================================
         - match: |-
             (?x)
             (?<= \( | \[ | \s )(
@@ -249,6 +256,7 @@ contexts:
             )(?= \s | \( | \[ | \{ )
           scope: keyword.operator.logical.cfg
 
+    #======================================================================================================================================
         - match: |-
             (?x)
             (?<= \s )
@@ -256,6 +264,7 @@ contexts:
             (?= \s )
           scope: keyword.operator.assignment.cfg
 
+    #======================================================================================================================================
         - match: |-
             (?x)
             (?<= \( | \[ | \s )(
@@ -291,38 +300,33 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    Sections:
-        ## {Braces}:
-        #- match: \{
-        #  scope: punctuation.section.braces.begin.cfg
-        #  push:
-        #    - meta_scope: meta.braces.cfg
-        #    - match: \}
-        #      scope: punctuation.section.braces.end.cfg
-        #      pop: true
-        #    - include: main
-
-        # [Brackets]:
+    Section_Brackets:
         - match: \[
           scope: punctuation.section.brackets.begin.cfg
           push:
             - meta_scope: meta.brackets.cfg
+
             - match: \]
               scope: punctuation.section.brackets.end.cfg
               pop: true
+
             - include: main
 
-        # (Parentheses):
+    #======================================================================================================================================
+    Section_Parentheses:
         - match: \(
           scope: punctuation.section.parens.begin.cfg
           push:
             - meta_scope: meta.parens.cfg
+
             - match: \)
               scope: punctuation.section.parens.end.cfg
               pop: true
+
             - include: main
 
-        # Strays:
+    #======================================================================================================================================
+    Section_Strays:
         - match: \]|\)
           scope: invalid.illegal.stray.cfg
 
@@ -347,16 +351,26 @@ contexts:
 
             # Escape Characters:
             - match: |-
-                (?x)
-                \^
-                (
-                    ( f{1} [\~0-9]{1} )
-                |
-                    ( .{1} )
+                (?x)(
+                  ( \^  f [\~0-9]{1} )
+                | ( \^  n            )
+                | ( \^  t            )
+                | ( \^ \"            )
+                | ( \^ \^            )
                 )
               scope: constant.character.escape.cfg
+            #- match: |-
+            #    (?x)(
+            #    | ( \^  f [\~0-9]{1} )
+            #    | ( \^  n            )
+            #    | ( \^  t            )
+            #    | ( \^ \"            )
+            #    | ( \^ \^            )
+            #    )
+            #  scope: constant.character.escape.cfg
 
-            # END
+
+            # END--Strings
             - match: \"
               scope: punctuation.definition.string.end.cfg
               pop: true
@@ -365,15 +379,18 @@ contexts:
     #======================================================================================================================================
     TextureCommands:
         - match: \<(?=.*\>)(?!\>)
-          scope: punctuation.definition.generic.begin.cfg
+          scope: punctuation.section.begin.cfg
           push:
             - meta_scope: meta.generic.cfg
 
-            - include: Numbers
+            - include: Numbers_Float
+            - include: Numbers_Hex
+            - include: Numbers_Integer
 
             # The Commands:
             - match: |-
-                \b(?x:
+                (?x)
+                \b(
                   agrad
                 | blend
                 | blur
@@ -402,9 +419,9 @@ contexts:
             - match: (\:|\,|\/)
               scope: punctuation.separator.cfg
 
-            # END
+            # END--TextureCommands
             - match: (\>|(?=\"))
-              scope: punctuation.definition.generic.end.cfg
+              scope: punctuation.section.end.cfg
               pop: true
 
 
@@ -417,20 +434,39 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     Shaders:
-        - match: (?<=^shader|\sshader)
+        - match: (?<=^shader|\sshader|^variantshader|\svariantshader)
           push:
-            - include: Numbers
+            #  Cover the gap between "shader" and "[".
+            - include: AliasEvaluation
+            - include: Numbers_Float
+            - include: Numbers_Hex
+            - include: Numbers_Integer
+            - include: Operators
+            - include: SpecialVariables
+            - include: StatementTerminator
             - include: Strings
-            - match: (?<=\[)(?=\n)
+            - include: UserAliases
+
+            # BEGIN--GLSL
+            - match: (?<=\[)(?=\s*\n)
               push: Packages/GLSL/GLSL.sublime-syntax
               with_prototype:
                 - include: AliasEvaluation
-                - match: (?=^\])(?!.*(\[))
+
+                #  This is typically the separation between Vertex & Fragment sections.
+                - match: (^\s*\]\s*\[)(?=\s*\n)
+                  scope: punctuation.section.cfg  # constant.other.placeholder.cfg
+
+                # END--GLSL
+                - match: (?=^\])(?!.*\[) #(?=\s*\n)
                   pop: true
+
+            # END--Shaders
             - match: (?<=\])|\n
               pop: true
-            - match: \[|\]
-              scope: punctuation.section.brackets.cfg
+
+            - match: \[|\]|\(|\)
+              scope: punctuation.section.cfg
 
 
     ###########################################################################################################################################
@@ -441,7 +477,7 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
-    BuiltInCommands:
+    BuiltInCommands__Sauerbraten:
         - match: |-
             (?x)
             \b(
@@ -484,7 +520,6 @@ contexts:
             | clearbrush
             | clearconsole
             | cleardemos
-            | cleargui
             | clearipbans
             | clearlightmaps
             | clearmodel
@@ -492,7 +527,6 @@ contexts:
             | clearpvs
             | clearservers
             | clearsleep
-            | cleartexgui
             | clearundos
             | clearusers
             | clearwaypoints
@@ -631,41 +665,9 @@ contexts:
             | glext
             | goto
             | gotosel
-            | guialign
-            | guibar
-            | guibitfield
-            | guibutton
-            | guicheckbox
-            | guicolor
-            | guicolumn
-            | guieditor
-            | guifield
-            | guiimage
-            | guikeeptab
-            | guikeyfield
-            | guilist
-            | guilistslider
-            | guimerge
-            | guimodelpreview
-            | guinameslider
-            | guinoautotab
-            | guionclear
-            | guiplayerpreview
-            | guiprefabpreview
-            | guiradio
-            | guiservers
-            | guislider
-            | guispring
-            | guistayopen
-            | guistrut
-            | guitab
-            | guitext
-            | guitextbox
-            | guititle
             | hasauthkey
             | hashpwd
             | havesel
-            | hidegui
             | history
             | hmapcancel
             | hmapselect
@@ -676,8 +678,8 @@ contexts:
             | inputcommand
             | insel
             | insidebases
-            | invertblendmap
             | invertblendmapsel
+            | invertblendmap
             | ipban
             | isadmin
             | isai
@@ -732,7 +734,6 @@ contexts:
             | m_sp
             | m_tactics
             | m_teammode
-            | map
             | mapcfgname
             | mapenlarge
             | mapmodel
@@ -745,6 +746,7 @@ contexts:
             | maprotationreset
             | mapsound
             | mapsoundreset
+            | map
             | mastermode
             | mastermodename
             | materialreset
@@ -755,15 +757,14 @@ contexts:
             | moveblendmap
             | movesel
             | movewaypoints
-            | movie
             | movierecording
+            | movie
             | moving
             | music
             | name
             | naturalsort
             | nearestent
             | newent
-            | newgui
             | newmap
             | nextblendbrush
             | nextfollow
@@ -789,8 +790,8 @@ contexts:
             | prettylist
             | printcube
             | printvar
-            | push
             | pushif
+            | push
             | pushsel
             | pvsstats
             | quit
@@ -811,8 +812,10 @@ contexts:
             | removezip
             | reorient
             | repammo
-            | replace
+            | replacetexsel
+            | replacetex
             | replacesel
+            | replace
             | resetgl
             | resetsound
             | resetvar
@@ -858,10 +861,7 @@ contexts:
             | setweapon
             | shader
             | showblendmap
-            | showgui
-            | showplayergui
             | showscores
-            | showtexgui
             | shrinkmap
             | sleep
             | smoothangle
@@ -947,12 +947,60 @@ contexts:
             )\b
           scope: support.function.cfg
 
+
+    #======================================================================================================================================
+    BuiltInCommands__Sauerbraten_GUI:
+        - match: |-
+            (?x)
+            \b(
+            | cleargui
+            | cleartexgui
+            | guialign
+            | guibar
+            | guibitfield
+            | guibutton
+            | guicheckbox
+            | guicolor
+            | guicolumn
+            | guieditor
+            | guifield
+            | guiimage
+            | guikeeptab
+            | guikeyfield
+            | guilist
+            | guilistslider
+            | guimerge
+            | guimodelpreview
+            | guinameslider
+            | guinoautotab
+            | guionclear
+            | guiplayerpreview
+            | guiprefabpreview
+            | guiradio
+            | guiservers
+            | guislider
+            | guispring
+            | guistayopen
+            | guistrut
+            | guitab
+            | guitext
+            | guitextbox
+            | guititle
+            | hidegui
+            | newgui
+            | showgui
+            | showplayergui
+            | showtexgui
+            )\b
+          scope: support.function.cfg
+
+
     #======================================================================================================================================
     BuiltInCommands__RPG:
         - match: |-
             (?x)
             \b(
-            | r_action
+              r_action
             | r_action_use
             | r_applydamage
             | r_contain
@@ -1190,7 +1238,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    BuiltInCommands_Model:
+    BuiltInCommands__Sauerbraten_Model:
         - match: |-
             (?x)
             \b(
@@ -1297,7 +1345,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    BuiltInVariables:
+    BuiltInVariables__Sauerbraten:
         - match: |-
             (?x)
             \b(
