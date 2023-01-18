@@ -10,7 +10,7 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     main:
-        # Order of includes is important.
+        #  Order of includes is important.
         - include: Comments
         - include: Keywords
 
@@ -18,7 +18,7 @@ contexts:
 
         - include: BuiltInCommands__Tesseract_UI
         - include: BuiltInCommands__Tesseract_Model
-        - include: BuiltInCommands__Tesseract           # Put this first to avoid conflicts with similarly named commands inside "BuiltInCommands__Sauerbraten".
+        - include: BuiltInCommands__Tesseract           #  Put these first to avoid conflicts with similarly named commands inside "BuiltInCommands__Sauerbraten".
         - include: BuiltInCommands__Sauerbraten_Model
         - include: BuiltInCommands__Sauerbraten_GUI
         - include: BuiltInCommands__Sauerbraten
@@ -35,7 +35,7 @@ contexts:
         - include: Section_Parentheses
         - include: Section_Strays
         - include: Strings
-        #- include: TextureCommands                 # These can appear outside of quoted-strings.
+        #- include: TextureCommands      #############  These can appear outside of quoted-strings.
         - include: Numbers_Float
         - include: Numbers_Hex
         - include: Numbers_Integer
@@ -46,7 +46,7 @@ contexts:
         - include: Operators_Word
         #- include: Operators_Indiscriminate
         #- include: Operators_Indiscriminate_Word
-        - include: StringSubstitution               # These can appear outside of quoted-strings.
+        - include: StringSubstitution   #############  These can appear outside of quoted-strings.
         - include: AliasEvaluation
         - include: StatementTerminator
 
@@ -57,7 +57,6 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
-    #======================================================================================================================================
     #
     #   'Variables', 'DataTypes', 'Arrays', 'Strings', 'Functions', etc.
     #   have no distinction, they are all an 'Alias'.
@@ -101,10 +100,10 @@ contexts:
 
     #======================================================================================================================================
     UserAliases:
-        # ( Bounds Left )
-        # ( First Character )
-        # ( Characters )
-        # ( Bounds Right )
+        #  ( Bounds Left )
+        #  ( First Character )
+        #  ( Characters )
+        #  ( Bounds Right )
         - match: |-
             (?x)
             (?<=
@@ -124,7 +123,6 @@ contexts:
           scope: variable.other.readwrite.cfg
 
 
-    #======================================================================================================================================
     ###########################################################################################################################################
     ###########################################################################################################################################
     Comments:
@@ -181,7 +179,6 @@ contexts:
 
     #======================================================================================================================================
     Numbers_Hex:
-        # Hex:
         - match: |-
             (?x)
             \b(
@@ -220,6 +217,7 @@ contexts:
             (?= \s )
           scope: keyword.operator.arithmetic.cfg
 
+
     #======================================================================================================================================
     Operators_Bitwise:
         - match: |-
@@ -241,6 +239,7 @@ contexts:
             )
             (?= \s )
           scope: keyword.operator.bitwise.cfg
+
 
     #======================================================================================================================================
     Operators_Logical:
@@ -271,6 +270,7 @@ contexts:
             (?= \s )
           scope: keyword.operator.logical.cfg
 
+
     #======================================================================================================================================
     Operators_Assignment:
         - match: |-
@@ -279,6 +279,7 @@ contexts:
             ( \= )
             (?= \s )
           scope: keyword.operator.assignment.cfg
+
 
     #======================================================================================================================================
     Operators_Word:
@@ -314,6 +315,7 @@ contexts:
             )
             (?= \s )
           scope: keyword.operator.word.cfg
+
 
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -370,7 +372,7 @@ contexts:
             | \~
             )+
             [fs]?
-          scope: keyword.operator.logical.cfg
+          scope: keyword.operator.cfg
 
 
     ###########################################################################################################################################
@@ -387,6 +389,7 @@ contexts:
 
             - include: main
 
+
     #======================================================================================================================================
     Section_Parentheses:
         - match: \(
@@ -399,6 +402,7 @@ contexts:
               pop: true
 
             - include: main
+
 
     #======================================================================================================================================
     Section_Strays:
@@ -424,7 +428,7 @@ contexts:
             - include: StringSubstitution
             - include: TextureCommands
 
-            # Escape Characters:
+            #  Escape Characters:
             - match: |-
                 (?x)
                 (
@@ -436,17 +440,24 @@ contexts:
                 )
               scope: constant.character.escape.cfg
 
-            # Invalid Escape Characters:
+            #  Invalid Escape Characters:
             - match: (\^.)
               scope: invalid.illegal.character.cfg
 
-            # END--Strings
+            #  END--Strings
             - match: \"
               scope: punctuation.definition.string.end.cfg
               pop: true
 
 
     #======================================================================================================================================
+    StringSubstitution:
+        - match: \%[0-9]+
+          scope: constant.other.placeholder.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
     TextureCommands:
         - match: \<(?=.*\>)(?!\>)
           scope: punctuation.section.begin.cfg
@@ -457,7 +468,7 @@ contexts:
             - include: Numbers_Hex
             - include: Numbers_Integer
 
-            # The Commands:
+            #  The Commands:
             - match: |-
                 (?x)
                 \b(
@@ -485,20 +496,14 @@ contexts:
                 ){1}\b
               scope: keyword.operator.function.cfg   # keyword.operator.word.cfg  support.function.cfg  entity.name.function.cfg
 
-            # Separators:
+            #  Separators:
             - match: (\:|\,|\/)
               scope: punctuation.separator.cfg
 
-            # END--TextureCommands
+            #  END--TextureCommands
             - match: (\>|(?=\"))
               scope: punctuation.section.end.cfg
               pop: true
-
-
-    #======================================================================================================================================
-    StringSubstitution:
-        - match: \%[0-9]+
-          scope: constant.other.placeholder.cfg
 
 
     ###########################################################################################################################################
@@ -517,7 +522,7 @@ contexts:
             - include: Strings
             - include: UserAliases
 
-            # BEGIN--GLSL
+            #  BEGIN--GLSL
             - match: (?<=\[)(?=\s*\n)
               push: Packages/GLSL/GLSL.sublime-syntax
               with_prototype:
@@ -527,11 +532,11 @@ contexts:
                 - match: (^\s*\]\s*\[)(?=\s*\n)
                   scope: punctuation.section.cfg  # constant.other.placeholder.cfg
 
-                # END--GLSL
+                #  END--GLSL
                 - match: (?=^\])(?!.*\[) #(?=\s*\n)
                   pop: true
 
-            # END--Shaders
+            #  END--Shaders
             - match: (?<=\])|\n
               pop: true
 
