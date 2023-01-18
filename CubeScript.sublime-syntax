@@ -205,7 +205,7 @@ contexts:
     Operators_Arithmetic:
         - match: |-
             (?x)
-            (?<= \( | \[ | \s )
+            (?<= \( | \[ | \(\s | \[\s )
             (
               \-f
             | \+f
@@ -222,7 +222,7 @@ contexts:
     Operators_Bitwise:
         - match: |-
             (?x)
-            (?<= \( | \[ | \s )
+            (?<= \( | \[ | \(\s | \[\s )
             (
               \<\<
             | \>\>
@@ -245,7 +245,7 @@ contexts:
     Operators_Logical:
         - match: |-
             (?x)
-            (?<= \( | \[ | \s )
+            (?<= \( | \[ | \(\s | \[\s )
             (
               \!\=f
             | \!\=s
@@ -277,7 +277,7 @@ contexts:
             (?x)
             (?<= \s )
             ( \= )
-            (?= \s )
+            (?=  \s )
           scope: keyword.operator.assignment.cfg
 
 
@@ -285,7 +285,8 @@ contexts:
     Operators_Word:
         - match: |-
             (?x)
-            (?<= \( | \[ | \s )(
+            (?<= \( | \[ | \(\s | \[\s )
+            (
               absf
             | abs
             | acos
@@ -516,7 +517,11 @@ contexts:
             - include: Numbers_Float
             - include: Numbers_Hex
             - include: Numbers_Integer
-            - include: Operators
+            - include: Operators_Arithmetic
+            - include: Operators_Bitwise
+            - include: Operators_Logical
+            - include: Operators_Assignment
+            - include: Operators_Word
             - include: SpecialVariables
             - include: StatementTerminator
             - include: Strings
