@@ -20,6 +20,7 @@ contexts:
         - include: BuiltInCommands__Tesseract_Model
         - include: BuiltInCommands__Tesseract           # Put this first to avoid conflicts with similarly named commands inside "BuiltInCommands__Sauerbraten".
         - include: BuiltInCommands__Sauerbraten_Model
+        - include: BuiltInCommands__Sauerbraten_GUI
         - include: BuiltInCommands__Sauerbraten
         - include: BuiltInCommands__RPG
 
