@@ -35,12 +35,18 @@ contexts:
         - include: Section_Parentheses
         - include: Section_Strays
         - include: Strings
-        #- include: TextureCommands          # These can appear outside of quoted-strings.
+        #- include: TextureCommands                 # These can appear outside of quoted-strings.
         - include: Numbers_Float
         - include: Numbers_Hex
         - include: Numbers_Integer
-        - include: Operators
-        - include: StringSubstitution       # These can appear outside of quoted-strings.
+        - include: Operators_Arithmetic
+        - include: Operators_Bitwise
+        - include: Operators_Logical
+        - include: Operators_Assignment
+        - include: Operators_Word
+        #- include: Operators_Indiscriminate
+        #- include: Operators_Indiscriminate_Word
+        - include: StringSubstitution               # These can appear outside of quoted-strings.
         - include: AliasEvaluation
         - include: StatementTerminator
 
@@ -199,23 +205,27 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    Operators:
+    Operators_Arithmetic:
         - match: |-
             (?x)
-            (?<= \( | \[ | \s )(
+            (?<= \( | \[ | \s )
+            (
               \-f
             | \+f
             | \*f
             | \-
             | \+
             | \*
-            )(?= \s | \( | \[ | \{ )
+            )
+            (?= \s )
           scope: keyword.operator.arithmetic.cfg
 
     #======================================================================================================================================
+    Operators_Bitwise:
         - match: |-
             (?x)
-            (?<= \( | \[ | \s )(
+            (?<= \( | \[ | \s )
+            (
               \<\<
             | \>\>
             | \^\~
@@ -228,13 +238,16 @@ contexts:
             | \^
             | \&
             | \|
-            )(?= \s | \( | \[ | \{ )
+            )
+            (?= \s )
           scope: keyword.operator.bitwise.cfg
 
     #======================================================================================================================================
+    Operators_Logical:
         - match: |-
             (?x)
-            (?<= \( | \[ | \s )(
+            (?<= \( | \[ | \s )
+            (
               \!\=f
             | \!\=s
             | \<\=f
@@ -254,10 +267,12 @@ contexts:
             | \<
             | \>
             | \?
-            )(?= \s | \( | \[ | \{ )
+            )
+            (?= \s )
           scope: keyword.operator.logical.cfg
 
     #======================================================================================================================================
+    Operators_Assignment:
         - match: |-
             (?x)
             (?<= \s )
@@ -266,6 +281,7 @@ contexts:
           scope: keyword.operator.assignment.cfg
 
     #======================================================================================================================================
+    Operators_Word:
         - match: |-
             (?x)
             (?<= \( | \[ | \s )(
@@ -295,8 +311,66 @@ contexts:
             | sin
             | sqrt
             | tan
-            )(?= \s | \( | \[ | \{ )
+            )
+            (?= \s )
           scope: keyword.operator.word.cfg
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    Operators_Indiscriminate_Word:
+        - match: |-
+            (?x)
+            (
+              absf
+            | abs
+            | acos
+            | asin
+            | atan2
+            | atan
+            | ceil
+            | cos
+            | divf
+            | div
+            | exp
+            | floor
+            | loge
+            | log2
+            | log10
+            | maxf
+            | max
+            | minf
+            | min
+            | modf
+            | mod
+            | pow
+            | round
+            | sin
+            | sqrt
+            | tan
+            )
+          scope: keyword.operator.word.cfg
+
+
+    #======================================================================================================================================
+    Operators_Indiscriminate:
+        - match: |-
+            (?x)
+            (
+              \!
+            | \&
+            | \*
+            | \+
+            | \-
+            | \<
+            | \=
+            | \>
+            | \?
+            | \^
+            | \|
+            | \~
+            )+
+            [fs]?
+          scope: keyword.operator.logical.cfg
 
 
     ###########################################################################################################################################
