@@ -351,7 +351,8 @@ contexts:
 
             # Escape Characters:
             - match: |-
-                (?x)(
+                (?x)
+                (
                   ( \^  f [\~0-9]{1} )
                 | ( \^  n            )
                 | ( \^  t            )
@@ -359,16 +360,10 @@ contexts:
                 | ( \^ \^            )
                 )
               scope: constant.character.escape.cfg
-            #- match: |-
-            #    (?x)(
-            #    | ( \^  f [\~0-9]{1} )
-            #    | ( \^  n            )
-            #    | ( \^  t            )
-            #    | ( \^ \"            )
-            #    | ( \^ \^            )
-            #    )
-            #  scope: constant.character.escape.cfg
 
+            # Invalid Escape Characters:
+            - match: (\^.)
+              scope: invalid.illegal.character.cfg
 
             # END--Strings
             - match: \"
