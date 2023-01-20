@@ -16,17 +16,16 @@ contexts:
 
         - include: Shaders
 
+        - include: SpecialVariables
         - include: BuiltInCommands__Tesseract_UI
         - include: BuiltInCommands__Tesseract_Model
         - include: BuiltInCommands__Tesseract           #  Put these first to avoid conflicts with similarly named commands inside "BuiltInCommands__Sauerbraten".
+        - include: BuiltInVariables__Tesseract
         - include: BuiltInCommands__Sauerbraten_Model
         - include: BuiltInCommands__Sauerbraten_GUI
         - include: BuiltInCommands__Sauerbraten
-        - include: BuiltInCommands__RPG
-
-        - include: SpecialVariables
-        - include: BuiltInVariables__Tesseract
         - include: BuiltInVariables__Sauerbraten
+        - include: BuiltInCommands__RPG
 
         - include: CommonAliases
         - include: AliasDeclaration
