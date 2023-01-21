@@ -16,15 +16,13 @@ contexts:
 
         - include: Shaders
 
-        - include: SpecialVariables
+        - include: BuiltInVariables
         - include: BuiltInCommands__Tesseract_UI
         - include: BuiltInCommands__Tesseract_Model
         - include: BuiltInCommands__Tesseract           #  Put these first to avoid conflicts with similarly named commands inside "BuiltInCommands__Sauerbraten".
-        - include: BuiltInVariables__Tesseract
-        - include: BuiltInCommands__Sauerbraten_Model
         - include: BuiltInCommands__Sauerbraten_GUI
+        - include: BuiltInCommands__Sauerbraten_Model
         - include: BuiltInCommands__Sauerbraten
-        - include: BuiltInVariables__Sauerbraten
         - include: BuiltInCommands__RPG
 
         - include: CommonAliases
@@ -83,7 +81,8 @@ contexts:
     #======================================================================================================================================
     AliasDeclaration:
         - match: |-
-            \b(?x:
+            (?x)
+            \b(
               alias
             | local
             | set
@@ -521,7 +520,7 @@ contexts:
             - include: Operators_Logical
             - include: Operators_Assignment
             - include: Operators_Word
-            - include: SpecialVariables
+            - include: BuiltInVariables
             - include: StatementTerminator
             - include: Strings
             - include: UserAliases
@@ -534,7 +533,7 @@ contexts:
 
                 #  This is typically the separation between Vertex & Fragment sections.
                 - match: (^\s*\]\s*\[)(?=\s*\n)
-                  scope: punctuation.section.cfg  # constant.other.placeholder.cfg
+                  scope: punctuation.section.cfg  # constant.other.placeholder.cfg #
 
                 #  END--GLSL
                 - match: (?=^\])(?!.*\[) #(?=\s*\n)
@@ -556,42 +555,166 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
+    CommonAliases:
+        - match: |-
+            (?x)
+            \b(
+              bindmod
+            | bindvar
+            | bindvarquiet
+            | editbindmod
+            | editbindvar
+            | editbindvarquiet
+            | macro
+            )\b
+          scope: entity.name.function.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    BuiltInVariables:
+        - match: |-
+            (?x)
+            \b(
+              arg[0-9]*
+            | numargs
+            )\b
+          scope: variable.language.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
     BuiltInCommands__Sauerbraten:
         - match: |-
             (?x)
             \b(
-              addblendbrush
+              aaenvmap
+            | adaptivesample
+            | addblendbrush
             | addbot
             | addpostfx
             | addserver
             | adduser
             | addzip
+            | adminpass
+            | aidebug
+            | aiforcegun
+            | allfaces
             | allowthirdperson
             | altmapsound
             | altshader
             | altsound
+            | ambient
+            | ammobar
+            | ammobaralign
+            | ammobarcountscale
+            | ammobarcountsep
+            | ammobarflip
+            | ammobarhideempty
+            | ammobarhorizontal
+            | ammobarscale
+            | ammobarsep
+            | ammobarx
+            | ammobary
+            | ammohud
             | ammohudcycle
             | ammohuddown
             | ammohudup
+            | animationinterpolationtime
+            | animoverride
+            | aniso
             | append
             | appendword
+            | applydialog
+            | aspect
+            | ati_cubemap_bug
+            | ati_minmax_bug
+            | ati_skybox_bug
+            | atmo
+            | atmoalpha
+            | atmobright
+            | atmodensity
+            | atmohaze
+            | atmoheight
+            | atmoozone
+            | atmoplanetsize
+            | atmosundisk
+            | atmosundiskbright
+            | atmosundiskcorona
+            | atmosundisksize
+            | atmosunlight
+            | atmosunlightscale
             | attachent
+            | attachradius
             | attack
+            | attackspawn
+            | audiodriver
             | auth
             | authkey
             | authkick
+            | autoauth
+            | autocompactvslots
             | autograss
+            | autorecorddemo
+            | autorepammo
+            | autosortservers
+            | autoupdateservers
+            | avatardepth
+            | avatarfov
+            | avatarzoomfov
             | backward
             | ban
+            | basenumbers
+            | batchgeom
+            | batchlightmaps
+            | bilinear
             | bind
+            | blendbrushcolor
+            | blendpaintmode
+            | blobdyntris
+            | blobfadehigh
+            | blobfadelow
+            | blobheight
+            | blobintensity
+            | blobmargin
+            | blobs
+            | blobstattris
+            | blood
+            | blurdepthfx
+            | blurdepthfxsigma
+            | blurglare
+            | blurglareaspect
+            | blurglaresigma
+            | blurlms
+            | blurshadowmap
+            | blurskylight
+            | blursmsigma
+            | blurtile
             | botbalance
             | botlimit
             | brushvert
+            | brushx
+            | brushy
+            | bumperror
+            | bumpmodels
             | calclight
             | cancelsel
+            | capturetether
+            | causticcontrast
+            | causticmillis
+            | caustics
+            | causticscale
+            | chainsawhudgun
             | changedvars
             | checkmaps
             | chopstr
+            | clampsky
             | clearbans
             | clearblendbrushes
             | clearblendmap
@@ -610,23 +733,93 @@ contexts:
             | clearusers
             | clearwaypoints
             | clearwpcache
+            | clipsky
+            | clockerror
+            | clockfix
+            | cloudalpha
+            | cloudbox
+            | cloudboxalpha
+            | cloudboxcolour
+            | cloudclip
+            | cloudcolour
+            | cloudfade
+            | cloudheight
+            | cloudlayer
+            | cloudoffsetx
+            | cloudoffsety
+            | cloudscale
+            | cloudscrollx
+            | cloudscrolly
+            | cloudsubdiv
             | codestr
             | compactvslots
             | complete
+            | compresspng
+            | compresstga
             | concat
             | concatword
+            | confade
+            | confilter
             | connect
             | connectedip
             | connectedport
+            | connectname
+            | connectport
             | connectselected
+            | conscale
+            | consize
             | conskip
+            | contags
             | copy
+            | crosshaircolors
+            | crosshairfx
+            | crosshairsize
+            | ctftkpenalty
             | cubecancel
+            | cullparticles
             | curblendbrush
+            | cursorsize
             | cycleweapon
+            | damagecompass
+            | damagecompassalpha
+            | damagecompassfade
+            | damagecompassmax
+            | damagecompassmin
+            | damagecompasssize
+            | damagescreen
+            | damagescreenalpha
+            | damagescreenfactor
+            | damagescreenfade
+            | damagescreenmax
+            | damagescreenmin
             | dauth
             | dauthkick
+            | dbgalias
+            | dbgblob
+            | dbgdds
+            | dbgdec
+            | dbgexts
+            | dbggrass
+            | dbggz
+            | dbgmovie
+            | dbgpcull
+            | dbgpseed
+            | dbgshader
+            | dbgsound
+            | dbgspawns
+            | dbgubo
+            | dbgvars
+            | dbgzip
+            | deadpush
+            | deathscore
+            | debugdepthfx
+            | debugglare
+            | debugparticles
+            | debugsm
+            | decalfade
+            | decals
             | defershader
+            | defershaders
             | defuniformparam
             | delblendbrush
             | delbot
@@ -634,44 +827,101 @@ contexts:
             | delent
             | delprefab
             | delselwaypoints
+            | demodir
+            | depthbits
+            | depthfx
+            | depthfxbias
+            | depthfxblend
+            | depthfxemuprecision
+            | depthfxfpscale
+            | depthfxmargin
+            | depthfxpartblend
+            | depthfxparts
+            | depthfxscale
+            | depthfxscissor
+            | depthfxsize
+            | depthoffset
+            | desktoph
+            | desktopw
             | disconnect
+            | dragging
             | dropent
             | dropflag
+            | dropwaypoints
+            | dtoutline
             | dumplms
+            | dynentsize
+            | dynlightdist
             | echo
+            | edgetolerance
             | editbind
             | editface
+            | editing
+            | editinview
             | editmat
             | editmatoffset
             | edittex
             | edittoggle
+            | emitmillis
             | endsp
             | entadd
             | entattr
             | entautoview
+            | entautoviewdist
+            | entcamdir
             | entcancel
             | entcopy
+            | entdrop
+            | entediting
             | entflip
             | entget
             | enthavesel
             | entindex
+            | entitysurf
             | entloop
             | entmoving
+            | entmovingshadow
             | entpaste
             | entpush
             | entrotate
             | entselect
+            | entselradius
+            | entselsnap
             | entset
             | enttoggle
             | enttype
+            | envmapbb
+            | envmapmodels
+            | envmapradius
+            | envmapsize
+            | envpass
             | error
             | escape
+            | explodebright
+            | extinfoip
+            | faderoll
             | fastshader
+            | fewparticles
+            | filltjoints
             | findanims
             | findfile
             | fixinsidefaces
+            | fixwav
+            | flarecutoff
+            | flarelights
+            | flaresize
             | flip
             | flipnormalmapy
+            | floatspeed
+            | fog
+            | fogcolour
+            | fogdomecap
+            | fogdomeclip
+            | fogdomeclouds
+            | fogdomecolour
+            | fogdomeheight
+            | fogdomemax
+            | fogdomemin
             | follow
             | font
             | fontalias
@@ -680,10 +930,32 @@ contexts:
             | fontscale
             | fontskip
             | fonttex
+            | forceplayermodels
             | forceshader
             | format
             | forward
+            | fov
+            | fpdepthfx
+            | fpshadowmap
+            | fsaa
+            | fullbright
+            | fullbrightlevel
+            | fullbrightmodels
+            | fullconfilter
+            | fullconsize
+            | fullconsole
+            | fullscreen
+            | fullscreendesktop
+            | gameclock
+            | gameclockalign
+            | gameclockalpha
+            | gameclockcolour
+            | gameclocklowcolour
+            | gameclockscale
+            | gameclockx
+            | gameclocky
             | gamespeed
+            | gamma
             | gban
             | genauthkey
             | gendds
@@ -741,24 +1013,78 @@ contexts:
             | getvshaderparam
             | getvshaderparamnames
             | getweapon
+            | glare
+            | glaremod
+            | glarescale
+            | glaresize
+            | glass [1-4]? ( color | colour )?
+            | glassenv
+            | glcompat
             | glext
+            | glslversion
+            | glversion
             | goto
             | gotosel
+            | gpumipmap
+            | gpuskel
+            | grass
+            | grassalpha
+            | grassanimmillis
+            | grassanimscale
+            | grasscolour
+            | grassdist
+            | grassheight
+            | grassmargin
+            | grassmarginfade
+            | grassscale
+            | grassstep
+            | grasstaper
+            | gridlookup
+            | gridpower
             | hasauthkey
             | hashpwd
             | havesel
+            | healthcolors
+            | hidedead
+            | hidefrags
+            | hidehud
+            | hidestats
+            | highlightscore
             | history
+            | hitcrosshair
+            | hitsound
             | hmapcancel
+            | hmapedit
             | hmapselect
+            | hudgun
+            | hudgunsdir
+            | hudgunsway
+            | hudscore
+            | hudscorealign
+            | hudscorealpha
+            | hudscoreenemycolour
+            | hudscoreplayercolour
+            | hudscorescale
+            | hudscoresep
+            | hudscorex
+            | hudscorey
+            | hwcubetexsize
+            | hwmaxaniso
+            | hwtexsize
             | ignore
             | importcube
+            | importcuberemip
             | indexof
             | initservers
             | inputcommand
             | insel
             | insidebases
-            | invertblendmapsel
+            | intel_mapbufferrange_bug
+            | intel_vertexarray_bug
+            | invalidcubeguard
             | invertblendmap
+            | invertblendmapsel
+            | invmouse
             | ipban
             | isadmin
             | isai
@@ -769,11 +1095,24 @@ contexts:
             | isshaderdefined
             | isspectator
             | jump
+            | jumpspawn
             | keepserver
             | keymap
             | kick
+            | killsendsp
             | lanconnect
+            | lava [1-4]? ( color | colour | fog )?
             | left
+            | lerpangle
+            | lerpsubdiv
+            | lerpsubdivsize
+            | lerptjoints
+            | lightcachesize
+            | lightcompress
+            | lighterror
+            | lightlod
+            | lightprecision
+            | lightthreads
             | listclients
             | listcomplete
             | listdel
@@ -782,10 +1121,20 @@ contexts:
             | listfind
             | listlen
             | listsplice
+            | lmaa
+            | lmshadows
+            | lnblendpower
+            | lnjittermillis
+            | lnjitterradius
+            | lnjitterscale
+            | lnscrollmillis
+            | lnscrollscale
             | loadcrosshair
             | loadwaypoints
             | localconnect
             | localdisconnect
+            | lockmaprotation
+            | lockpvs
             | loop
             | loopconcat
             | loopconcatword
@@ -813,6 +1162,8 @@ contexts:
             | m_sp
             | m_tactics
             | m_teammode
+            | mainmenu
+            | map
             | mapcfgname
             | mapenlarge
             | mapmodel
@@ -823,57 +1174,189 @@ contexts:
             | mapname
             | maprotation
             | maprotationreset
+            | mapscale
+            | mapsize
             | mapsound
             | mapsoundreset
-            | map
+            | maptitle
+            | mapversion
+            | maskreflect
             | mastermode
             | mastermodename
+            | mastermotd
+            | mastername
+            | masterport
             | materialreset
+            | maxbarreldebris
+            | maxclients
+            | maxcon
+            | maxdebris
+            | maxdecaldistance
+            | maxdecaltris
+            | maxdemos
+            | maxdemosize
+            | maxdupclients
+            | maxdynlights
+            | maxfps
+            | maxfsuniforms
+            | maxhistory
+            | maxmerge
+            | maxmodelradiusdistance
+            | maxparticledistance
+            | maxparticles
+            | maxparticletextdistance
+            | maxpvsblocker
+            | maxradarscale
+            | maxreflect
+            | maxroll
+            | maxservpings
+            | maxskelanimdata
+            | maxsoundsatonce
+            | maxtexsize
+            | maxtrail
+            | maxvaryings
+            | maxvsuniforms
+            | menuautoclose
+            | menudistance
+            | menufps
             | mergenormalmaps
+            | mesa_swap_bug
+            | minface
+            | miniconfade
+            | miniconfilter
+            | miniconsize
             | miniconskip
+            | miniconwidth
+            | minimapalpha
+            | minimapclip
+            | minimapcolour
+            | minimapheight
+            | minimapsize
+            | minimizedsounds
+            | minimizetcusage
+            | minradarscale
+            | mipvis
             | mmodel
             | mode
+            | modelpreviewfov
+            | modelpreviewpitch
+            | modifiedmapspectator
+            | motionblur
+            | motionblurmillis
+            | motionblurscale
+            | mouseaccel
             | moveblendmap
             | movesel
             | movewaypoints
-            | movierecording
             | movie
+            | movieaccel
+            | movieaccelblit
+            | movieaccelyuv
+            | moviefps
+            | movieh
+            | movieminquality
+            | movierecording
+            | moviesound
+            | moviesync
+            | moview
             | moving
+            | mumble
             | music
+            | musicvol
+            | muzzleflash
+            | muzzlelight
             | name
             | naturalsort
             | nearestent
+            | nearplane
             | newent
             | newmap
             | nextblendbrush
             | nextfollow
             | nextweapon
             | nodebug
+            | nompedit
+            | numcpus
             | nummapmodels
             | nummapsounds
             | nummonsters
             | numslots
             | numsounds
             | numvslots
+            | octaentsize
             | onrelease
             | optimizeblendmap
+            | optmats
+            | oqdist
+            | oqdynent
+            | oqfrags
+            | oqgeom
+            | oqmm
+            | oqwait
+            | oqwater
+            | outline
+            | outlinecolour
+            | outlinemeters
+            | overtime
             | paintblendmap
+            | paintblendmapdelay
+            | paintblendmapinterval
+            | particleglare
+            | particlesize
+            | particletext
+            | passthrough
+            | passthroughcube
+            | passthroughent
+            | passthroughsel
             | paste
             | pastehilite
             | pasteprefab
             | patchlight
+            | patchnormals
             | paused
             | pausegame
+            | persistteams
+            | physinterp
             | phystest
             | platform
+            | playermodel
+            | playersearch
+            | polygonoffsetfactor
+            | polygonoffsetunits
             | prettylist
             | printcube
             | printvar
-            | pushif
+            | printvbo
+            | progressbackground
+            | publicserver
             | push
+            | pushif
             | pushsel
+            | pvs
+            | pvsleafsize
             | pvsstats
+            | pvsthreads
             | quit
+            | radarteammates
+            | ragdoll
+            | ragdollairfric
+            | ragdollbodyfric
+            | ragdollbodyfricscale
+            | ragdollconstrain
+            | ragdollexpireoffset
+            | ragdolleyesmooth
+            | ragdolleyesmoothmillis
+            | ragdollfade
+            | ragdollgroundfric
+            | ragdollmillis
+            | ragdollrotfric
+            | ragdollrotfricstop
+            | ragdolltimestepmax
+            | ragdolltimestepmin
+            | ragdollunstick
+            | ragdollwaterexpireoffset
+            | ragdollwaterfric
+            | rate
             | rdanimjoints
             | rdeye
             | rdjoint
@@ -885,29 +1368,50 @@ contexts:
             | reconnect
             | recorddemo
             | redo
+            | reducefilter
+            | reflectclip
+            | reflectclipavatar
+            | reflectdist
+            | reflectmms
+            | reflectscissor
+            | reflectsize
+            | reflectvfc
+            | refractclear
+            | refractsky
+            | regenbluearmour
             | registersound
+            | relativemouse
             | reloadtex
             | remip
             | removezip
             | reorient
             | repammo
-            | replacetexsel
-            | replacetex
-            | replacesel
             | replace
+            | replacesel
+            | replacetex
+            | replacetexsel
+            | replayparticles
+            | reservevpparams
             | resetgl
             | resetsound
             | resetvar
             | respawn
+            | restrictdemos
+            | restrictgamespeed
+            | restrictpausegame
             | result
             | right
             | rnd
             | rndstr
             | rotate
             | rotateblendbrush
+            | roundlightmaptex
+            | rtscissor
+            | rtsharefb
             | sauth
             | sauthkick
             | saveauthkeys
+            | savebak
             | savecurrentmap
             | savemap
             | saveprefab
@@ -915,20 +1419,46 @@ contexts:
             | say
             | saycommand
             | sayteam
+            | scaledds
+            | scoreboard
+            | scoreboard2d
+            | scr_h
+            | scr_w
             | screenres
             | screenshot
+            | screenshotdir
+            | screenshotformat
+            | screenshotquality
+            | sdl_xgrab_bug
             | searchbinds
             | searcheditbinds
+            | searchlan
             | searchspecbinds
+            | seedparticles
             | seekdemo
+            | selectcorners
+            | selectionsurf
             | selextend
             | selmoved
             | selrestore
             | selsave
             | selswap
             | sendmap
+            | sensitivity
+            | sensitivityscale
             | servban
             | servcmd
+            | serverauth
+            | serverbotbalance
+            | serverbotlimit
+            | serverdesc
+            | serverip
+            | servermotd
+            | serverpass
+            | serverport
+            | serveruprate
+            | servpingdecay
+            | servpingrate
             | setblendbrush
             | setmaster
             | setpostfx
@@ -939,21 +1469,80 @@ contexts:
             | setuniformparam
             | setweapon
             | shader
+            | shaderdetail
+            | shadowmap
+            | shadowmapambient
+            | shadowmapangle
+            | shadowmapbias
+            | shadowmapcasters
+            | shadowmapdist
+            | shadowmapheight
+            | shadowmapintensity
+            | shadowmappeelbias
+            | shadowmapprecision
+            | shadowmapradius
+            | shadowmapsize
             | showblendmap
+            | showboundingbox
+            | showclientnum
+            | showconnecting
+            | showdeaths
+            | showeditstats
+            | showentradius
+            | showfps
+            | showfpsrange
+            | showmat
+            | showmodeinfo
+            | showparticles
+            | showping
+            | showpj
             | showscores
+            | showservinfo
+            | showsky
+            | showspectatorping
+            | showspectators
+            | showwaypoints
+            | showwaypointsradius
             | shrinkmap
+            | skill
+            | skybox
+            | skyboxcolour
+            | skyboxglare
+            | skylight
+            | skytexture
+            | skytexturelight
             | sleep
+            | slowmosp
+            | smdepthpeel
             | smoothangle
+            | smoothdist
+            | smoothmove
+            | smoothshadowmappeel
             | sortlist
             | sortservers
             | sound
+            | soundbufferlen
+            | soundchans
+            | soundfreq
             | soundreset
+            | soundvol
+            | sparklyfix
             | spawnname
+            | spawnwait
             | specbind
             | spectator
+            | spincloudlayer
+            | spinclouds
+            | spinsky
             | startlistenserver
+            | statrate
+            | statusbars
+            | statusbarscale
+            | statusicons
+            | stereo
             | stopdemo
             | stoplistenserver
+            | straferoll
             | strcmp
             | strcode
             | stripcolors
@@ -967,17 +1556,41 @@ contexts:
             | sublist
             | substr
             | suicide
+            | sunlight
+            | sunlightpitch
+            | sunlightscale
+            | sunlightyaw
+            | swayside
+            | swaystep
+            | swayup
             | tabify
             | taunt
             | team
+            | teamcolorchat
+            | teamcolorfrags
+            | teamcolortext
+            | teamcrosshair
+            | teamhudguns
             | teamkillkick
             | teamkillkickreset
+            | teamskins
+            | teamsounds
+            | testanims
+            | testarmour
+            | testhudgun
+            | testpitch
             | testpvs
+            | testquad
+            | testtags
+            | testteam
             | texalpha
             | texcolor
+            | texcompress
+            | texcompressquality
             | texlayer
             | texloaded
             | texoffset
+            | texreduce
             | texrotate
             | texscale
             | texscroll
@@ -988,6 +1601,7 @@ contexts:
             | textexec
             | textfocus
             | textinit
+            | textinputfilter
             | textlist
             | textload
             | textmark
@@ -999,19 +1613,42 @@ contexts:
             | textshow
             | texture
             | texturereset
+            | thirdperson
+            | thirdpersondistance
+            | thirdpersonside
+            | thirdpersonup
+            | throttle_accel
+            | throttle_decel
+            | throttle_interval
+            | tiesort
             | timeremaining
             | toggleconsole
             | trigger
+            | triggerstate
+            | trilinear
             | undo
+            | undomegs
             | unescape
             | unignore
             | unistr
             | updatefrommaster
+            | updatemaster
+            | usedds
+            | usenp2
+            | usesound
+            | usetexcompress
+            | useubo
+            | usevdelta
+            | vacubesize
+            | vafacemax
+            | vafacemin
             | valpha
             | varcomplete
             | variantshader
+            | vbosize
             | vcolor
             | vdelta
+            | vertwater
             | vlayer
             | voffset
             | vreset
@@ -1019,57 +1656,37 @@ contexts:
             | vscale
             | vscroll
             | vshaderparam
+            | vsync
+            | vsynctear
+            | wallclock
+            | wallclock24
+            | wallclocksecs
+            | water [1-4]? ( color | colour | fallcolor | fallcolour | fog | spec )?
+            | waterenvmap
+            | waterfade
+            | waterfallenv
+            | waterfallrefract
+            | waterlod
+            | waterpvs
+            | waterreflect
+            | waterrefract
+            | watersubdiv
             | weapon
             | while
+            | wireframe
             | writecfg
             | writeobj
-            )\b
-          scope: support.function.cfg
-
-
-    #======================================================================================================================================
-    BuiltInCommands__Sauerbraten_GUI:
-        - match: |-
-            (?x)
-            \b(
-            | cleargui
-            | cleartexgui
-            | guialign
-            | guibar
-            | guibitfield
-            | guibutton
-            | guicheckbox
-            | guicolor
-            | guicolumn
-            | guieditor
-            | guifield
-            | guiimage
-            | guikeeptab
-            | guikeyfield
-            | guilist
-            | guilistslider
-            | guimerge
-            | guimodelpreview
-            | guinameslider
-            | guinoautotab
-            | guionclear
-            | guiplayerpreview
-            | guiprefabpreview
-            | guiradio
-            | guiservers
-            | guislider
-            | guispring
-            | guistayopen
-            | guistrut
-            | guitab
-            | guitext
-            | guitextbox
-            | guititle
-            | hidegui
-            | newgui
-            | showgui
-            | showplayergui
-            | showtexgui
+            | yawcloudlayer
+            | yawclouds
+            | yawsky
+            | zoom
+            | zoomaccel
+            | zoomautosens
+            | zoomfov
+            | zoominvel
+            | zoomoutvel
+            | zoomsens
+            | zpass
             )\b
           scope: support.function.cfg
 
@@ -1098,28 +1715,204 @@ contexts:
           scope: support.function.cfg
 
 
+    #======================================================================================================================================
+    BuiltInCommands__Sauerbraten_GUI:   # guicolorbox  COLOR_INT  SIZE(similiar behavior as guiimage)
+        - match: |-
+            (?x)
+            \b(
+              cleargui
+            | cleartexgui
+            | gui2d
+            | guialign
+            | guiautotab
+            | guibar
+            | guibitfield
+            | guibutton
+            | guicheckbox
+            | guiclicktab
+            | guicolor
+            | guicolumn
+            | guieditor
+            | guifadein
+            | guifield
+            | guifollow
+            | guiimage
+            | guikeeptab
+            | guikeyfield
+            | guilist
+            | guilistslider
+            | guimerge
+            | guimodelpreview
+            | guinameslider
+            | guinoautotab
+            | guionclear
+            | guiplayerpreview
+            | guiprefabpreview
+            | guipreviewtime
+            | guipushdist
+            | guiradio
+            | guisens
+            | guiservers
+            | guislider
+            | guispring
+            | guistayopen
+            | guistrut
+            | guitab
+            | guitabnum
+            | guitext
+            | guitextbox
+            | guititle
+            | hidegui
+            | newgui
+            | showgui
+            | showplayergui
+            | showtexgui
+            | texgui2d
+            | texguiheight
+            | texguiname
+            | texguinum
+            | texguiscale
+            | texguitime
+            | texguiwidth
+            )\b
+          scope: support.function.cfg
+
+
     ###########################################################################################################################################
     ###########################################################################################################################################
     BuiltInCommands__Tesseract:
         - match: |-
             (?x)
             \b(
-              applychanges
+              alphashadow
+            | alphashadowscale
+            | ambientscale
+            | amd_eal_bug
+            | amd_pf_bug
+            | ao
+            | aobilateral
+            | aobilateraldepth
+            | aobilateralupscale
+            | aoblur
+            | aocutoff
+            | aodark
+            | aodepthformat
+            | aoderiv
+            | aoderivnormal
+            | aofloatdepth
+            | aoiter
+            | aomin
+            | aonoise
+            | aopackdepth
+            | aoprec
+            | aoprefilterdepth
+            | aoradius
+            | aoreduce
+            | aoreducedepth
+            | aosharp
+            | aosun
+            | aosunmin
+            | aotaps
+            | applychanges
+            | avatarshadowbias
+            | avatarshadowdist
+            | avatarshadowstencil
             | avglum
+            | batchdecals
+            | batchsunlight
+            | blendbrushcolour
+            | blendtexsize
+            | bloomblur
+            | bloomiter
+            | bloomprec
+            | bloomscale
+            | bloomsize
+            | bloomthreshold
+            | blursigma
+            | causticoffset
             | cleareditbinds
             | clearhbrush
             | clearspecbinds
             | cmdname
+            | cmdname
             | connectservinfo
             | crouch
+            | csmbias
+            | csmbias2
+            | csmcull
+            | csmdepthmargin
+            | csmdepthrange
+            | csmfarplane
+            | csminoq
+            | csmmaxsize
+            | csmnearplane
+            | csmpolyfactor
+            | csmpolyfactor2
+            | csmpolyoffset
+            | csmpolyoffset2
+            | csmpradiustweak
+            | csmshadowmap
+            | csmsplits
+            | csmsplitweight
+            | dbgcolmesh
+            | dbgmodes
+            | dbgstain
+            | debugao
+            | debugbloom
+            | debugdepth
+            | debuglightscissor
+            | debugrefract
+            | debugrh
+            | debugrsm
+            | debugshadowatlas
+            | debugsmaa
+            | debugstencil
+            | debugtqaa
             | decaldepth
             | decalreset
+            | deffvar
+            | deffvarp
+            | defsvar
+            | defsvarp
+            | defvar
+            | defvarp
+            | depthfaillights
+            | depthtestlights
+            | depthtestlightsclamp
             | dumpblendtexs
             | dumpshader
+            | dynlights
+            | editstateva
+            | editstatevt
+            | editstatgeombatch
+            | editstatglde
+            | editstatocta
+            | editstatoq
+            | editstatpvs
+            | editstatva
+            | editstatvtr
+            | editstatvvt
+            | editstatwtr
+            | editstatwvt
+            | emptymap
             | entreplace
+            | explicitskycolour
+            | fogcullintensity
+            | fogintensity
+            | fogoverlay
             | fontborder
             | fontoutline
+            | forcepacknorm
+            | forcespotlights
+            | frametimer
             | fullconsole
+            | fxaa
+            | fxaagreenluma
+            | fxaaquality
+            | gcolorclear
+            | gdepthclear
+            | gdepthformat
+            | gdepthstencil
             | getclientcolor
             | getclientcolorname
             | getclientdeaths
@@ -1134,11 +1927,53 @@ contexts:
             | getteamscore
             | getvdetail
             | getvrefract
+            | ghasstencil
+            | gi
+            | giaoscale
+            | gidist
+            | giscale
+            | glass [1-4]? ( refract | spec )
+            | glerr
+            | glineardepth
+            | grasstest
+            | gscale
+            | gscalecubic
+            | gscalecubicsoft
+            | gscalenearest
+            | gstencil
             | hbrushvert
+            | hbrushx
+            | hbrushy
+            | hdraccummillis
+            | hdraccumscale
+            | hdrbright
+            | hdrgamma
+            | hdrmaxexposure
+            | hdrminexposure
+            | hdrprec
+            | hdrreduce
+            | hdrsaturate
+            | hidechanges
+            | hwtexunits
+            | hwvtexunits
             | identexists
+            | intel_texalpha_bug
             | intermission
             | isdead
             | islagged
+            | lava [1-4]? ( glowmin | glowmax | spec )
+            | lightbatches
+            | lightbatchrects
+            | lightbatchstacks
+            | lightpassesused
+            | lightradiustweak
+            | lightsoccluded
+            | lightsvisible
+            | lighttilealignh
+            | lighttilealignw
+            | lighttilebatch
+            | lighttileh
+            | lighttilew
             | listassoc( \=f | \=s | \= )?
             | listcount
             | listfind\=
@@ -1156,18 +1991,84 @@ contexts:
             | m_pulse
             | m_rail
             | m_timed
+            | maxdrawbufs
+            | maxdualdrawbufs
+            | maxgibs
+            | maxgrass
+            | maxsoundradius
+            | maxstaindistance
+            | maxstaintris
+            | maxtexoffset
+            | maxtexrectoffset
             | melee
+            | menumute
+            | mesa_texrectoffset_bug
+            | mintexoffset
+            | mintexrectoffset
+            | moviedir
+            | msaa
+            | msaadepthblit
+            | msaadepthstencil
+            | msaaedgedetect
+            | msaalight
+            | msaalineardepth
+            | msaamaxcolortexsamples
+            | msaamaxdepthtexsamples
+            | msaamaxsamples
+            | msaaminsamples
+            | msaapreserve
+            | msaasamples
+            | msaastencil
+            | msaatonemap
+            | msaatonemapblit
+            | nominimapcolour
             | normalizenormalmap
             | numscoreboard
             | numservers
+            | oqany
+            | oqlights
+            | oqvol
+            | particlebright
+            | particlelayers
             | pendingchanges
+            | playercolor
+            | playercolorazul
+            | playercolorrojo
             | playsound
             | prettygamespeed
+            | refractdepth
+            | refractmargin
             | refreshscoreboard
             | refreshservers
             | removealphachannel
             | resetshaders
             | reuseuniformparam
+            | rhborder
+            | rhcache
+            | rhclipgrid
+            | rhdynmm
+            | rhdyntex
+            | rhfarplane
+            | rhforce
+            | rhgrid
+            | rhinoq
+            | rhnearplane
+            | rhnudge
+            | rhpradiustweak
+            | rhprec
+            | rhrect
+            | rhsplits
+            | rhsplitweight
+            | rhtaps
+            | rhworldbias
+            | rsmcull
+            | rsmdepthmargin
+            | rsmdepthprec
+            | rsmdepthrange
+            | rsmpradiustweak
+            | rsmprec
+            | rsmsize
+            | rsmspread
             | scoreboardhighlight
             | scoreboardmap
             | scoreboardmode
@@ -1179,6 +2080,8 @@ contexts:
             | scoreboardshowfrags
             | scoreboardstatus
             | scoreboardtime
+            | screenh
+            | screenw
             | selchildcount
             | selchildmat
             | servinfoattr
@@ -1201,17 +2104,99 @@ contexts:
             | servinfovalid
             | settex
             | shoot
+            | showminimap
+            | skyboxoverbright
+            | skyboxoverbrightmin
+            | skyboxoverbrightthreshold
+            | smaa
+            | smaa4x
+            | smaacoloredge
+            | smaadepthmask
+            | smaagreenluma
+            | smaaquality
+            | smaas2x
+            | smaaspatial
+            | smaastencil
+            | smaat2x
+            | smalpha
+            | smalphaprec
+            | smbbcull
+            | smbias
+            | smbias2
+            | smborder
+            | smborder2
+            | smcache
+            | smcubeprec
+            | smcullside
+            | smdepthprec
+            | smdistcull
+            | smdynshadow
+            | smfilter
+            | smgather
+            | sminoq
+            | smmaxsize
+            | smmesh
+            | smminradius
+            | smminsize
+            | smnodraw
+            | smnoshadow
+            | smpolyfactor
+            | smpolyfactor2
+            | smpolyoffset
+            | smpolyoffset2
+            | smprec
+            | smquery
+            | smsidecull
+            | smsize
+            | smspotprec
+            | smused
+            | smviscull
+            | softexplosion
+            | softexplosionblend
+            | softparticleblend
+            | softparticles
+            | sound
+            | specmode
+            | stainfade
+            | stains
+            | teleteam
+            | testtricol
             | texdetail
             | texgrass
             | texmru
             | texrefract
+            | textbright
+            | timer
             | tohex
+            | tqaa
+            | tqaacolorweightbias
+            | tqaacolorweightscale
+            | tqaamovemask
+            | tqaaquincunx
+            | tqaareproject
+            | tqaaresolvegather
             | uniquelist
             | usepacknorm
+            | usetexgather
             | vdetail
+            | volbilateral
+            | volbilateraldepth
+            | volblur
+            | volcolour
+            | volderiv
+            | voldistclamp
+            | volminstep
+            | volprefilter
+            | volreduce
+            | volscale
+            | volsteps
+            | volumetric
             | vrefract
+            | water [1-4]? ( deep | deepcolour | deepfade | fallrefract | fallrefractcolour | fallspec | refract | refractcolour )
+            | waterreflectstep
             | writecollideobj
-            )\s
+            | zoomsens
+            )\b
           scope: support.function.cfg
 
 
@@ -1273,9 +2258,13 @@ contexts:
             | uiscroll
             | uiscrollarrow
             | uiscrollbutton
+            | uiscrollsteptime
+            | uisensitivity
             | uisliderarrow
             | uisliderbutton
+            | uislidersteptime
             | uislotview
+            | uislotviewtime
             | uispace
             | uistretchedimage
             | uitable
@@ -1285,6 +2274,8 @@ contexts:
             | uitext
             | uitexteditor
             | uitextfill
+            | uitextrows
+            | uitextscale
             | uitiledimage
             | uitriangle
             | uitriangleoutline
@@ -1311,7 +2302,7 @@ contexts:
             | ui (\!)? release      ( \+ | \+\? | \? )?
             | ui (\!)? scrolldown   ( \+ | \+\? | \? )?
             | ui (\!)? scrollup     ( \+ | \+\? | \? )?
-            )\s
+            )\b
           scope: support.function.cfg
 
 
@@ -1383,1018 +2374,6 @@ contexts:
             | mdlgloss
             | mdlroll
             | mdltricollide
-            )\b
-          scope: support.function.cfg
-
-
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    CommonAliases:
-        - match: |-
-            (?x)
-            \b(
-              bindmod
-            | bindvar
-            | bindvarquiet
-            | editbindmod
-            | editbindvar
-            | editbindvarquiet
-            | macro
-            )\b
-          scope: entity.name.function.cfg
-
-
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    SpecialVariables:
-        - match: |-
-            (?x)
-            \b(
-              arg[0-9]*
-            | numargs
-            )\b
-          scope: variable.language.cfg
-
-
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    BuiltInVariables__Sauerbraten:
-        - match: |-
-            (?x)
-            \b(
-              aaenvmap
-            | adaptivesample
-            | adminpass
-            | aidebug
-            | aiforcegun
-            | allfaces
-            | ambient
-            | ammobar
-            | ammobaralign
-            | ammobarcountscale
-            | ammobarcountsep
-            | ammobarflip
-            | ammobarhideempty
-            | ammobarhorizontal
-            | ammobarscale
-            | ammobarsep
-            | ammobarx
-            | ammobary
-            | ammohud
-            | animationinterpolationtime
-            | animoverride
-            | aniso
-            | applydialog
-            | aspect
-            | ati_cubemap_bug
-            | ati_minmax_bug
-            | ati_skybox_bug
-            | atmo
-            | atmoalpha
-            | atmobright
-            | atmodensity
-            | atmohaze
-            | atmoheight
-            | atmoozone
-            | atmoplanetsize
-            | atmosundisk
-            | atmosundiskbright
-            | atmosundiskcorona
-            | atmosundisksize
-            | atmosunlight
-            | atmosunlightscale
-            | attachradius
-            | attackspawn
-            | audiodriver
-            | autoauth
-            | autocompactvslots
-            | autorecorddemo
-            | autorepammo
-            | autosortservers
-            | autoupdateservers
-            | avatardepth
-            | avatarfov
-            | avatarzoomfov
-            | basenumbers
-            | batchgeom
-            | batchlightmaps
-            | bilinear
-            | blendbrushcolor
-            | blendpaintmode
-            | blobdyntris
-            | blobfadehigh
-            | blobfadelow
-            | blobheight
-            | blobintensity
-            | blobmargin
-            | blobs
-            | blobstattris
-            | blood
-            | blurdepthfx
-            | blurdepthfxsigma
-            | blurglare
-            | blurglareaspect
-            | blurglaresigma
-            | blurlms
-            | blurshadowmap
-            | blurskylight
-            | blursmsigma
-            | blurtile
-            | brushx
-            | brushy
-            | bumperror
-            | bumpmodels
-            | capturetether
-            | causticcontrast
-            | causticmillis
-            | caustics
-            | causticscale
-            | chainsawhudgun
-            | clampsky
-            | clipsky
-            | clockerror
-            | clockfix
-            | cloudalpha
-            | cloudbox
-            | cloudboxalpha
-            | cloudboxcolour
-            | cloudclip
-            | cloudcolour
-            | cloudfade
-            | cloudheight
-            | cloudlayer
-            | cloudoffsetx
-            | cloudoffsety
-            | cloudscale
-            | cloudscrollx
-            | cloudscrolly
-            | cloudsubdiv
-            | compresspng
-            | compresstga
-            | confade
-            | confilter
-            | connectname
-            | connectport
-            | conscale
-            | consize
-            | contags
-            | crosshaircolors
-            | crosshairfx
-            | crosshairsize
-            | ctftkpenalty
-            | cullparticles
-            | cursorsize
-            | damagecompass
-            | damagecompassalpha
-            | damagecompassfade
-            | damagecompassmax
-            | damagecompassmin
-            | damagecompasssize
-            | damagescreen
-            | damagescreenalpha
-            | damagescreenfactor
-            | damagescreenfade
-            | damagescreenmax
-            | damagescreenmin
-            | dbgalias
-            | dbgblob
-            | dbgdds
-            | dbgdec
-            | dbgexts
-            | dbggrass
-            | dbggz
-            | dbgmovie
-            | dbgpcull
-            | dbgpseed
-            | dbgshader
-            | dbgsound
-            | dbgspawns
-            | dbgubo
-            | dbgvars
-            | dbgzip
-            | deadpush
-            | deathscore
-            | debugdepthfx
-            | debugglare
-            | debugparticles
-            | debugsm
-            | decalfade
-            | decals
-            | defershaders
-            | demodir
-            | depthbits
-            | depthfx
-            | depthfxbias
-            | depthfxblend
-            | depthfxemuprecision
-            | depthfxfpscale
-            | depthfxmargin
-            | depthfxpartblend
-            | depthfxparts
-            | depthfxscale
-            | depthfxscissor
-            | depthfxsize
-            | depthoffset
-            | desktoph
-            | desktopw
-            | dragging
-            | dropwaypoints
-            | dtoutline
-            | dynentsize
-            | dynlightdist
-            | edgetolerance
-            | editing
-            | editinview
-            | emitmillis
-            | entautoviewdist
-            | entcamdir
-            | entdrop
-            | entediting
-            | entitysurf
-            | entmovingshadow
-            | entselradius
-            | entselsnap
-            | envmapbb
-            | envmapmodels
-            | envmapradius
-            | envmapsize
-            | envpass
-            | explodebright
-            | extinfoip
-            | faderoll
-            | fewparticles
-            | filltjoints
-            | fixwav
-            | flarecutoff
-            | flarelights
-            | flaresize
-            | floatspeed
-            | fog
-            | fogcolour
-            | fogdomecap
-            | fogdomeclip
-            | fogdomeclouds
-            | fogdomecolour
-            | fogdomeheight
-            | fogdomemax
-            | fogdomemin
-            | forceplayermodels
-            | fov
-            | fpdepthfx
-            | fpshadowmap
-            | fsaa
-            | fullbright
-            | fullbrightlevel
-            | fullbrightmodels
-            | fullconfilter
-            | fullconsize
-            | fullconsole
-            | fullscreen
-            | fullscreendesktop
-            | gameclock
-            | gameclockalign
-            | gameclockalpha
-            | gameclockcolour
-            | gameclocklowcolour
-            | gameclockscale
-            | gameclockx
-            | gameclocky
-            | gamma
-            | glare
-            | glaremod
-            | glarescale
-            | glaresize
-            | glass [1-4]? ( color | colour )?
-            | glassenv
-            | glcompat
-            | glslversion
-            | glversion
-            | gpumipmap
-            | gpuskel
-            | grass
-            | grassalpha
-            | grassanimmillis
-            | grassanimscale
-            | grasscolour
-            | grassdist
-            | grassheight
-            | grassmargin
-            | grassmarginfade
-            | grassscale
-            | grassstep
-            | grasstaper
-            | gridlookup
-            | gridpower
-            | gui2d
-            | guiautotab
-            | guiclicktab
-            | guifadein
-            | guifollow
-            | guipreviewtime
-            | guipushdist
-            | guisens
-            | guitabnum
-            | healthcolors
-            | hidedead
-            | hidefrags
-            | hidehud
-            | hidestats
-            | highlightscore
-            | hitcrosshair
-            | hitsound
-            | hmapedit
-            | hudgun
-            | hudgunsdir
-            | hudgunsway
-            | hudscore
-            | hudscorealign
-            | hudscorealpha
-            | hudscoreenemycolour
-            | hudscoreplayercolour
-            | hudscorescale
-            | hudscoresep
-            | hudscorex
-            | hudscorey
-            | hwcubetexsize
-            | hwmaxaniso
-            | hwtexsize
-            | importcuberemip
-            | intel_mapbufferrange_bug
-            | intel_vertexarray_bug
-            | invalidcubeguard
-            | invmouse
-            | jumpspawn
-            | killsendsp
-            | lava [1-4]? ( color | colour | fog )?
-            | lerpangle
-            | lerpsubdiv
-            | lerpsubdivsize
-            | lerptjoints
-            | lightcachesize
-            | lightcompress
-            | lighterror
-            | lightlod
-            | lightprecision
-            | lightthreads
-            | lmaa
-            | lmshadows
-            | lnblendpower
-            | lnjittermillis
-            | lnjitterradius
-            | lnjitterscale
-            | lnscrollmillis
-            | lnscrollscale
-            | lockmaprotation
-            | lockpvs
-            | mainmenu
-            | mapscale
-            | mapsize
-            | maptitle
-            | mapversion
-            | maskreflect
-            | mastermotd
-            | mastername
-            | masterport
-            | maxbarreldebris
-            | maxclients
-            | maxcon
-            | maxdebris
-            | maxdecaldistance
-            | maxdecaltris
-            | maxdemos
-            | maxdemosize
-            | maxdupclients
-            | maxdynlights
-            | maxfps
-            | maxfsuniforms
-            | maxhistory
-            | maxmerge
-            | maxmodelradiusdistance
-            | maxparticledistance
-            | maxparticles
-            | maxparticletextdistance
-            | maxpvsblocker
-            | maxradarscale
-            | maxreflect
-            | maxroll
-            | maxservpings
-            | maxskelanimdata
-            | maxsoundsatonce
-            | maxtexsize
-            | maxtrail
-            | maxvaryings
-            | maxvsuniforms
-            | menuautoclose
-            | menudistance
-            | menufps
-            | mesa_swap_bug
-            | minface
-            | miniconfade
-            | miniconfilter
-            | miniconsize
-            | miniconwidth
-            | minimapalpha
-            | minimapclip
-            | minimapcolour
-            | minimapheight
-            | minimapsize
-            | minimizedsounds
-            | minimizetcusage
-            | minradarscale
-            | mipvis
-            | modelpreviewfov
-            | modelpreviewpitch
-            | modifiedmapspectator
-            | motionblur
-            | motionblurmillis
-            | motionblurscale
-            | mouseaccel
-            | movieaccel
-            | movieaccelblit
-            | movieaccelyuv
-            | moviefps
-            | movieh
-            | movieminquality
-            | moviesound
-            | moviesync
-            | moview
-            | mumble
-            | musicvol
-            | muzzleflash
-            | muzzlelight
-            | nearplane
-            | nompedit
-            | numcpus
-            | octaentsize
-            | optmats
-            | oqdist
-            | oqdynent
-            | oqfrags
-            | oqgeom
-            | oqmm
-            | oqwait
-            | oqwater
-            | outline
-            | outlinecolour
-            | outlinemeters
-            | overtime
-            | paintblendmapdelay
-            | paintblendmapinterval
-            | particleglare
-            | particlesize
-            | particletext
-            | passthrough
-            | passthroughcube
-            | passthroughent
-            | passthroughsel
-            | patchnormals
-            | persistteams
-            | physinterp
-            | playermodel
-            | playersearch
-            | polygonoffsetfactor
-            | polygonoffsetunits
-            | printvbo
-            | progressbackground
-            | publicserver
-            | pvs
-            | pvsleafsize
-            | pvsthreads
-            | radarteammates
-            | ragdoll
-            | ragdollairfric
-            | ragdollbodyfric
-            | ragdollbodyfricscale
-            | ragdollconstrain
-            | ragdollexpireoffset
-            | ragdolleyesmooth
-            | ragdolleyesmoothmillis
-            | ragdollfade
-            | ragdollgroundfric
-            | ragdollmillis
-            | ragdollrotfric
-            | ragdollrotfricstop
-            | ragdolltimestepmax
-            | ragdolltimestepmin
-            | ragdollunstick
-            | ragdollwaterexpireoffset
-            | ragdollwaterfric
-            | rate
-            | reducefilter
-            | reflectclip
-            | reflectclipavatar
-            | reflectdist
-            | reflectmms
-            | reflectscissor
-            | reflectsize
-            | reflectvfc
-            | refractclear
-            | refractsky
-            | regenbluearmour
-            | relativemouse
-            | replayparticles
-            | reservevpparams
-            | restrictdemos
-            | restrictgamespeed
-            | restrictpausegame
-            | roundlightmaptex
-            | rtscissor
-            | rtsharefb
-            | savebak
-            | scaledds
-            | scoreboard
-            | scoreboard2d
-            | scr_h
-            | scr_w
-            | screenshotdir
-            | screenshotformat
-            | screenshotquality
-            | sdl_xgrab_bug
-            | searchlan
-            | seedparticles
-            | selectcorners
-            | selectionsurf
-            | sensitivity
-            | sensitivityscale
-            | serverauth
-            | serverbotbalance
-            | serverbotlimit
-            | serverdesc
-            | serverip
-            | servermotd
-            | serverpass
-            | serverport
-            | serveruprate
-            | servpingdecay
-            | servpingrate
-            | shaderdetail
-            | shadowmap
-            | shadowmapambient
-            | shadowmapangle
-            | shadowmapbias
-            | shadowmapcasters
-            | shadowmapdist
-            | shadowmapheight
-            | shadowmapintensity
-            | shadowmappeelbias
-            | shadowmapprecision
-            | shadowmapradius
-            | shadowmapsize
-            | showboundingbox
-            | showclientnum
-            | showconnecting
-            | showdeaths
-            | showeditstats
-            | showentradius
-            | showfps
-            | showfpsrange
-            | showmat
-            | showmodeinfo
-            | showparticles
-            | showping
-            | showpj
-            | showservinfo
-            | showsky
-            | showspectatorping
-            | showspectators
-            | showwaypoints
-            | showwaypointsradius
-            | skill
-            | skybox
-            | skyboxcolour
-            | skyboxglare
-            | skylight
-            | skytexture
-            | skytexturelight
-            | slowmosp
-            | smdepthpeel
-            | smoothdist
-            | smoothmove
-            | smoothshadowmappeel
-            | soundbufferlen
-            | soundchans
-            | soundfreq
-            | soundvol
-            | sparklyfix
-            | spawnwait
-            | spincloudlayer
-            | spinclouds
-            | spinsky
-            | statrate
-            | statusbars
-            | statusbarscale
-            | statusicons
-            | stereo
-            | straferoll
-            | sunlight
-            | sunlightpitch
-            | sunlightscale
-            | sunlightyaw
-            | swayside
-            | swaystep
-            | swayup
-            | teamcolorchat
-            | teamcolorfrags
-            | teamcolortext
-            | teamcrosshair
-            | teamhudguns
-            | teamskins
-            | teamsounds
-            | testanims
-            | testarmour
-            | testhudgun
-            | testpitch
-            | testquad
-            | testtags
-            | testteam
-            | texcompress
-            | texcompressquality
-            | texgui2d
-            | texguiheight
-            | texguiname
-            | texguinum
-            | texguiscale
-            | texguitime
-            | texguiwidth
-            | texreduce
-            | textinputfilter
-            | thirdperson
-            | thirdpersondistance
-            | thirdpersonside
-            | thirdpersonup
-            | throttle_accel
-            | throttle_decel
-            | throttle_interval
-            | tiesort
-            | triggerstate
-            | trilinear
-            | undomegs
-            | updatemaster
-            | usedds
-            | usenp2
-            | usesound
-            | usetexcompress
-            | useubo
-            | usevdelta
-            | vacubesize
-            | vafacemax
-            | vafacemin
-            | vbosize
-            | vertwater
-            | vsync
-            | vsynctear
-            | wallclock
-            | wallclock24
-            | wallclocksecs
-            | water [1-4]? ( color | colour | fallcolor | fallcolour | fog | spec )?
-            | waterenvmap
-            | waterfade
-            | waterfallenv
-            | waterfallrefract
-            | waterlod
-            | waterpvs
-            | waterreflect
-            | waterrefract
-            | watersubdiv
-            | wireframe
-            | yawcloudlayer
-            | yawclouds
-            | yawsky
-            | zoom
-            | zoomaccel
-            | zoomautosens
-            | zoomfov
-            | zoominvel
-            | zoomoutvel
-            | zoomsens
-            | zpass
-            )\b
-          scope: support.function.cfg
-
-
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    BuiltInVariables__Tesseract:
-        - match: |-
-            (?x)
-            \b(
-              alphashadow
-            | alphashadowscale
-            | ambientscale
-            | amd_eal_bug
-            | amd_pf_bug
-            | ao
-            | aobilateral
-            | aobilateraldepth
-            | aobilateralupscale
-            | aoblur
-            | aocutoff
-            | aodark
-            | aodepthformat
-            | aoderiv
-            | aoderivnormal
-            | aofloatdepth
-            | aoiter
-            | aomin
-            | aonoise
-            | aopackdepth
-            | aoprec
-            | aoprefilterdepth
-            | aoradius
-            | aoreduce
-            | aoreducedepth
-            | aosharp
-            | aosun
-            | aosunmin
-            | aotaps
-            | avatarshadowbias
-            | avatarshadowdist
-            | avatarshadowstencil
-            | batchdecals
-            | batchsunlight
-            | blendbrushcolour
-            | blendtexsize
-            | bloomblur
-            | bloomiter
-            | bloomprec
-            | bloomscale
-            | bloomsize
-            | bloomthreshold
-            | blursigma
-            | causticoffset
-            | cmdname
-            | csmbias
-            | csmbias2
-            | csmcull
-            | csmdepthmargin
-            | csmdepthrange
-            | csmfarplane
-            | csminoq
-            | csmmaxsize
-            | csmnearplane
-            | csmpolyfactor
-            | csmpolyfactor2
-            | csmpolyoffset
-            | csmpolyoffset2
-            | csmpradiustweak
-            | csmshadowmap
-            | csmsplits
-            | csmsplitweight
-            | dbgcolmesh
-            | dbgmodes
-            | dbgstain
-            | debugao
-            | debugbloom
-            | debugdepth
-            | debuglightscissor
-            | debugrefract
-            | debugrh
-            | debugrsm
-            | debugshadowatlas
-            | debugsmaa
-            | debugstencil
-            | debugtqaa
-            | deffvar
-            | deffvarp
-            | defsvar
-            | defsvarp
-            | defvar
-            | defvarp
-            | depthfaillights
-            | depthtestlights
-            | depthtestlightsclamp
-            | dynlights
-            | editstateva
-            | editstatevt
-            | editstatgeombatch
-            | editstatglde
-            | editstatocta
-            | editstatoq
-            | editstatpvs
-            | editstatva
-            | editstatvtr
-            | editstatvvt
-            | editstatwtr
-            | editstatwvt
-            | emptymap
-            | explicitskycolour
-            | fogcullintensity
-            | fogintensity
-            | fogoverlay
-            | forcepacknorm
-            | forcespotlights
-            | frametimer
-            | fxaa
-            | fxaagreenluma
-            | fxaaquality
-            | gcolorclear
-            | gdepthclear
-            | gdepthformat
-            | gdepthstencil
-            | ghasstencil
-            | gi
-            | giaoscale
-            | gidist
-            | giscale
-            | glass [1-4]? ( refract | spec )
-            | glerr
-            | glineardepth
-            | grasstest
-            | gscale
-            | gscalecubic
-            | gscalecubicsoft
-            | gscalenearest
-            | gstencil
-            | hbrushx
-            | hbrushy
-            | hdraccummillis
-            | hdraccumscale
-            | hdrbright
-            | hdrgamma
-            | hdrmaxexposure
-            | hdrminexposure
-            | hdrprec
-            | hdrreduce
-            | hdrsaturate
-            | hidechanges
-            | hwtexunits
-            | hwvtexunits
-            | intel_texalpha_bug
-            | lava [1-4]? ( glowmin | glowmax | spec )
-            | lightbatches
-            | lightbatchrects
-            | lightbatchstacks
-            | lightpassesused
-            | lightradiustweak
-            | lightsoccluded
-            | lightsvisible
-            | lighttilealignh
-            | lighttilealignw
-            | lighttilebatch
-            | lighttileh
-            | lighttilew
-            | maxdrawbufs
-            | maxdualdrawbufs
-            | maxgibs
-            | maxgrass
-            | maxsoundradius
-            | maxstaindistance
-            | maxstaintris
-            | maxtexoffset
-            | maxtexrectoffset
-            | menumute
-            | mesa_texrectoffset_bug
-            | mintexoffset
-            | mintexrectoffset
-            | moviedir
-            | msaa
-            | msaadepthblit
-            | msaadepthstencil
-            | msaaedgedetect
-            | msaalight
-            | msaalineardepth
-            | msaamaxcolortexsamples
-            | msaamaxdepthtexsamples
-            | msaamaxsamples
-            | msaaminsamples
-            | msaapreserve
-            | msaasamples
-            | msaastencil
-            | msaatonemap
-            | msaatonemapblit
-            | nominimapcolour
-            | oqany
-            | oqlights
-            | oqvol
-            | particlebright
-            | particlelayers
-            | playercolor
-            | playercolorazul
-            | playercolorrojo
-            | refractdepth
-            | refractmargin
-            | rhborder
-            | rhcache
-            | rhclipgrid
-            | rhdynmm
-            | rhdyntex
-            | rhfarplane
-            | rhforce
-            | rhgrid
-            | rhinoq
-            | rhnearplane
-            | rhnudge
-            | rhpradiustweak
-            | rhprec
-            | rhrect
-            | rhsplits
-            | rhsplitweight
-            | rhtaps
-            | rhworldbias
-            | rsmcull
-            | rsmdepthmargin
-            | rsmdepthprec
-            | rsmdepthrange
-            | rsmpradiustweak
-            | rsmprec
-            | rsmsize
-            | rsmspread
-            | screenh
-            | screenw
-            | showminimap
-            | skyboxoverbright
-            | skyboxoverbrightmin
-            | skyboxoverbrightthreshold
-            | smaa
-            | smaa4x
-            | smaacoloredge
-            | smaadepthmask
-            | smaagreenluma
-            | smaaquality
-            | smaas2x
-            | smaaspatial
-            | smaastencil
-            | smaat2x
-            | smalpha
-            | smalphaprec
-            | smbbcull
-            | smbias
-            | smbias2
-            | smborder
-            | smborder2
-            | smcache
-            | smcubeprec
-            | smcullside
-            | smdepthprec
-            | smdistcull
-            | smdynshadow
-            | smfilter
-            | smgather
-            | sminoq
-            | smmaxsize
-            | smmesh
-            | smminradius
-            | smminsize
-            | smnodraw
-            | smnoshadow
-            | smpolyfactor
-            | smpolyfactor2
-            | smpolyoffset
-            | smpolyoffset2
-            | smprec
-            | smquery
-            | smsidecull
-            | smsize
-            | smspotprec
-            | smused
-            | smviscull
-            | softexplosion
-            | softexplosionblend
-            | softparticleblend
-            | softparticles
-            | sound
-            | specmode
-            | stainfade
-            | stains
-            | teleteam
-            | testtricol
-            | textbright
-            | timer
-            | tqaa
-            | tqaacolorweightbias
-            | tqaacolorweightscale
-            | tqaamovemask
-            | tqaaquincunx
-            | tqaareproject
-            | tqaaresolvegather
-            | uiscrollsteptime
-            | uisensitivity
-            | uislidersteptime
-            | uislotviewtime
-            | uitextrows
-            | uitextscale
-            | usetexgather
-            | volbilateral
-            | volbilateraldepth
-            | volblur
-            | volcolour
-            | volderiv
-            | voldistclamp
-            | volminstep
-            | volprefilter
-            | volreduce
-            | volscale
-            | volsteps
-            | volumetric
-            | water [1-4]? ( deep | deepcolour | deepfade | fallrefract | fallrefractcolour | fallspec | refract | refractcolour )
-            | waterreflectstep
-            | zoomsens
             )\b
           scope: support.function.cfg
 
