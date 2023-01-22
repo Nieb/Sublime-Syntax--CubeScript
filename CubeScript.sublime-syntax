@@ -558,7 +558,8 @@ contexts:
     CommonAliases:
         - match: |-
             (?x)
-            \b(
+            \b
+            (
               bindmod
             | bindvar
             | bindvarquiet
@@ -566,7 +567,8 @@ contexts:
             | editbindvar
             | editbindvarquiet
             | macro
-            )\b
+            )
+            (?=  \s  |  \@  |  \$  |  \)  |  \]  )
           scope: entity.name.function.cfg
 
 
@@ -581,10 +583,9 @@ contexts:
     BuiltInVariables:
         - match: |-
             (?x)
-            \b(
-              arg[0-9]*
-            | numargs
-            )\b
+            \b
+            (  arg[0-9]*  |  numargs  )
+            (?=  \s  |  \@  |  \$  |  \)  |  \]  )
           scope: variable.language.cfg
 
 
@@ -593,7 +594,8 @@ contexts:
     BuiltInCommands__Sauerbraten:
         - match: |-
             (?x)
-            \b(
+            \b
+            (
               aaenvmap
             | adaptivesample
             | addblendbrush
@@ -1687,7 +1689,8 @@ contexts:
             | zoomoutvel
             | zoomsens
             | zpass
-            )\b
+            )
+            (?=  \s  |  \@  |  \$  |  \)  |  \]  )
           scope: support.function.cfg
 
 
@@ -1711,7 +1714,8 @@ contexts:
             | r_swap
             | r_take
             | r_use
-            )\b
+            )
+            (?=  \s  |  \@  |  \$  |  \)  |  \]  )
           scope: support.function.cfg
 
 
@@ -1774,7 +1778,8 @@ contexts:
             | texguiscale
             | texguitime
             | texguiwidth
-            )\b
+            )
+            (?=  \s  |  \@  |  \$  |  \)  |  \]  )
           scope: support.function.cfg
 
 
@@ -2196,7 +2201,8 @@ contexts:
             | waterreflectstep
             | writecollideobj
             | zoomsens
-            )\b
+            )
+            (?=  \s  |  \@  |  \$  |  \)  |  \]  )
           scope: support.function.cfg
 
 
@@ -2302,7 +2308,8 @@ contexts:
             | ui (\!)? release      ( \+ | \+\? | \? )?
             | ui (\!)? scrolldown   ( \+ | \+\? | \? )?
             | ui (\!)? scrollup     ( \+ | \+\? | \? )?
-            )\b
+            )
+            (?=  \s  |  \@  |  \$  |  \)  |  \]  )
           scope: support.function.cfg
 
 
@@ -2359,7 +2366,8 @@ contexts:
             | mdlspin
             | mdltrans
             | mdlyaw
-            )\b
+            )
+            (?=  \s  |  \@  |  \$  |  \)  |  \]  )
           scope: support.function.cfg
 
 
@@ -2374,6 +2382,7 @@ contexts:
             | mdlgloss
             | mdlroll
             | mdltricollide
-            )\b
+            )
+            (?=  \s  |  \@  |  \$  |  \)  |  \]  )
           scope: support.function.cfg
 
