@@ -949,6 +949,7 @@ contexts:
             | fogdomeheight
             | fogdomemax
             | fogdomemin
+            | fogdomesquare
             | follow
             | font
             | fontalias
@@ -1526,6 +1527,7 @@ contexts:
             | showscores
             | showservinfo
             | showsky
+            | showskyoutline
             | showspectatorping
             | showspectators
             | showwaypoints
@@ -1536,6 +1538,7 @@ contexts:
             | skyboxcolour
             | skyboxglare
             | skylight
+            | skyoutlinecolour
             | skytexture
             | skytexturelight
             | sleep
