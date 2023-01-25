@@ -18,6 +18,7 @@ contexts:
         - include: TextureSubSlotAliases
 
         - include: BuiltInVariables
+
         - include: BuiltInCommands__Tesseract_UI
         - include: BuiltInCommands__Tesseract_Model
         - include: BuiltInCommands__Tesseract           #  Put these first to avoid conflicts with similarly named commands inside "BuiltInCommands__Sauerbraten".
@@ -32,11 +33,14 @@ contexts:
         - include: Section_Brackets
         - include: Section_Parentheses
         - include: Section_Strays
+
         - include: Strings
         #- include: TextureCommands      #############  These can appear outside of quoted-strings.
+
         - include: Numbers_Float
         - include: Numbers_Hex
         - include: Numbers_Integer
+
         - include: Operators_Arithmetic
         - include: Operators_Bitwise
         - include: Operators_Logical
@@ -44,9 +48,14 @@ contexts:
         - include: Operators_Word
         #- include: Operators_Indiscriminate
         #- include: Operators_Indiscriminate_Word
+
         - include: StringSubstitution   #############  These can appear outside of quoted-strings.
+
         - include: AliasEvaluation
+
         - include: StatementTerminator
+
+        - include: EntityTypes
 
         - include: UserAliases
 
@@ -158,18 +167,41 @@ contexts:
             (?x)
             (
                 (
-                    (   (?<![a-zA-Z\d]) \d*   )
+                    (
+                        (?<![a-zA-Z\d])
+                        \d*
+                    )
                 |
-                    (   (?<![a-zA-Z\d]) - \d*   )
+                    (
+                        (?<![a-zA-Z\d])
+                        \-
+                        \d*
+                    )
                 )
                 (
-                    (   (?<![a-zA-Z\d]) - \d{1} \.{1}   )
+                    (
+                        (?<![a-zA-Z\d])
+                        \-
+                        \d{1}
+                        \.{1}
+                    )
                 |
-                    (   (?<![\d]) - \.{1} \d{1}   )
+                    (
+                        (?<![\d])
+                        \-
+                        \.{1}
+                        \d{1}
+                    )
                 |
-                    (   \d{1} \.{1}   )
+                    (
+                        \d{1}
+                        \.{1}
+                    )
                 |
-                    (   \.{1} \d{1}   )
+                    (
+                        \.{1}
+                        \d{1}
+                    )
                 ){1}
                 \d*
             )
@@ -192,9 +224,21 @@ contexts:
         - match: |-
             (?x)
             (
-                (   \b ( (?![a-zA-Z]) \d* ) \b   )
+                (
+                    \b
+                    (
+                        (?! [a-zA-Z] )
+                        \d*
+                    )
+                    \b
+                )
             |
-                (   (?<![a-zA-Z\d]) -\d{1} \d*   )
+                (
+                    (?<! [a-zA-Z\d] )
+                    -
+                    \d{1}
+                    \d*
+                )
             )
           scope: constant.numeric.integer.cfg
 
@@ -566,6 +610,49 @@ contexts:
             | e
             ){1}
             \s
+          scope: constant.language.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    EntityTypes:
+        - match: |-
+            (?x)
+            (?<= ^ | \s)
+            (
+              barrel
+            | base
+            | box
+            | bullets
+            | carrot
+            | cartridges
+            | elevator
+            | envmap
+            | flag
+            | greenarmour
+            | grenades
+            | health
+            | healthboost
+            | jumppad
+            | light
+            | mapmodel
+            | monster
+            | none\?
+            | particles
+            | platform
+            | playerstart
+            | quaddamage
+            | respawnpoint
+            | riflerounds
+            | rockets
+            | shells
+            | sound
+            | spotlight
+            | teledest
+            | teleport
+            | yellowarmour
+            )
+            (?= \s)
           scope: constant.language.cfg
 
 
