@@ -485,7 +485,7 @@ contexts:
               scope: invalid.illegal.character.cfg
 
             #  END--Strings
-            - match: \"
+            - match: \"|\n
               scope: punctuation.definition.string.end.cfg
               pop: true
 
