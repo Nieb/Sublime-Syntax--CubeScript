@@ -17,24 +17,25 @@ contexts:
         - include: Shaders
         - include: TextureSubSlotAliases
 
-        - include: BuiltInVariables
+        - include: Variables_BuiltIn
 
-        - include: BuiltInCommands__Tesseract_UI
-        - include: BuiltInCommands__Tesseract_Model
-        - include: BuiltInCommands__Tesseract           #  Put these first to avoid conflicts with similarly named commands inside "BuiltInCommands__Sauerbraten".
-        - include: BuiltInCommands__Sauerbraten_GUI
-        - include: BuiltInCommands__Sauerbraten_Model
-        - include: BuiltInCommands__Sauerbraten
-        - include: BuiltInCommands__RPG
+        - include: Commands_BuiltIn__Tesseract_UI
+        - include: Commands_BuiltIn__Tesseract_Model
+        - include: Commands_BuiltIn__Tesseract           #  Put these first to avoid conflicts with similarly named commands inside "Commands_BuiltIn__Sauerbraten".
+        - include: Commands_BuiltIn__Sauerbraten_GUI
+        - include: Commands_BuiltIn__Sauerbraten_Model
+        - include: Commands_BuiltIn__Sauerbraten
+        - include: Commands_BuiltIn__RPG
 
-        - include: CommonAliases
-        - include: AliasDeclaration
+        - include: Aliases_Common
+        - include: Declaration_Alias
 
         - include: Section_Brackets
         - include: Section_Parentheses
         - include: Section_Strays
 
         - include: Strings
+        - include: StringSubstitution   #############  These can appear outside of quoted-strings.
         #- include: TextureCommands      #############  These can appear outside of quoted-strings.
 
         - include: Numbers_Float
@@ -44,52 +45,47 @@ contexts:
         - include: Operators_Arithmetic
         - include: Operators_Bitwise
         - include: Operators_Logical
-        - include: Operators_Assignment
         - include: Operators_Word
+        - include: Operators_Assignment
         #- include: Operators_Indiscriminate
         #- include: Operators_Indiscriminate_Word
 
-        - include: StringSubstitution   #############  These can appear outside of quoted-strings.
-
         - include: AliasEvaluation
 
-        - include: StatementTerminator
+        - include: Punctuation_StatementTerminator
 
-        - include: EntityTypes
+        - include: EntityTypes__Sauerbraten
+        - include: InputLabels__Sauerbraten
+        - include: InputLabels__Tesseract
+        - include: MaterialTypes__Sauerbraten
 
-        - include: UserAliases
+        - include: Aliases_User
 
 
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
-    #
     #   'Variables', 'DataTypes', 'Arrays', 'Strings', 'Functions', etc.
     #   have no distinction, they are all an 'Alias'.
     #
-    #
     #   Alias Naming:
-    #
     #       Valid characters:
-    #
     #           ~ ` ! # % ^ & * _ - = + { }
     #           \ | : ' , < . > ? / @ $ ( [
     #           A-Z   a-z   0-9
     #
-    #
     #       Cannot begin with:
-    #
     #           0-9  @  $  (  [
     #
     #           Note: Aliases can be named with quoted strings ( "@asdf" = 123 ).
     #                 But this is stupid.
     #
-    #
-    #       0-9   must be proceeded by   A-Z a-z   at some point.
+    #       Cannot begin with a number:
+    #           [0-9] must be proceeded by [A-Za-z] at some point.
     #
     #======================================================================================================================================
-    AliasDeclaration:
+    Declaration_Alias:
         - match: |-
             (?x)
             \b(
@@ -107,7 +103,7 @@ contexts:
 
 
     #======================================================================================================================================
-    UserAliases:
+    Aliases_User:
         #  ( Bounds Left )
         #  ( First Character )
         #  ( Characters )
@@ -456,7 +452,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    StatementTerminator:
+    Punctuation_StatementTerminator:
         - match: \;
           scope: punctuation.terminator.cfg
 
@@ -565,10 +561,10 @@ contexts:
             - include: Operators_Logical
             - include: Operators_Assignment
             - include: Operators_Word
-            - include: BuiltInVariables
-            - include: StatementTerminator
+            - include: Variables_BuiltIn
+            - include: Punctuation_StatementTerminator
             - include: Strings
-            - include: UserAliases
+            - include: Aliases_User
 
             #  BEGIN--GLSL
             - match: (?<=\[)(?=\s*\n)
@@ -615,7 +611,13 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    EntityTypes:
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    EntityTypes__Sauerbraten:
         - match: |-
             (?x)
             (?<= ^ | \s)
@@ -658,13 +660,140 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
+    InputLabels__Sauerbraten:
+        - match: |-
+            (?x)
+            (?<= \s)
+            (
+              MOUSE([1-9]|1[0-2]){1}
+            | [0-9]{1}
+            | [A-Z]{1}
+            | F([1-9]|1[0-2]){1}
+            | AMPERSAND
+            | ASTERISK
+            | AT
+            | BACKQUOTE
+            | BACKSLASH
+            | BACKSPACE
+            | CAPSLOCK
+            | CARET
+            | COLON
+            | COMMA
+            | COMPOSE
+            | DELETE
+            | DOLLAR
+            | DOWN
+            | END
+            | EQUALS
+            | ESCAPE
+            | EXCLAIM
+            | GREATER
+            | HASH
+            | HELP
+            | HOME
+            | INSERT
+            | KP[0-9]{1}
+            | KP_DIVIDE
+            | KP_ENTER
+            | KP_EQUALS
+            | KP_MINUS
+            | KP_MULTIPLY
+            | KP_PERIOD
+            | KP_PLUS
+            | LALT
+            | LCTRL
+            | LEFT
+            | LEFTBRACKET
+            | LEFTPAREN
+            | LESS
+            | LMETA
+            | LSHIFT
+            | MENU
+            | MINUS
+            | NUMLOCK
+            | PAGEDOWN
+            | PAGEUP
+            | PAUSE
+            | PERIOD
+            | PLUS
+            | PRINT
+            | QUESTION
+            | QUOTE
+            | QUOTEDBL
+            | RALT
+            | RCTRL
+            | RETURN
+            | RIGHT
+            | RIGHTBRACKET
+            | RIGHTPAREN
+            | RMETA
+            | RSHIFT
+            | SCROLLOCK
+            | SEMICOLON
+            | SLASH
+            | SPACE
+            | SYSREQ
+            | TAB
+            | UNDERSCORE
+            | UP
+            )
+            (?= \s)
+          scope: constant.language.cfg
+
+
+    #======================================================================================================================================
+    InputLabels__Tesseract:
+        - match: |-
+            (?x)
+            (?<= \s)
+            (
+              MOUSELEFT
+            | MOUSEMIDDLE
+            | MOUSERIGHT
+            | MOUSEWHEELUP
+            | MOUSEWHEELDOWN
+            | MOUSEBACK
+            | MOUSEFORWARD
+            | MOUSEWHEELLEFT
+            | MOUSEWHEELRIGHT
+            | MOUSESIDE1
+            | MOUSESIDE2
+            | MOUSESIDE3
+            )
+            (?= \s)
+          scope: constant.language.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    MaterialTypes__Sauerbraten:
+        - match: |-
+            (?x)
+            (?<= ^ | \s)
+            (
+              air
+            | alpha
+            | clip
+            | death
+            | gameclip
+            | noclip
+            | glass[1-4]?
+            | lava[1-4]?
+            | water[1-4]?
+            )
+            (?= \s)
+          scope: constant.language.cfg
+
+
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
-    CommonAliases:
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    Aliases_Common:
         - match: |-
             (?x)
             \b
@@ -689,7 +818,7 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
-    BuiltInVariables:
+    Variables_BuiltIn:
         - match: |-
             (?x)
             \b
@@ -703,7 +832,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    BuiltInCommands__Sauerbraten:
+    Commands_BuiltIn__Sauerbraten:
         - match: |-
             (?x)
             \b
@@ -1810,7 +1939,7 @@ contexts:
 
 
     #======================================================================================================================================
-    BuiltInCommands__RPG:
+    Commands_BuiltIn__RPG:
         - match: |-
             (?x)
             \b(
@@ -1835,7 +1964,7 @@ contexts:
 
 
     #======================================================================================================================================
-    BuiltInCommands__Sauerbraten_GUI:   # guicolorbox  COLOR_INT  SIZE(similiar behavior as guiimage)
+    Commands_BuiltIn__Sauerbraten_GUI:   # guicolorbox  COLOR_INT  SIZE(similiar behavior as guiimage)
         - match: |-
             (?x)
             \b(
@@ -1900,7 +2029,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    BuiltInCommands__Tesseract:
+    Commands_BuiltIn__Tesseract:
         - match: |-
             (?x)
             \b(
@@ -2322,7 +2451,7 @@ contexts:
 
 
     #======================================================================================================================================
-    BuiltInCommands__Tesseract_UI:
+    Commands_BuiltIn__Tesseract_UI:
         - match: |-
             (?x)
             \b(
@@ -2430,7 +2559,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    BuiltInCommands__Sauerbraten_Model:
+    Commands_BuiltIn__Sauerbraten_Model:
         - match: |-
             (?x)
             \b(
@@ -2487,7 +2616,7 @@ contexts:
 
 
     #======================================================================================================================================
-    BuiltInCommands__Tesseract_Model:
+    Commands_BuiltIn__Tesseract_Model:
         - match: |-
             (?x)
             \b(
