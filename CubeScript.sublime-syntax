@@ -1682,6 +1682,7 @@ contexts:
             | seedparticles
             | seekdemo
             | selectcorners
+            | selectionoffset
             | selectionsurf
             | selextend
             | selmoved
@@ -1960,6 +1961,7 @@ contexts:
             | r_swap
             | r_take
             | r_use
+            | showplayergui
             )
             (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
           scope: support.function.cfg
@@ -2015,7 +2017,6 @@ contexts:
             | hidegui
             | newgui
             | showgui
-            | showplayergui
             | showtexgui
             | texgui2d
             | texguiheight
