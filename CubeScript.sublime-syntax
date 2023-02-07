@@ -15,7 +15,6 @@ contexts:
         - include: Keywords
 
         - include: Shaders
-        - include: TextureSubSlotAliases
 
         - include: Variables_BuiltIn
 
@@ -59,6 +58,8 @@ contexts:
         - include: InputLabels__Sauerbraten
         - include: InputLabels__Tesseract
         - include: MaterialTypes__Sauerbraten
+        - include: TextureSubSlotAliases
+        - include: WeaponAliases__Sauerbraten
 
         - include: Aliases_User
 
@@ -95,7 +96,6 @@ contexts:
             \b(
               alias
             | local
-            | set
             )\b
           scope: storage.type.cfg
 
@@ -148,14 +148,17 @@ contexts:
         - match: |-
             \b(?x:
               at
-            | casef
-            | cases
-            | case
+            | append
+            | appendword
+            | case[fs]?
             | cond
-            | doargs
             | do
+            | doargs
+            | escape
             | exec
             | if
+            | set
+            | unescape
             )\b
           scope: keyword.control.cfg
 
@@ -265,7 +268,7 @@ contexts:
     Operators_Bitwise:
         - match: |-
             (?x)
-            (?<= \( | \[ | \(\s | \[\s )
+            (?<= \( | \[ | \(\s | \[\s |\s )
             (
               \<\<
             | \>\>
@@ -598,6 +601,7 @@ contexts:
         - match: \*
           scope: wildcard.cfg
 
+
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -797,6 +801,24 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
+    WeaponAliases__Sauerbraten:
+        - match: |-
+            (?x)
+            (?<= setweapon\s)
+            (
+              CG
+            | FI
+            | GL
+            | PI
+            | RI
+            | RL
+            | SG
+            ){1}
+          scope: constant.language.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -890,8 +912,6 @@ contexts:
             | animationinterpolationtime
             | animoverride
             | aniso
-            | append
-            | appendword
             | applydialog
             | aspect
             | ati_cubemap_bug
@@ -1157,7 +1177,6 @@ contexts:
             | envmapsize
             | envpass
             | error
-            | escape
             | explodebright
             | extinfoip
             | faderoll
@@ -1895,7 +1914,6 @@ contexts:
             | trilinear
             | undo
             | undomegs
-            | unescape
             | unignore
             | unistr
             | updatefrommaster
