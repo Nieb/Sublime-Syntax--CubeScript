@@ -13,20 +13,22 @@ contexts:
         #  Order of includes is important.
         - include: Comments
         - include: Keywords
+        - include: Loops__Tesseract
+        - include: Loops
 
         - include: Shaders
 
         - include: Variables_BuiltIn
 
-        - include: Commands_BuiltIn__Tesseract_UI
-        - include: Commands_BuiltIn__Tesseract_Model
-        - include: Commands_BuiltIn__Tesseract           #  Put these first to avoid conflicts with similarly named commands inside "Commands_BuiltIn__Sauerbraten".
+        - include: Commands_BuiltIn__Tesseract_UI       #  Put these first to avoid conflicts with similarly
+        - include: Commands_BuiltIn__Tesseract_Model    #  named commands inside "Commands_BuiltIn__Sauerbraten".
+        - include: Commands_BuiltIn__Tesseract          #
         - include: Commands_BuiltIn__Sauerbraten_GUI
         - include: Commands_BuiltIn__Sauerbraten_Model
         - include: Commands_BuiltIn__Sauerbraten
         - include: Commands_BuiltIn__RPG
 
-        - include: Aliases_Common
+        - include: Aliases_Common__Sauerbraten
         - include: Declaration_Alias
 
         - include: Section_Brackets
@@ -34,8 +36,8 @@ contexts:
         - include: Section_Strays
 
         - include: Strings
-        - include: StringSubstitution   #############  These can appear outside of quoted-strings.
-        #- include: TextureCommands      #############  These can appear outside of quoted-strings.
+        - include: StringSubstitution   #  These can appear outside of quoted-strings.
+       #- include: TextureCommands      #  These can appear outside of quoted-strings.
 
         - include: Numbers_Float
         - include: Numbers_Hex
@@ -46,20 +48,20 @@ contexts:
         - include: Operators_Logical
         - include: Operators_Word
         - include: Operators_Assignment
-        #- include: Operators_Indiscriminate
-        #- include: Operators_Indiscriminate_Word
+       #- include: Operators_Indiscriminate
+       #- include: Operators_Indiscriminate_Word
 
         - include: AliasEvaluation
 
         - include: Punctuation
         - include: Wildcard
 
-        - include: EntityTypes__Sauerbraten
-        - include: InputLabels__Sauerbraten
-        - include: InputLabels__Tesseract
-        - include: MaterialTypes__Sauerbraten
-        - include: TextureSubSlotAliases
-        - include: WeaponAliases__Sauerbraten
+        - include: Labels_Entity__Sauerbraten
+        - include: Labels_Input__Sauerbraten
+        - include: Labels_Input__Tesseract
+        - include: Labels_Material__Sauerbraten
+        - include: Labels_TextureSubSlot
+        - include: Labels_Weapon__Sauerbraten
 
         - include: Aliases_User
 
@@ -68,8 +70,12 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
-    #   'Variables', 'DataTypes', 'Arrays', 'Strings', 'Functions', etc.
-    #   have no distinction, they are all an 'Alias'.
+    #   ALL Aliases are strings.  The strings are parsed and typed upon usage.
+    #       Example:  (+f $VAR $VAR)    Since this is a float operation, it will attempt to parse the VAR alias-strings as a float.
+    #                                   And, unfortunately, if it can't parse to a float, it will fail silently.  (perhaps there is a setting that can show these errors...)
+    #       Example:  (at $VAR 2)       It will attempt to parse VAR as a list and return the contents of the 2nd index. (index here is ZeroInclusive)
+    #                                   Whitespace is treated as a delimiter.
+    #                                   Containers can be used to have list items with spaces:  [ "a a" "b b" ]
     #
     #   Alias Naming:
     #       Valid characters:
@@ -103,7 +109,7 @@ contexts:
     #======================================================================================================================================
     AliasEvaluation:
         - match: (\@|\$)
-          scope: keyword.operator.cfg  # variable.language.cfg
+          scope: keyword.operator.cfg
 
 
     #======================================================================================================================================
@@ -133,6 +139,8 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
     Comments:
         - match: (\/\/)
           scope: comment.line.cfg
@@ -146,7 +154,8 @@ contexts:
     ###########################################################################################################################################
     Keywords:
         - match: |-
-            \b(?x:
+            (?x)
+            \b(
               at
             | append
             | appendword
@@ -159,7 +168,44 @@ contexts:
             | if
             | set
             | unescape
-            )\b
+            )\s
+          scope: keyword.control.cfg
+
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    Loops:
+        - match: |-
+            (?x)
+            \b(
+              loop
+            | while
+            | entloop
+            | loopconcat
+            | loopconcatword
+            | loopfiles
+            | looplist
+            | looplistconcat
+            | looplistconcatword
+            | loopsublist
+            | loopwhile
+            )\s
+          scope: keyword.control.cfg
+
+
+    #======================================================================================================================================
+    Loops__Tesseract:
+        - match: |-
+            (?x)
+            \b(
+              loop( \* | \+ | \+\* )?
+            | loopconcat( \* | \+ | \+\* )?
+            | loopconcatword( \* | \+ | \+\* )?
+            | looplist[23]
+            | loopscoreboard
+            | looptexmru
+            | loopwhile( \* | \+ | \+\* )?
+            )\s
           scope: keyword.control.cfg
 
 
@@ -268,7 +314,7 @@ contexts:
     Operators_Bitwise:
         - match: |-
             (?x)
-            (?<= \( | \[ | \(\s | \[\s |\s )
+            (?<= ^ | \s | \( | \[ )
             (
               \<\<
             | \>\>
@@ -479,7 +525,7 @@ contexts:
             - match: |-
                 (?x)
                 (
-                  ( \^  f [\~0-9sr]{1} )
+                  ( \^  f [\~0-9sr]{1}  )
                 | ( \^  n )
                 | ( \^  t )
                 | ( \^ \" )
@@ -598,7 +644,11 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     Wildcard:
-        - match: \*
+        - match: |-
+            (?x)
+            (?<= \s )
+               ( \* )
+            (?=  \s | \) | \] | \; )
           scope: wildcard.cfg
 
 
@@ -610,7 +660,7 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
-    EntityTypes__Sauerbraten:
+    Labels_Entity__Sauerbraten:
         - match: |-
             (?x)
             (?<= ^ | \s)
@@ -653,7 +703,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    InputLabels__Sauerbraten:
+    Labels_Input__Sauerbraten:
         - match: |-
             (?x)
             (?<= \s)
@@ -735,7 +785,7 @@ contexts:
 
 
     #======================================================================================================================================
-    InputLabels__Tesseract:
+    Labels_Input__Tesseract:
         - match: |-
             (?x)
             (?<= \s)
@@ -759,7 +809,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    MaterialTypes__Sauerbraten:
+    Labels_Material__Sauerbraten:
         - match: |-
             (?x)
             (?<= ^ | \s)
@@ -780,7 +830,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    TextureSubSlotAliases:
+    Labels_TextureSubSlot:
         - match: |-
             (?x)
             (?<= texture\s)
@@ -801,7 +851,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    WeaponAliases__Sauerbraten:
+    Labels_Weapon__Sauerbraten:
         - match: |-
             (?x)
             (?<= setweapon\s)
@@ -825,7 +875,7 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
-    Aliases_Common:
+    Aliases_Common__Sauerbraten:
         - match: |-
             (?x)
             \b
@@ -870,6 +920,12 @@ contexts:
           scope: variable.language.cfg
 
 
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
     Commands_BuiltIn__Sauerbraten:
@@ -1159,7 +1215,6 @@ contexts:
             | enthavesel
             | entindex
             | entitysurf
-            | entloop
             | entmoving
             | entmovingshadow
             | entpaste
@@ -1416,15 +1471,6 @@ contexts:
             | localdisconnect
             | lockmaprotation
             | lockpvs
-            | loop
-            | loopconcat
-            | loopconcatword
-            | loopfiles
-            | looplist
-            | looplistconcat
-            | looplistconcatword
-            | loopsublist
-            | loopwhile
             | m_capture
             | m_classicsp
             | m_collect
@@ -1957,7 +2003,6 @@ contexts:
             | waterrefract
             | watersubdiv
             | weapon
-            | while
             | wireframe
             | writecfg
             | writeobj
@@ -2160,6 +2205,8 @@ contexts:
             | decalreset
             | deffvar
             | deffvarp
+            | defhvar
+            | defhvarp
             | defsvar
             | defsvarp
             | defvar
@@ -2269,13 +2316,6 @@ contexts:
             | listfind\=s
             | listintersect
             | listunion
-            | loop( \* | \+ | \+\* )?
-            | loopconcat( \* | \+ | \+\* )?
-            | loopconcatword( \* | \+ | \+\* )?
-            | looplist[23]
-            | loopscoreboard
-            | looptexmru
-            | loopwhile( \* | \+ | \+\* )?
             | m_pulse
             | m_rail
             | m_timed
