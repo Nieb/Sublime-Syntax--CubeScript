@@ -70,12 +70,6 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
-    #   ALL Aliases are strings.  The strings are parsed and typed upon usage.
-    #       Example:  (+f $VAR $VAR)    Since this is a float operation, it will attempt to parse the VAR alias-strings as a float.
-    #                                   And, unfortunately, if it can't parse to a float, it will fail silently.  (perhaps there is a setting that can show these errors...)
-    #       Example:  (at $VAR 2)       It will attempt to parse VAR as a list and return the contents of the 2nd index. (index here is ZeroInclusive)
-    #                                   Whitespace is treated as a delimiter.
-    #                                   Containers can be used to have list items with spaces:  [ "a a" "b b" ]
     #
     #   Alias Naming:
     #       Valid characters:
@@ -299,12 +293,9 @@ contexts:
             (?x)
             (?<= \( | \[ | \(\s | \[\s )
             (
-              \-f
-            | \+f
-            | \*f
-            | \-
-            | \+
-            | \*
+              \-f | \-
+            | \+f | \+
+            | \*f | \*
             )
             (?= \s )
           scope: keyword.operator.arithmetic.cfg
@@ -319,9 +310,7 @@ contexts:
               \<\<
             | \>\>
             | \^\~
-            | \&\&
             | \&\~
-            | \|\|
             | \|\~
             | \!
             | \~
@@ -337,26 +326,15 @@ contexts:
     Operators_Logical:
         - match: |-
             (?x)
-            (?<= \( | \[ | \(\s | \[\s )
+            (?<= ^ | \s | \( | \[ )
             (
-              \!\=f
-            | \!\=s
-            | \<\=f
-            | \<\=s
-            | \>\=f
-            | \>\=s
-            | \=f
-            | \=s
-            | \<f
-            | \<s
-            | \>f
-            | \>s
-            | \!\=
-            | \<\=
-            | \>\=
-            | \=
-            | \<
-            | \>
+              \&\&  | \|\|
+            | \<\=f | \<\=s | \<\=
+            | \<f   | \<s   | \<
+            | \>\=f | \>\=s | \>\=
+            | \>f   | \>s   | \>
+            | \!\=f | \!\=s | \!\=
+            |   \=f |   \=s |   \=
             | \?
             )
             (?= \s )
@@ -379,27 +357,22 @@ contexts:
             (?x)
             (?<= \( | \[ | \(\s | \[\s )
             (
-              absf
-            | abs
+              absf | abs
             | acos
             | asin
             | atan2
             | atan
             | ceil
             | cos
-            | divf
-            | div
+            | divf | div
             | exp
             | floor
             | loge
             | log2
             | log10
-            | maxf
-            | max
-            | minf
-            | min
-            | modf
-            | mod
+            | maxf | max
+            | minf | min
+            | modf | mod
             | pow
             | round
             | sin
@@ -438,27 +411,22 @@ contexts:
         - match: |-
             (?x)
             (
-              absf
-            | abs
+              absf | abs
             | acos
             | asin
             | atan2
             | atan
             | ceil
             | cos
-            | divf
-            | div
+            | divf | div
             | exp
             | floor
             | loge
             | log2
             | log10
-            | maxf
-            | max
-            | minf
-            | min
-            | modf
-            | mod
+            | maxf | max
+            | minf | min
+            | modf | mod
             | pow
             | round
             | sin
@@ -1331,6 +1299,7 @@ contexts:
             | getseltex
             | getservauth
             | getslottex
+            | getsmoothangle
             | getspecbind
             | getteam
             | gettex
@@ -1348,6 +1317,7 @@ contexts:
             | getvscroll
             | getvshaderparam
             | getvshaderparamnames
+            | getvsmooth
             | getweapon
             | glare
             | glaremod
