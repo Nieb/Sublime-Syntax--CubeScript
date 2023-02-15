@@ -1298,6 +1298,7 @@ contexts:
             | getselpos
             | getseltex
             | getservauth
+            | getservdesc
             | getslottex
             | getsmoothangle
             | getspecbind
