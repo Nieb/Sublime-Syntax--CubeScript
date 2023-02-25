@@ -151,8 +151,6 @@ contexts:
             (?x)
             \b(
               at
-            | append
-            | appendword
             | case[fs]?
             | cond
             | do
@@ -936,6 +934,8 @@ contexts:
             | animationinterpolationtime
             | animoverride
             | aniso
+            | append
+            | appendword
             | applydialog
             | aspect
             | ati_cubemap_bug
@@ -2051,10 +2051,12 @@ contexts:
             | guinoautotab
             | guionclear
             | guiplayerpreview
+            | guiposition
             | guiprefabpreview
             | guipreviewtime
             | guipushdist
             | guiradio
+            | guiscale
             | guisens
             | guiservers
             | guislider
