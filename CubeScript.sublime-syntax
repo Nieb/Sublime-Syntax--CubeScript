@@ -16,7 +16,7 @@ contexts:
         - include: Loops__Tesseract
         - include: Loops
 
-       #- include: Shaders      #  This uses GLSL.sublime-syntax
+       #- include: Shaders      #  This uses: "Packages/GLSL/GLSL.sublime-syntax"
                                 #  Which can be found here:  https://github.com/Nieb/Sublime-Syntax--GLSL
 
         - include: Variables_BuiltIn
