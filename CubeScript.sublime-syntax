@@ -496,6 +496,7 @@ contexts:
                 | ( \^  t )
                 | ( \^ \" )
                 | ( \^ \^ )
+                | ( \% \% )
                 )
               scope: constant.character.escape.cfg
 
