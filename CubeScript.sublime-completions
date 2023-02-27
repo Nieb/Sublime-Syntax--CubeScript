@@ -29,8 +29,8 @@
       //{ "trigger": "+f",       "contents": "(+f ${1:AAA} ${2:BBB}) $0" },
       //{ "trigger": "*f",       "contents": "(*f ${1:AAA} ${2:BBB}) $0" },
 
-        { "trigger": "lft",      "contents": "(<< ${1:AAA} ${2:BBB}) $0" },
-        { "trigger": "rgh",      "contents": "(>> ${1:AAA} ${2:BBB}) $0" },
+        { "trigger": "left",     "contents": "(<< ${1:AAA} ${2:BBB}) $0" },
+        { "trigger": "right",    "contents": "(>> ${1:AAA} ${2:BBB}) $0" },
         { "trigger": "and",      "contents": "(&& ${1:AAA} ${2:BBB}) $0" },
         { "trigger": "or",       "contents": "(|| ${1:AAA} ${2:BBB}) $0" },
       //{ "trigger": "^~",       "contents": "(^~ ${1:AAA} ${2:BBB}) $0" },
@@ -64,7 +64,7 @@
       //{ "trigger": ">=f",      "contents": "(>=f ${1:AAA} ${2:BBB}) $0" },
       //{ "trigger": ">=s",      "contents": "(>=s ${1:AAA} ${2:BBB}) $0" },
 
-        { "trigger": "cnd",      "contents": "(? ${1:AAA} ${2:BBB}) $0" },
+        { "trigger": "condi",    "contents": "(? ${1:AAA} ${2:BBB}) $0" },
 
         { "trigger": "div",      "contents": "(div ${1:AAA} ${2:BBB})" },
         { "trigger": "divf",     "contents": "(divf ${1:AAA} ${2:BBB})" },
@@ -102,5 +102,5 @@
     //#########################################################################################################################################
     ]
 }
-//    \\$    <-- Escaped $ symbol.
 
+//    \\$    <-- Escaped $ symbol.
