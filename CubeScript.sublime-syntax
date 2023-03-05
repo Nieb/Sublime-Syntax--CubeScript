@@ -857,6 +857,7 @@ contexts:
             | entfind
             | entfindinsel
             | entproperty
+            | entproperty2
             | guifield2
             | guifreerow
             | guimaplist
