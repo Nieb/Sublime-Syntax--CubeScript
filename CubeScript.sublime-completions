@@ -9,6 +9,7 @@
     //#########################################################################################################################################
         { "trigger": "guialign",    "contents": "guialign ${1:0} [$0]" },
         { "trigger": "guilist",     "contents": "guilist [$0]" },
+        { "trigger": "nodebug",     "contents": "nodebug [$0]" },
 
 
     //#########################################################################################################################################
@@ -25,44 +26,14 @@
         { "trigger": "sub",      "contents": "(- ${1:AAA} ${2:BBB}) $0" },
         { "trigger": "add",      "contents": "(+ ${1:AAA} ${2:BBB}) $0" },
         { "trigger": "mul",      "contents": "(* ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "-f",       "contents": "(-f ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "+f",       "contents": "(+f ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "*f",       "contents": "(*f ${1:AAA} ${2:BBB}) $0" },
 
         { "trigger": "left",     "contents": "(<< ${1:AAA} ${2:BBB}) $0" },
         { "trigger": "right",    "contents": "(>> ${1:AAA} ${2:BBB}) $0" },
         { "trigger": "and",      "contents": "(&& ${1:AAA} ${2:BBB}) $0" },
         { "trigger": "or",       "contents": "(|| ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "^~",       "contents": "(^~ ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "&~",       "contents": "(&~ ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "|~",       "contents": "(|~ ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "~",        "contents": "(~ ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "^",        "contents": "(^ ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "&",        "contents": "(& ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "|",        "contents": "(| ${1:AAA} ${2:BBB}) $0" },
         { "trigger": "not",      "contents": "(! ${1:AAA} ${2:BBB}) $0" },
 
-        { "trigger": "eql",      "contents": "(= ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "=f",       "contents": "(=f ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "=s",       "contents": "(=s ${1:AAA} ${2:BBB}) $0" },
-
-      //{ "trigger": "!=f",      "contents": "(!=f ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "!=s",      "contents": "(!=s ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "!=",       "contents": "(!= ${1:AAA} ${2:BBB}) $0" },
-
-      //{ "trigger": "<",        "contents": "(< ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "<f",       "contents": "(<f ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "<s",       "contents": "(<s ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "<=",       "contents": "(<= ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "<=f",      "contents": "(<=f ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": "<=s",      "contents": "(<=s ${1:AAA} ${2:BBB}) $0" },
-
-      //{ "trigger": ">",        "contents": "(> ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": ">f",       "contents": "(>f ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": ">s",       "contents": "(>s ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": ">=",       "contents": "(>= ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": ">=f",      "contents": "(>=f ${1:AAA} ${2:BBB}) $0" },
-      //{ "trigger": ">=s",      "contents": "(>=s ${1:AAA} ${2:BBB}) $0" },
+        { "trigger": "equals",   "contents": "(= ${1:AAA} ${2:BBB}) $0" },
 
         { "trigger": "condi",    "contents": "(? ${1:AAA} ${2:BBB}) $0" },
 
