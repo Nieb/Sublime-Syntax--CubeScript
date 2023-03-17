@@ -1299,6 +1299,8 @@ contexts:
             | getpubkey
             | getreptex
             | getselpos
+            | getselsavedpos
+            | getselsavedsize
             | getseltex
             | getservauth
             | getservdesc
