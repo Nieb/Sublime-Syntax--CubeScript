@@ -1035,6 +1035,7 @@ contexts:
             | clearmodel
             | clearpostfx
             | clearpvs
+            | clearselsaved
             | clearservers
             | clearsleep
             | clearundos
@@ -1317,6 +1318,9 @@ contexts:
             | getvarmin
             | getvcolor
             | getvlayer
+            | getvlayermaskmode
+            | getvlayermaskname
+            | getvlayermaskscale
             | getvoffset
             | getvrotate
             | getvscale
