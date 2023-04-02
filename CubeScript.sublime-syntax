@@ -861,6 +861,12 @@ contexts:
             | guifield2
             | guifreerow
             | guimaplist
+            | guirollovername
+            | guirolloveraction
+            | guirolloverimgpath
+            | guirolloverimgaction
+            | guirolloverpreviewname
+            | guirolloverpreviewaction
             | guitexteditor
             | lazyshader
             | macro
