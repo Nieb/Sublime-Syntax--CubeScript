@@ -12,11 +12,13 @@ contexts:
     main:
         #  Order of includes is important.
         - include: Comments
+
         - include: Keywords
+
         - include: Loops__Tesseract
         - include: Loops
 
-       #- include: Shaders      #  This uses: "Packages/GLSL/GLSL.sublime-syntax"
+        - include: Shaders      #  This uses: "Packages/GLSL/GLSL.sublime-syntax"
                                 #  Which can be found here:  https://github.com/Nieb/Sublime-Syntax--GLSL
 
         - include: Variables_BuiltIn
@@ -35,7 +37,6 @@ contexts:
         - include: Section_Brackets
         - include: Section_Parentheses
         - include: Section_Strays
-
         - include: Strings
         - include: StringSubstitution   #  These can appear outside of quoted-strings.
        #- include: TextureCommands      #  These can appear outside of quoted-strings.
@@ -174,6 +175,7 @@ contexts:
               loop
             | while
             | entloop
+            | entselect
             | loopconcat
             | loopconcatword
             | loopfiles
@@ -276,6 +278,16 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
+    Operators_Assignment:
+        - match: |-
+            (?x)
+            (?<= \s )
+            ( \= )
+            (?=  \s )
+          scope: keyword.operator.assignment.cfg
+
+
+    #======================================================================================================================================
     Operators_Arithmetic:
         - match: |-
             (?x)
@@ -327,16 +339,6 @@ contexts:
             )
             (?= \s )
           scope: keyword.operator.logical.cfg
-
-
-    #======================================================================================================================================
-    Operators_Assignment:
-        - match: |-
-            (?x)
-            (?<= \s )
-            ( \= )
-            (?=  \s )
-          scope: keyword.operator.assignment.cfg
 
 
     #======================================================================================================================================
@@ -663,7 +665,7 @@ contexts:
     Labels_Input__Sauerbraten:
         - match: |-
             (?x)
-            (?<= \s)
+            (?<=\s)
             (
               MOUSE([1-9]|1[0-2]){1}
             | [0-9]{1}
@@ -875,12 +877,11 @@ contexts:
     Variables_BuiltIn:
         - match: |-
             (?x)
-            \b
+            (?<= \@ | \$ )
             (
               arg[0-9]*
             | numargs
             )
-            (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
           scope: variable.language.cfg
 
 
@@ -1187,7 +1188,6 @@ contexts:
             | entpaste
             | entpush
             | entrotate
-            | entselect
             | entselradius
             | entselsnap
             | entset
