@@ -23,8 +23,8 @@ contexts:
 
         - include: Variables_BuiltIn
 
-        - include: Commands_BuiltIn__Tesseract_UI       #  Put these first to avoid conflicts with similarly
-        - include: Commands_BuiltIn__Tesseract_Model    #  named commands inside "Commands_BuiltIn__Sauerbraten".
+        - include: Commands_BuiltIn__Tesseract_UI       #  Put "Tesseract" first to avoid conflicts with similarly
+        - include: Commands_BuiltIn__Tesseract_Model    #  named commands in "Sauerbraten".
         - include: Commands_BuiltIn__Tesseract          #
         - include: Commands_BuiltIn__Sauerbraten_GUI
         - include: Commands_BuiltIn__Sauerbraten_Model
@@ -58,12 +58,12 @@ contexts:
         - include: Punctuation
         - include: Wildcard
 
-        - include: Labels_Entity__Sauerbraten
-        - include: Labels_Input__Sauerbraten
-        - include: Labels_Input__Tesseract
-        - include: Labels_Material__Sauerbraten
-        - include: Labels_TextureSubSlot
-        - include: Labels_Weapon__Sauerbraten
+        - include: Constants_Entity__Sauerbraten
+        - include: Constants_Input__Sauerbraten
+        - include: Constants_Input__Tesseract
+        - include: Constants_Material__Sauerbraten
+        - include: Constants_TextureSubSlot
+        - include: Constants_Weapon__Sauerbraten
 
         - include: Aliases_User
 
@@ -79,17 +79,14 @@ contexts:
     #           \ | : ' , < . > ? / @ $ ( [
     #           A-Z   a-z   0-9
     #
-    #           Note: Using these chars in aliases is stupid, even if supported.
-    #                       @ $ ( [
+    #       Aliases can be named with quoted strings.
+    #           Example:  "@asdf" = 123
     #
-    #       Cannot begin with:
-    #           0-9  @  $  (  [
-    #
-    #           Note: Aliases can be named with quoted strings ( "@asdf" = 123 ).
-    #                 But this is stupid.
+    #       Using these characters in alias names is stupid, even if supported.
+    #           @ $ ( [
     #
     #       Cannot begin with a number:
-    #           [0-9] must be proceeded by [A-Za-z] at some point.
+    #           [0-9] must be proceeded by [A-Za-z].
     #
     #======================================================================================================================================
     Declaration_Alias:
@@ -142,6 +139,7 @@ contexts:
           scope: comment.line.cfg
           push:
             - meta_scope: comment.line.cfg
+
             - match: (\n)
               pop: true
 
@@ -629,7 +627,7 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
-    Labels_Entity__Sauerbraten:
+    Constants_Entity__Sauerbraten:
         - match: |-
             (?x)
             (?<= ^ | \s)
@@ -672,7 +670,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    Labels_Input__Sauerbraten:
+    Constants_Input__Sauerbraten:
         - match: |-
             (?x)
             (?<=\s)
@@ -754,7 +752,7 @@ contexts:
 
 
     #======================================================================================================================================
-    Labels_Input__Tesseract:
+    Constants_Input__Tesseract:
         - match: |-
             (?x)
             (?<= \s)
@@ -778,10 +776,10 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    Labels_Material__Sauerbraten:
+    Constants_Material__Sauerbraten:
         - match: |-
             (?x)
-            (?<= ^ | \s)
+            (?<= editmat\s)
             (
                   air
                 | alpha
@@ -799,7 +797,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    Labels_TextureSubSlot:
+    Constants_TextureSubSlot:
         - match: |-
             (?x)
             (?<= texture\s)
@@ -820,7 +818,7 @@ contexts:
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    Labels_Weapon__Sauerbraten:
+    Constants_Weapon__Sauerbraten:
         - match: |-
             (?x)
             (?<= setweapon\s)
@@ -871,6 +869,7 @@ contexts:
                 | guitexteditor
                 | lazyshader
                 | macro
+                | showeditgui
             )
             (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
           scope: support.function.library.cfg
