@@ -857,6 +857,7 @@ contexts:
                 | entfindinsel
                 | entproperty
                 | entproperty2
+                | guieditingcheck
                 | guifield2
                 | guifreerow
                 | guimaplist
@@ -869,7 +870,8 @@ contexts:
                 | guitexteditor
                 | lazyshader
                 | macro
-                | showeditgui
+                | togglegui
+                | toggleeditgui
             )
             (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
           scope: support.function.library.cfg
