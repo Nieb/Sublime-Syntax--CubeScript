@@ -3,7 +3,6 @@
 name: CubeScript
 file_extensions: cfg
 scope: source.cfg
-
 contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -23,13 +22,13 @@ contexts:
 
         - include: Variables_BuiltIn
 
-        - include: Commands_BuiltIn__Tesseract_UI       #  Put "Tesseract" first to avoid conflicts with similarly
-        - include: Commands_BuiltIn__Tesseract_Model    #  named commands in "Sauerbraten".
-        - include: Commands_BuiltIn__Tesseract          #
-        - include: Commands_BuiltIn__Sauerbraten_GUI
-        - include: Commands_BuiltIn__Sauerbraten_Model
-        - include: Commands_BuiltIn__Sauerbraten
-        - include: Commands_BuiltIn__RPG
+        - include: Commands_UI__Tesseract       #  Put "Tesseract" first to avoid conflicts with similarly
+        - include: Commands_Model__Tesseract    #  named commands in "Sauerbraten".
+        - include: Commands__Tesseract          #
+        - include: Commands_GUI__Sauerbraten
+        - include: Commands_Model__Sauerbraten
+        - include: Commands__Sauerbraten
+        - include: Commands__RPG
 
         - include: Aliases_Common__Sauerbraten
         - include: Declaration_Alias
@@ -67,7 +66,6 @@ contexts:
 
         - include: Aliases_User
 
-
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -79,14 +77,14 @@ contexts:
     #           \ | : ' , < . > ? / @ $ ( [
     #           A-Z   a-z   0-9
     #
+    #       Cannot begin with a number:
+    #           [0-9] must be proceeded by [A-Za-z].
+    #
     #       Aliases can be named with quoted strings.
     #           Example:  "@asdf" = 123
     #
     #       Using these characters in alias names is stupid, even if supported.
     #           @ $ ( [
-    #
-    #       Cannot begin with a number:
-    #           [0-9] must be proceeded by [A-Za-z].
     #
     #======================================================================================================================================
     Declaration_Alias:
@@ -98,12 +96,10 @@ contexts:
             )\b
           scope: storage.type.cfg
 
-
     #======================================================================================================================================
     AliasEvaluation:
         - match: (\@|\$)
           scope: keyword.operator.cfg
-
 
     #======================================================================================================================================
     Aliases_User:
@@ -118,17 +114,16 @@ contexts:
             )
             (
                 (
-                    \~ | \` | \! | \# | \% | \^ | \& | \* | \_ | \- | \= | \+ | \{ | \} | \\ | \| | \: | \' | \, | \< | \. | \> | \? | \/ | [A-Za-z]
+                    \~ | \` | \! | \# | \% | \^ | \& | \* | \_ | \- | \= | \+ | \{ | \} | \\ | \| | \: | \' | \, | \< | \. | \> | \? | \/ | [a-zA-Z]
                 ){1}
                 (
-                    \~ | \` | \! | \# | \% | \^ | \& | \* | \_ | \- | \= | \+ | \{ | \} | \\ | \| | \: | \' | \, | \< | \. | \> | \? | \/ | [A-Za-z0-9]
+                    \~ | \` | \! | \# | \% | \^ | \& | \* | \_ | \- | \= | \+ | \{ | \} | \\ | \| | \: | \' | \, | \< | \. | \> | \? | \/ | [a-zA-Z0-9]
                 )*
             )
             (?=
                 \s | \@ | \$ | \) | \] | \;
             )
           scope: variable.other.readwrite.cfg
-
 
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -142,7 +137,6 @@ contexts:
 
             - match: (\n)
               pop: true
-
 
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -164,7 +158,6 @@ contexts:
             )
             \s
           scope: keyword.control.cfg
-
 
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -189,7 +182,6 @@ contexts:
             \s
           scope: keyword.control.cfg
 
-
     #======================================================================================================================================
     Loops__Tesseract:
         - match: |-
@@ -207,45 +199,25 @@ contexts:
             \s
           scope: keyword.control.cfg
 
-
     ###########################################################################################################################################
     ###########################################################################################################################################
     Numbers_Float:
         - match: |-
             (?x)
+            (?<![a-zA-Z0-9])
+            ( \- )?
             (
                 (
-                    (
-                        (?<![a-zA-Z\d])
-                        \d*
-                    )|(
-                        (?<![a-zA-Z\d])
-                        \-
-                        \d*
-                    )
-                )(
-                    (
-                        (?<![a-zA-Z\d])
-                        \-
-                        \d{1}
-                        \.{1}
-                    )|(
-                        (?<![\d])
-                        \-
-                        \.{1}
-                        \d{1}
-                    )|(
-                        \d{1}
-                        \.{1}
-                    )|(
-                        \.{1}
-                        \d{1}
-                    )
-                ){1}
-                \d*
+                    [0-9]+
+                    \.{1}
+                    [0-9]*
+                )|(
+                    [0-9]*
+                    \.{1}
+                    [0-9]+
+                )
             )
           scope: constant.numeric.float.cfg
-
 
     #======================================================================================================================================
     Numbers_Hex:
@@ -258,7 +230,6 @@ contexts:
             )
             \b
           scope: constant.numeric.integer.hexadecimal.cfg
-
 
     #======================================================================================================================================
     Numbers_Integer:
@@ -273,14 +244,13 @@ contexts:
                     )
                     \b
                 )|(
-                    (?<![a-zA-Z\d])
-                    -
+                    (?<![a-zA-Z0-9])
+                    \-
                     \d{1}
                     \d*
                 )
             )
           scope: constant.numeric.integer.cfg
-
 
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -291,7 +261,6 @@ contexts:
             ( \= )
             (?=  \s )
           scope: keyword.operator.assignment.cfg
-
 
     #======================================================================================================================================
     Operators_Arithmetic:
@@ -306,12 +275,11 @@ contexts:
             (?= \s )
           scope: keyword.operator.arithmetic.cfg
 
-
     #======================================================================================================================================
     Operators_Bitwise:
         - match: |-
             (?x)
-            (?<= ^ | \s | \( | \[ )
+            (?<= \( | \[ | \(\s | \[\s )
             (
                   \<\<
                 | \>\>
@@ -326,7 +294,6 @@ contexts:
             )
             (?= \s )
           scope: keyword.operator.bitwise.cfg
-
 
     #======================================================================================================================================
     Operators_Logical:
@@ -345,7 +312,6 @@ contexts:
             )
             (?= \s )
           scope: keyword.operator.logical.cfg
-
 
     #======================================================================================================================================
     Operators_Word:
@@ -378,7 +344,6 @@ contexts:
             (?= \s )
           scope: keyword.operator.word.cfg
 
-
     ###########################################################################################################################################
     ###########################################################################################################################################
     Operators_Indiscriminate:
@@ -400,7 +365,6 @@ contexts:
             )+
             [fs]?
           scope: keyword.operator.cfg
-
 
     #======================================================================================================================================
     Operators_Indiscriminate_Word:
@@ -431,13 +395,11 @@ contexts:
             )
           scope: keyword.operator.word.cfg
 
-
     ###########################################################################################################################################
     ###########################################################################################################################################
     Punctuation:
         - match: \;
           scope: punctuation.terminator.cfg
-
 
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -453,7 +415,6 @@ contexts:
 
             - include: main
 
-
     #======================================================================================================================================
     Section_Parentheses:
         - match: \(
@@ -467,12 +428,51 @@ contexts:
 
             - include: main
 
-
     #======================================================================================================================================
     Section_Strays:
         - match: \]|\)
           scope: invalid.illegal.stray.cfg
 
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    Shaders:
+        - match: (?<=(^shader [0-9])|(\sshader [0-9])|(^variantshader)|(\svariantshader)|(^lazyshader [0-9])|(\slazyshader [0-9]))
+          push:
+            #  Cover the gap between "shader" and "[".
+            - include: AliasEvaluation
+            - include: Numbers_Float
+            - include: Numbers_Hex
+            - include: Numbers_Integer
+            - include: Operators_Arithmetic
+            - include: Operators_Bitwise
+            - include: Operators_Logical
+            - include: Operators_Assignment
+            - include: Operators_Word
+            - include: Variables_BuiltIn
+            - include: Punctuation
+            - include: Strings
+            - include: Aliases_User
+
+            #  BEGIN--GLSL
+            - match: (?<=\[)(?=\s*\n)
+              push: Packages/GLSL/GLSL.sublime-syntax
+              with_prototype:
+                - include: AliasEvaluation
+
+                #  This is typically the separation between Vertex & Fragment sections.
+                - match: (^\s*\]\s*\[)(?=\s*\n)
+                  scope: punctuation.section.cfg  # constant.other.placeholder.cfg #
+
+                #  END--GLSL
+                - match: (?=^\s*\])(?!.*\[) #(?=\s*\n)
+                  pop: true
+
+            #  END--Shaders
+            - match: (?<=\])|\n
+              pop: true
+
+            - match: \[|\]|\(|\)
+              scope: punctuation.section.cfg
 
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -507,12 +507,10 @@ contexts:
               scope: punctuation.definition.string.end.cfg
               pop: true
 
-
     #======================================================================================================================================
     StringSubstitution:
         - match: \%[0-9]+
           scope: constant.other.placeholder.cfg
-
 
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -565,49 +563,6 @@ contexts:
               scope: punctuation.section.end.cfg
               pop: true
 
-
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    Shaders:
-        - match: (?<=^shader|\sshader|^variantshader|\svariantshader|^lazyshader|\slazyshader)
-          push:
-            #  Cover the gap between "shader" and "[".
-            - include: AliasEvaluation
-            - include: Numbers_Float
-            - include: Numbers_Hex
-            - include: Numbers_Integer
-            - include: Operators_Arithmetic
-            - include: Operators_Bitwise
-            - include: Operators_Logical
-            - include: Operators_Assignment
-            - include: Operators_Word
-            - include: Variables_BuiltIn
-            - include: Punctuation
-            - include: Strings
-            - include: Aliases_User
-
-            #  BEGIN--GLSL
-            - match: (?<=\[)(?=\s*\n)
-              push: Packages/GLSL/GLSL.sublime-syntax
-              with_prototype:
-                - include: AliasEvaluation
-
-                #  This is typically the separation between Vertex & Fragment sections.
-                - match: (^\s*\]\s*\[)(?=\s*\n)
-                  scope: punctuation.section.cfg  # constant.other.placeholder.cfg #
-
-                #  END--GLSL
-                - match: (?=^\s*\])(?!.*\[) #(?=\s*\n)
-                  pop: true
-
-            #  END--Shaders
-            - match: (?<=\])|\n
-              pop: true
-
-            - match: \[|\]|\(|\)
-              scope: punctuation.section.cfg
-
-
     ###########################################################################################################################################
     ###########################################################################################################################################
     Wildcard:
@@ -618,6 +573,85 @@ contexts:
             (?=  \s | \) | \] | \; )
           scope: wildcard.cfg
 
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    Aliases_Common__Sauerbraten:
+        - match: |-
+            (?x)
+            \b
+            (
+                  bindmod
+                | bindvar
+                | bindvarquiet
+                | chars
+                | corners
+                | drag
+                | editbindmod
+                | editbindvar
+                | editbindvarquiet
+                | editcopy
+                | editcut
+                | editdel
+                | editdrag
+                | editextend
+                | editflip
+                | editmove
+                | editmovecorner
+                | editmovedrag
+                | editmovewith
+                | editpaste
+                | editpush
+                | editrotate
+                | entdrag
+                | entfind
+                | entfindinsel
+                | entproperty
+                | entproperty2
+                | entreplace
+                | fullconscroll
+                | guieditingcheck
+                | guifield2
+                | guifreerow
+                | guimaplist
+                | guirolloveraction
+                | guirolloverimgaction
+                | guirolloverimgpath
+                | guirollovername
+                | guirolloverpreviewaction
+                | guirolloverpreviewname
+                | guitexteditor
+                | ingame
+                | ingamemp
+                | lazyshader
+                | macro
+                | sayteamcommand
+                | scrollblendbrush
+                | selcorners
+                | selectbrush
+                | setblendpaintmode
+                | showcustommaps
+                | spaces
+                | toggleeditgui
+                | togglegui
+                | togglehmapedit
+                | togglemainmenu
+                | togglezoom
+            )
+            (?=
+                   \s
+                |  \@
+                |  \$
+                |  \)
+                |  \]
+                |  \;
+            )
+          scope: support.function.library.cfg
 
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -666,7 +700,6 @@ contexts:
             )
             (?= \s | \@ | \$ | \) | \] | \; )
           scope: constant.language.cfg
-
 
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -750,7 +783,6 @@ contexts:
             (?= \s)
           scope: constant.language.cfg
 
-
     #======================================================================================================================================
     Constants_Input__Tesseract:
         - match: |-
@@ -773,7 +805,6 @@ contexts:
             (?= \s)
           scope: constant.language.cfg
 
-
     ###########################################################################################################################################
     ###########################################################################################################################################
     Constants_Material__Sauerbraten:
@@ -793,7 +824,6 @@ contexts:
             )
             (?= \s)
           scope: constant.language.cfg
-
 
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -815,7 +845,6 @@ contexts:
             \s
           scope: constant.language.cfg
 
-
     ###########################################################################################################################################
     ###########################################################################################################################################
     Constants_Weapon__Sauerbraten:
@@ -832,50 +861,6 @@ contexts:
                 | SG
             ){1}
           scope: constant.language.cfg
-
-
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    Aliases_Common__Sauerbraten:
-        - match: |-
-            (?x)
-            \b
-            (
-                  bindmod
-                | bindvar
-                | bindvarquiet
-                | editbindmod
-                | editbindvar
-                | editbindvarquiet
-                | entfind
-                | entfindinsel
-                | entproperty
-                | entproperty2
-                | guieditingcheck
-                | guifield2
-                | guifreerow
-                | guimaplist
-                | guirollovername
-                | guirolloveraction
-                | guirolloverimgpath
-                | guirolloverimgaction
-                | guirolloverpreviewname
-                | guirolloverpreviewaction
-                | guitexteditor
-                | lazyshader
-                | macro
-                | togglegui
-                | toggleeditgui
-            )
-            (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
-          scope: support.function.library.cfg
-
 
     ###########################################################################################################################################
     ###########################################################################################################################################
@@ -904,7 +889,7 @@ contexts:
     ###########################################################################################################################################
     ###########################################################################################################################################
     ###########################################################################################################################################
-    Commands_BuiltIn__Sauerbraten:
+    Commands__Sauerbraten:
         - match: |-
             (?x)
             \b
@@ -2007,36 +1992,8 @@ contexts:
             (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
           scope: support.function.cfg
 
-
     #======================================================================================================================================
-    Commands_BuiltIn__RPG:
-        - match: |-
-            (?x)
-            \b
-            (
-                  r_action
-                | r_action_use
-                | r_applydamage
-                | r_contain
-                | r_eff_##n
-                | r_get_##n
-                | r_give
-                | r_model
-                | r_pop
-                | r_quest
-                | r_say
-                | r_spawn
-                | r_swap
-                | r_take
-                | r_use
-                | showplayergui
-            )
-            (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
-          scope: support.function.cfg
-
-
-    #======================================================================================================================================
-    Commands_BuiltIn__Sauerbraten_GUI:
+    Commands_GUI__Sauerbraten:
         - match: |-
             (?x)
             \b
@@ -2100,10 +2057,93 @@ contexts:
             (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
           scope: support.function.cfg
 
+    #======================================================================================================================================
+    Commands_Model__Sauerbraten:
+        - match: |-
+            (?x)
+            \b
+            (
+                  (md2|md3|md5|iqm|smd|obj)alphablend
+                | (md2|md3|md5|iqm|smd|obj)alphatest
+                | (md2|md3|md5|iqm|smd|obj)ambient
+                | (md2|md3|md5|iqm|smd|obj)bumpmap
+                | (md2|md3|md5|iqm|smd|obj)cullface
+                | (md2|md3|md5|iqm|smd|obj)dir
+                | (md2|md3|md5|iqm|smd|obj)envmap
+                | (md2|md3|md5|iqm|smd|obj)fullbright
+                | (md2|md3|md5|iqm|smd|obj)glare
+                | (md2|md3|md5|iqm|smd|obj)glow
+                | (md2|md3|md5|iqm|smd|obj)link
+                | (md2|md3|md5|iqm|smd|obj)load
+                | (md2|md3|md5|iqm|smd|obj)noclip
+                | (md2|md3|md5|iqm|smd|obj)pitch
+                | (md2|md3|md5|iqm|smd|obj)scroll
+                | (md2|md3|md5|iqm|smd|obj)shader
+                | (md2|md3|md5|iqm|smd|obj)skin
+                | (md2|md3|md5|iqm|smd|obj)spec
+                | (md2|md3|md5|iqm|smd)anim
+                | (md5|iqm|smd)adjust
+                | (md5|iqm|smd)animpart
+                | (md5|iqm|smd)pitchcorrect
+                | (md5|iqm|smd)pitchtarget
+                | (md5|iqm|smd)tag
+                | mdlalphablend
+                | mdlalphadepth
+                | mdlalphatest
+                | mdlambient
+                | mdlbb
+                | mdlcollide
+                | mdlcullface
+                | mdldepthoffset
+                | mdlellipsecollide
+                | mdlenvmap
+                | mdlextendbb
+                | mdlfullbright
+                | mdlglare
+                | mdlglow
+                | mdlname
+                | mdlpitch
+                | mdlscale
+                | mdlshader
+                | mdlshadow
+                | mdlspec
+                | mdlspin
+                | mdltrans
+                | mdlyaw
+            )
+            (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
+          scope: support.function.cfg
 
     ###########################################################################################################################################
     ###########################################################################################################################################
-    Commands_BuiltIn__Tesseract:
+    Commands__RPG:
+        - match: |-
+            (?x)
+            \b
+            (
+                  r_action
+                | r_action_use
+                | r_applydamage
+                | r_contain
+                | r_eff_##n
+                | r_get_##n
+                | r_give
+                | r_model
+                | r_pop
+                | r_quest
+                | r_say
+                | r_spawn
+                | r_swap
+                | r_take
+                | r_use
+                | showplayergui
+            )
+            (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
+          scope: support.function.cfg
+
+    ###########################################################################################################################################
+    ###########################################################################################################################################
+    Commands__Tesseract:
         - match: |-
             (?x)
             \b
@@ -2221,7 +2261,6 @@ contexts:
                 | editstatwtr
                 | editstatwvt
                 | emptymap
-                | entreplace
                 | explicitskycolour
                 | fogcullintensity
                 | fogintensity
@@ -2519,9 +2558,8 @@ contexts:
             (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
           scope: support.function.cfg
 
-
     #======================================================================================================================================
-    Commands_BuiltIn__Tesseract_UI:
+    Commands_UI__Tesseract:
         - match: |-
             (?x)
             \b
@@ -2627,68 +2665,8 @@ contexts:
             (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
           scope: support.function.cfg
 
-
-    ###########################################################################################################################################
-    ###########################################################################################################################################
-    Commands_BuiltIn__Sauerbraten_Model:
-        - match: |-
-            (?x)
-            \b
-            (
-                  (md2|md3|md5|iqm|smd|obj)alphablend
-                | (md2|md3|md5|iqm|smd|obj)alphatest
-                | (md2|md3|md5|iqm|smd|obj)ambient
-                | (md2|md3|md5|iqm|smd|obj)bumpmap
-                | (md2|md3|md5|iqm|smd|obj)cullface
-                | (md2|md3|md5|iqm|smd|obj)dir
-                | (md2|md3|md5|iqm|smd|obj)envmap
-                | (md2|md3|md5|iqm|smd|obj)fullbright
-                | (md2|md3|md5|iqm|smd|obj)glare
-                | (md2|md3|md5|iqm|smd|obj)glow
-                | (md2|md3|md5|iqm|smd|obj)link
-                | (md2|md3|md5|iqm|smd|obj)load
-                | (md2|md3|md5|iqm|smd|obj)noclip
-                | (md2|md3|md5|iqm|smd|obj)pitch
-                | (md2|md3|md5|iqm|smd|obj)scroll
-                | (md2|md3|md5|iqm|smd|obj)shader
-                | (md2|md3|md5|iqm|smd|obj)skin
-                | (md2|md3|md5|iqm|smd|obj)spec
-                | (md2|md3|md5|iqm|smd)anim
-                | (md5|iqm|smd)adjust
-                | (md5|iqm|smd)animpart
-                | (md5|iqm|smd)pitchcorrect
-                | (md5|iqm|smd)pitchtarget
-                | (md5|iqm|smd)tag
-                | mdlalphablend
-                | mdlalphadepth
-                | mdlalphatest
-                | mdlambient
-                | mdlbb
-                | mdlcollide
-                | mdlcullface
-                | mdldepthoffset
-                | mdlellipsecollide
-                | mdlenvmap
-                | mdlextendbb
-                | mdlfullbright
-                | mdlglare
-                | mdlglow
-                | mdlname
-                | mdlpitch
-                | mdlscale
-                | mdlshader
-                | mdlshadow
-                | mdlspec
-                | mdlspin
-                | mdltrans
-                | mdlyaw
-            )
-            (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
-          scope: support.function.cfg
-
-
     #======================================================================================================================================
-    Commands_BuiltIn__Tesseract_Model:
+    Commands_Model__Tesseract:
         - match: |-
             (?x)
             \b
@@ -2702,4 +2680,3 @@ contexts:
             )
             (?=  \s  |  \@  |  \$  |  \)  |  \]  |  \;  )
           scope: support.function.cfg
-
