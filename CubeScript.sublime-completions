@@ -1,76 +1,60 @@
 {
     "scope": "source.cfg",
     "completions": [
-    //#########################################################################################################################################
-    //#########################################################################################################################################
-        { "trigger": "blarg",       "contents": "${1:blarg} = [$0]" },
+        //##################################################################################################################################
+        //##################################################################################################################################
+        { "trigger": "alias", "contents": "${1:alias} = [$0]" },
+        //##################################################################################################################################
+        { "trigger": "guialign", "contents": "guialign ${1:0} [$0]" },
+        { "trigger": "guilist",  "contents": "guilist [$0]" },
+        { "trigger": "nodebug",  "contents": "nodebug [$0]" },
+        //##################################################################################################################################
+        { "trigger": "at", "contents": "(at ${1:List} ${2:Index}) $0" },
+        { "trigger": "if", "contents": "if (${1:=} ${2:AAA} ${3:BBB}) [\n\t$0\n][\n\t\n]" },
+        //##################################################################################################################################
+        { "trigger": "loop",  "contents": "loop ${1:Index} ${2:EndIndex_PlusOne} [\n\t$0\n]" },
+        { "trigger": "while", "contents": "while [<= ${1:Index} ${2:EndIndex}] [\n\t$0\n\t${1:Index} = (+ ${1:Index} 1)\n]" },
+        //##################################################################################################################################
+        { "trigger": "sub", "contents": "(- ${1:IntA} ${2:IntB}) $0" },{ "trigger": "subf", "contents": "(-f ${1:FltA} ${2:FltB}) $0" },
+        { "trigger": "add", "contents": "(+ ${1:IntA} ${2:IntB}) $0" },{ "trigger": "addf", "contents": "(+f ${1:FltA} ${2:FltB}) $0" },
+        { "trigger": "mul", "contents": "(* ${1:IntA} ${2:IntB}) $0" },{ "trigger": "mulf", "contents": "(*f ${1:FltA} ${2:FltB}) $0" },
+        //==================================================================================================================================
+        { "trigger": "equals",   "contents": "(= ${1:This} ${2:That}) $0" },
+        { "trigger": "equalsnot","contents": "(!= ${1:This} ${2:That}) $0" },
+        { "trigger": "and",      "contents": "(&& ${1:ConditionA} ${2:ConditionB}) $0" },
+        { "trigger": "or",       "contents": "(|| ${1:ConditionA} ${2:ConditionB}) $0" },
+        //==================================================================================================================================
+        { "trigger": "condi", "contents": "(? (${1:IfThis}) [${2:DoThis}] [${3:ElseDoThis}]) $0" },
+        //==================================================================================================================================
+        { "trigger": "left",  "contents": "(<< ${1:Int} ${2:By_N_Bits}) $0" },
+        { "trigger": "right", "contents": "(>> ${1:Int} ${2:By_N_Bits}) $0" },
+        { "trigger": "not",   "contents": "(! ${1:Int}) $0" },
+        //==================================================================================================================================
+        { "trigger": "div", "contents": "(div ${1:IntA} ${2:IntB})" },{ "trigger": "divf", "contents": "(divf ${1:FltA} ${2:FltB})" },
+        { "trigger": "mod", "contents": "(mod ${1:IntA} ${2:IntB})" },{ "trigger": "modf", "contents": "(modf ${1:FltA} ${2:FltB})" },
+        //==================================================================================================================================
+        { "trigger": "pow",   "contents": "(pow ${1:FltBase} ${2:FltPower})" },
+        { "trigger": "sqrt",  "contents": "(sqrt ${1:Flt})"  },
+        { "trigger": "exp",   "contents": "(exp ${1:Flt})"   },
+        { "trigger": "loge",  "contents": "(loge ${1:Flt})"  },
+        { "trigger": "log2",  "contents": "(log2 ${1:Flt})"  },
+        { "trigger": "log10", "contents": "(log10 ${1:Flt})" },
+        //==================================================================================================================================
+        { "trigger": "cos", "contents": "(cos ${1:Flt})" },{ "trigger": "acos", "contents": "(acos ${1:Flt})" },
+        { "trigger": "sin", "contents": "(sin ${1:Flt})" },{ "trigger": "asin", "contents": "(asin ${1:Flt})" },
+        { "trigger": "tan", "contents": "(tan ${1:Flt})" },{ "trigger": "atan", "contents": "(atan ${1:Flt})" },
 
-
-    //#########################################################################################################################################
-        { "trigger": "guialign",    "contents": "guialign ${1:0} [$0]" },
-        { "trigger": "guilist",     "contents": "guilist [$0]" },
-        { "trigger": "nodebug",     "contents": "nodebug [$0]" },
-
-
-    //#########################################################################################################################################
-        { "trigger": "at",          "contents": "(at ${1:AAA} ${2:Index}) $0" },
-        { "trigger": "if",          "contents": "if (${1:=} ${2:AAA} ${3:BBB}) [\n\t$0\n][\n\t\n]" },
-
-
-    //#########################################################################################################################################
-        { "trigger": "loop",        "contents": "loop ${1:Index} ${2:EndIndex_PlusOne} [\n\t$0\n]" },
-        { "trigger": "while",       "contents": "while [<= ${1:Index} ${2:EndIndex}] [\n\t$0\n\t${1:Index} = (+ ${1:Index} 1)\n]" },
-
-
-    //#########################################################################################################################################
-        { "trigger": "sub",      "contents": "(- ${1:AAA} ${2:BBB}) $0" },
-        { "trigger": "add",      "contents": "(+ ${1:AAA} ${2:BBB}) $0" },
-        { "trigger": "mul",      "contents": "(* ${1:AAA} ${2:BBB}) $0" },
-
-        { "trigger": "left",     "contents": "(<< ${1:AAA} ${2:BBB}) $0" },
-        { "trigger": "right",    "contents": "(>> ${1:AAA} ${2:BBB}) $0" },
-        { "trigger": "and",      "contents": "(&& ${1:AAA} ${2:BBB}) $0" },
-        { "trigger": "or",       "contents": "(|| ${1:AAA} ${2:BBB}) $0" },
-        { "trigger": "not",      "contents": "(! ${1:AAA} ${2:BBB}) $0" },
-
-        { "trigger": "equals",   "contents": "(= ${1:AAA} ${2:BBB}) $0" },
-
-        { "trigger": "condi",    "contents": "(? ${1:AAA} ${2:BBB}) $0" },
-
-        { "trigger": "div",      "contents": "(div ${1:AAA} ${2:BBB})" },
-        { "trigger": "divf",     "contents": "(divf ${1:AAA} ${2:BBB})" },
-        { "trigger": "mod",      "contents": "(mod ${1:AAA} ${2:BBB})" },
-        { "trigger": "modf",     "contents": "(modf ${1:AAA} ${2:BBB})" },
-        { "trigger": "pow",      "contents": "(pow ${1:AAA} ${2:BBB})" },
-        { "trigger": "sqrt",     "contents": "(sqrt ${1:AAA} ${2:BBB})" },
-
-        { "trigger": "cos",      "contents": "(cos ${1:AAA} ${2:BBB})" },
-        { "trigger": "acos",     "contents": "(acos ${1:AAA} ${2:BBB})" },
-        { "trigger": "sin",      "contents": "(sin ${1:AAA} ${2:BBB})" },
-        { "trigger": "asin",     "contents": "(asin ${1:AAA} ${2:BBB})" },
-        { "trigger": "tan",      "contents": "(tan ${1:AAA} ${2:BBB})" },
-        { "trigger": "atan",     "contents": "(atan ${1:AAA} ${2:BBB})" },
-        { "trigger": "atan2",    "contents": "(atan2 ${1:AAA} ${2:BBB})" },
-
-        { "trigger": "abs",      "contents": "(abs ${1:AAA} ${2:BBB})" },
-        { "trigger": "absf",     "contents": "(absf ${1:AAA} ${2:BBB})" },
-        { "trigger": "ceil",     "contents": "(ceil ${1:AAA} ${2:BBB})" },
-        { "trigger": "floor",    "contents": "(floor ${1:AAA} ${2:BBB})" },
-        { "trigger": "round",    "contents": "(round ${1:AAA} ${2:BBB})" },
-
-        { "trigger": "min",      "contents": "(min ${1:AAA} ${2:BBB})" },
-        { "trigger": "minf",     "contents": "(minf ${1:AAA} ${2:BBB})" },
-        { "trigger": "max",      "contents": "(max ${1:AAA} ${2:BBB})" },
-        { "trigger": "maxf",     "contents": "(maxf ${1:AAA} ${2:BBB})" },
-
-        { "trigger": "exp",      "contents": "(exp ${1:AAA} ${2:BBB})" },
-        { "trigger": "loge",     "contents": "(loge ${1:AAA} ${2:BBB})" },
-        { "trigger": "log2",     "contents": "(log2 ${1:AAA} ${2:BBB})" },
-        { "trigger": "log10",    "contents": "(log10 ${1:AAA} ${2:BBB})" }
-
-
-    //#########################################################################################################################################
-    //#########################################################################################################################################
+        { "trigger": "atan2", "contents": "(atan2 ${1:FltX} ${2:FltY})" },
+        //==================================================================================================================================
+        { "trigger": "abs",   "contents": "(abs ${1:Int})"   },{ "trigger": "absf", "contents": "(absf ${1:Flt})" },
+        { "trigger": "ceil",  "contents": "(ceil ${1:Flt})"  },
+        { "trigger": "floor", "contents": "(floor ${1:Flt})" },
+        { "trigger": "round", "contents": "(round ${1:Flt})" },
+        //==================================================================================================================================
+        { "trigger": "min", "contents": "(min ${1:IntA} ${2:IntB})" },{ "trigger": "minf", "contents": "(minf ${1:FltA} ${2:FltB})" },
+        { "trigger": "max", "contents": "(max ${1:IntA} ${2:IntB})" },{ "trigger": "maxf", "contents": "(maxf ${1:FltA} ${2:FltB})" },
+        //##################################################################################################################################
+        //##################################################################################################################################
     ]
 }
 
